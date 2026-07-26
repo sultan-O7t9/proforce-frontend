@@ -1,0 +1,32 @@
+---
+/**
+ * Reads nav items from src/lib/site.ts rather than hardcoding them
+ * here — add/remove a page from NAV_LINKS and this component (and any
+ * other component that also needs the nav, e.g. a mobile menu) updates
+ * automatically.
+ *
+ * No `client:*` directive is used anywhere in this component: it's
+ * plain server-rendered markup, shipping zero JavaScript, which is the
+ * right default for a nav bar with no interactive state.
+ */
+import { SITE, NAV_LINKS } from '../lib/site';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-transparent ">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-17.5 py-8.75 bg-red-400">
+    <a href="/" class="text-lg font-bold tracking-tight text-slate-900">
+      <img src="/images/icons/proforce-logo-white-1.svg" alt={"Proforce Logo"} class="h-10 w-auto" />
+    </a>
+    <nav>
+      <ul class="flex gap-6 text-sm font-medium text-slate-600">
+        {NAV_LINKS.map((link) => (
+          <li>
+            <a href={link.href} class="transition-colors hover:text-brand-600">
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
