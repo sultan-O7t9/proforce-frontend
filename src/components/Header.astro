@@ -9,24 +9,84 @@
  * plain server-rendered markup, shipping zero JavaScript, which is the
  * right default for a nav bar with no interactive state.
  */
-import { SITE, NAV_LINKS } from '../lib/site';
+import { SITE, NAV_LINKS } from '@/lib/site';
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-transparent ">
-  <div class="mx-auto flex max-w-5xl items-center justify-between px-17.5 py-8.75 bg-red-400">
+<header class="main-header fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 md:py-8.75 ">
+  <div class="max-container flex  items-center justify-between ">
+  <!-- <div class="max-container flex  items-center justify-between px-17.5 py-8.75 "> -->
     <a href="/" class="text-lg font-bold tracking-tight text-slate-900">
-      <img src="/images/icons/proforce-logo-white-1.svg" alt={"Proforce Logo"} class="h-10 w-auto" />
+      <img src="/images/icons/proforce-logo-white-1.svg" alt={"Proforce Logo"} class="h-8 lg:h-10 w-auto object-cover" />
     </a>
     <nav>
-      <ul class="flex gap-6 text-sm font-medium text-slate-600">
+      <button aria-label="Toggle menu" class="md:hidden flex flex-col justify-center gap-1.25 h-9 w-10  bg-[rgba(6,10,20,0.1)]  backdrop-blur-[30px] rounded cursor-pointer group hover:scale-105 transition-transform duration-100 hover:shadow-[0_0_2px_rgba(253,214,53,0.25)]">
+        <div class="ml-3.5 w-5 rounded-2xl bg-pf-yellow border-2 border-pf-yellow group-hover:animate-[shift-left-right_0.4s_ease-in-out_0.3s]"></div>
+
+        <div class="ml-2.5 w-5 rounded-2xl bg-pf-yellow border-2 border-pf-yellow group-hover:animate-[shift-left-right_0.4s_ease-in-out_0.2s]"></div>
+        <div class="ml-1.5 w-5 rounded-2xl bg-pf-yellow border-2 border-pf-yellow group-hover:animate-[shift-left-right_0.4s_ease-in-out_0.1s]"></div>
+
+      </button>
+      <ul class="hidden md:flex gap-[3.5vw] lg:gap-14 text-pf-white-80 font-pf-galano-grotesque font-semibold items-center">
         {NAV_LINKS.map((link) => (
           <li>
-            <a href={link.href} class="transition-colors hover:text-brand-600">
+            <a href={link.href}  class="text-[clamp(0.75rem,1.3vw,1rem)]  uppercase tracking-[1%] whitespace-nowrap after:content-[''] after:block after:w-full after:h-0.5 after:bg-pf-yellow after:scale-x-0 after:origin-right after:transition-transform after:duration-300 after:rounded-lg hover:after:origin-left hover:after:scale-x-100 transition-colors duration-300 hover:text-pf-yellow">
               {link.label}
             </a>
           </li>
         ))}
+          <li class="cursor-pointer overflow-hidden text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,1.3vw,1.75rem)]   py-[clamp(0.75rem,1.2vw,1rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta ">
+            <div class="rounded-full circle-util aspect-square w-[200%] bg-pf-yellow absolute z-0 top-0 left-0 scale-0 pointer-events-none -translate-3/6 -translate-y-1/2"></div>
+            <a href={"/installer"}  class="relative z-10">
+                Find Installer
+            </a>
+          </li>
       </ul>
     </nav>
   </div>
 </header>
+<script>
+// src/lib/gsap.ts
+import { gsap } from '../lib/gsap';
+
+// 1. ScrollTrigger Header Animation
+gsap.to('.main-header', {
+  scrollTrigger: {
+    trigger: '.main-header',
+    start: 'top top',
+    end: '+=800',
+    scrub: 1,
+  },
+  backgroundColor: 'rgba(6, 10, 20, 0.8)',
+  paddingTop: '1rem',
+  paddingBottom: '1rem',
+  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+});
+
+// 2. Button Hover Effect
+const btnCta = document.querySelector('.btn-cta') as (HTMLElement | null);
+const circle = btnCta?.querySelector('.circle-util') as HTMLElement | null;
+
+if (btnCta && circle) {
+  const animation = gsap.to(circle, {
+    scale: 2,
+    duration: 0.5,
+    ease: 'power1.inOut',
+    paused: true, // Keep it paused initially
+  });
+
+  btnCta?.addEventListener('mouseenter', (e: MouseEvent) => {
+    const dimensions = btnCta.getBoundingClientRect();
+
+    // Position the circle instantly before playing forward
+    circle.style.top = `${e.clientY - dimensions.top}px`;
+    circle.style.left = `${e.clientX - dimensions.left}px`;
+
+    animation.play();
+  });
+
+  btnCta.addEventListener('mouseleave', () => {
+    animation.timeScale(2).reverse();
+  });
+}
+
+</script>
