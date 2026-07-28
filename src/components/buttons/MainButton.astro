@@ -1,0 +1,59 @@
+---
+import { twMerge } from 'tailwind-merge'
+
+import IconAero from '@/components/icons/IconAero.astro';
+interface Props {
+  label?: string;
+  href?: string;
+  className?: string;
+  showAero?: boolean;
+}
+const {label, href, className} = Astro.props;
+
+---
+
+ <a href={href} class={twMerge("cursor-pointer w-full text-base text-white rounded-sm font-pf-galano-grotesque font-semibold uppercase tracking-[1%] px-7.25 py-4  bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] border border-white sm:w-auto overflow-hidden flex gap-2.5 items-center group hero-btn hover:backdrop-blur-3xl hover:bg-[rgba(6,10,20,0.3)]",className)}>
+        <span class="label inline-block">
+          {label}
+        </span>
+        {
+          Astro.props.showAero?
+          <IconAero class="group-hover:translate-x-2 transition-transform duration-300"/>:null
+      }
+      <slot/>
+   </a>
+
+<script>
+  import { gsap, SplitText } from '@/lib/gsap';
+
+  const heroBtns = document.querySelectorAll('.hero-btn');
+
+  heroBtns.forEach((heroBtn) => {
+    const labelEl = heroBtn.querySelector("span.label");
+    if (!labelEl) return;
+
+    // Split text into characters
+    const split = new SplitText(labelEl, { type: 'chars' });
+
+    // Create unique hover timeline
+    const hoverTl = gsap.timeline({ paused: true });
+
+    // Animate characters moving down and back up on hover
+    hoverTl.to(split.chars, {
+      translateY: 6,
+      duration: 0.1,
+      stagger: 0.01,
+      ease: 'power2.in'
+    })
+    .to(split.chars, {
+      translateY: 0,
+      duration: 0.15,
+      stagger: 0.01,
+      ease: 'power2.out'
+    }, 0.1); // Start this animation after the first one
+
+    heroBtn.addEventListener('mouseenter', () => {
+      hoverTl.restart();
+    });
+  });
+</script>
