@@ -5,38 +5,18 @@
  * JavaScript shipped (nothing here uses a `client:*` directive, and
  * nothing needs to: it's all static content).
  */
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import FeatureCard from '../components/FeatureCard.astro';
+import MainLayout from '@/layouts/MainLayout.astro';
+import HeroSection from '@/views/HeroSection.astro';
+import OnefilmSection from '@/views/OnefilmSection.astro';
+import ProductsSection from '@/views/ProductsSection.astro';
 
-const features = [
-  {
-    title: 'Zero JS by default',
-    description: 'Every page ships plain HTML/CSS unless a component explicitly opts into hydration.',
-  },
-  {
-    title: 'Tailwind v4, CSS-first',
-    description: 'Styled with utility classes via the official @tailwindcss/vite plugin — no separate config file.',
-  },
-  {
-    title: 'Fully static output',
-    description: 'Every route is prerendered at build time — deploy the dist/ folder to any static host or CDN.',
-  },
-];
+
 ---
 
-<Layout title="Home">
-  <Hero
-    title="A clean starting point for your next Astro site"
-    subtitle="Static pages, a component library, and Tailwind CSS wired up the current, recommended way — ready to build on."
-  />
+<MainLayout title="Home" className="relative">
+  <HeroSection/>
+  <OnefilmSection/>
+  <ProductsSection/>
 
-  <section class="mx-auto max-w-5xl px-6 pb-24">
-    <h2 class="text-center text-2xl font-bold text-slate-900">What's included</h2>
-    <div class="mt-8 grid gap-6 sm:grid-cols-3">
-      {features.map((feature) => (
-        <FeatureCard title={feature.title} description={feature.description} />
-      ))}
-    </div>
-  </section>
-</Layout>
+
+</MainLayout>

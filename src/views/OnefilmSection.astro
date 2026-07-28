@@ -1,0 +1,44 @@
+---
+import MainButton from "@/components/buttons/MainButton.astro";
+import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
+---
+
+<section class="bg-white min-h-screen relative z-1 pt-2  onefilm-promo-container ">
+  <div class="max-container w-full h-full min-h-screen flex justify-center items-center flex-col bg-[url('/images/onefilm-bg.svg')] bg-contain bg-no-repeat bg-center gap-14">
+      <h4 class="font-pf-mera-pro text-pf-navy text-sm tracking-[25%]">ENGINEERED BY ONEFILM USA</h4>
+      <h5 class="font-pf-galano-grotesque text-[40px] leading-16 text-center uppercase onefilm-headline">
+            <span>WE</span> <span>ENGINEER</span> <span class="font-bold">PAINT</span> <span class="font-bold">PROTECTION</span> <span class="font-bold">FILM</span><br/> <span>FOR</span> <span class="font-bold">Ultimate</span> <span class="font-bold">DEFENCE,</span> <span>DELIVERING</span><br/> <span class="font-bold">Protection</span> <span>THAT</span> <span>IS</span> <span class="font-bold">pristine,</span><br/>
+<span class="font-bold">invisible</span> <span>YET</span> <span class="font-bold">invincible.</span></h5>
+<MainButton className="bg-transparent backdrop-blur-none px-16 py-4.5 border border-pf-navy transition-all duration-300 hover:bg-pf-navy hover:text-white group" href="/products">
+    <img src={OneFilmLogoV1.src} alt="Onefilm Logo" class="h-4.5 w-auto object-cover group-hover:invert"/>
+</MainButton>
+  </div>
+  <div class="min-h-1/2 w-full bg-white"></div>
+</section>
+
+<script>
+import { gsap } from '@/lib/gsap';
+
+
+const spans = document.querySelectorAll('.onefilm-headline > span');
+
+const spanTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".onefilm-promo-container",
+    start: "top top",
+    end: "+=600", // Controls duration of pinning & text reveal
+    pin: true,
+    pinSpacing: true, // Forces layout below to stay down until timeline completes
+    scrub: true,
+    invalidateOnRefresh: true,
+    markers: false
+  }
+});
+
+// Sequentially collapses the background box height of each span block
+spanTl.to(spans, {
+  "--after-height": "0px",
+  ease: "power2.out",
+  stagger: 0.3
+});
+</script>
