@@ -1,0 +1,24 @@
+---
+import MapImage from "@/assets/img/home/map.svg"
+import MainButton from "@/components/buttons/MainButton.astro"
+---
+
+<section class=" bg-pf-navy-gradient relative z-1 -m-2">
+<div class="max-container h-full py-16 flex flex-col gap-6 items-center justify-center px-40">
+<h4 class="font-pf-mera-pro text-white text-sm tracking-[25%] text-center mb-7">
+      CERTIFIED INSTALLATION
+</h4>
+<div class="relative">
+      <img src={MapImage.src} class="max-w-261.25" alt="Proforce Installer Locations Map - Worldwide"/>
+      <div class="absolute z-1 top-12.75 right-16 bg-pf-navy-dark-transparent w-37.5 aspect-15/13 border border-[rgba(255,255,255,0.3)] rounded-2xl flex flex-col items-center justify-center pb-4">
+             <h5 class="text-[45px] font-pf-galano-grotesque font-bold text-pf-yellow tracking-[6px]">12</h5>
+             <h6 class="text-white font-pf-galano-grotesque font-semibold text-xs uppercase tracking-[8%]">Countries</h6>
+            </div>
+      <div class="absolute z-1 bottom-26 left-33.75 bg-pf-navy-dark-transparent w-37.5 aspect-15/13 border border-[rgba(255,255,255,0.3)] rounded-2xl flex flex-col items-center justify-center pb-4">
+      <h5 class="text-[45px] font-pf-galano-grotesque font-bold text-pf-yellow tracking-[3px]">60+</h5>
+             <h6 class="text-white font-pf-galano-grotesque font-semibold text-xs uppercase tracking-[8%]">Installers</h6>
+      </div>
+</div>
+<MainButton label="Find your nearest Installer" showAero href="" className="text-pf-yellow border-pf-yellow" aeroClass="fill-pf-yellow" />
+</div>
+</section>

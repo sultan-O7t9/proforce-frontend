@@ -13,21 +13,30 @@
 @theme {
   /* Example of extending Tailwind's default token set. Reference these
      with e.g. `bg-brand-500` / `text-brand-600` anywhere in the project. */
-  --font-weight-black: 950;
+  --font-weight-heavy: 900;
 
   --color-brand-50: oklch(0.97 0.02 260);
   --color-brand-500: oklch(0.58 0.18 260);
   --color-brand-600: oklch(0.5 0.18 260);
   --color-pf-yellow: oklch(88.439% 0.16754 94.227);
   --color-pf-white-80: oklch(1 0 0 / 80%);
-  --color-pf-navy: oklch(31.345% 0.05496 261.096);
+  --color-pf-navy: #21314d;
+  --color-pf-navy-dark: #0d1833;
+  --color-pf-navy-dark-transparent: rgba(13, 24, 51, 0.5);
+  --color-pf-light-navy: oklch(95.083% 0.02332 264.496);
   --color-pf-gohst-white: oklch(98.156% 0.00872 264.614);
+  --color-pf-white-v2: oklch(97.197% 0.01328 262.46);
 }
 
 @theme inline {
   --font-pf-mera-pro: var(--font-mera-pro);
   --font-pf-galano-grotesque: var(--font-galano-grotesque);
 }
+
+.bg-pf-navy-gradient {
+  background: linear-gradient(to bottom, #0d1833 0%, #060a14 100%);
+}
+
 .hero-headline {
   text-shadow:
     -1px -1px 0 white,
@@ -99,10 +108,10 @@
   animation-delay: 0.2s;
 }
 .animate-slide-up:nth-child(2) {
-  animation-delay: 0.4s;
+  animation-delay: 0.3s;
 }
 .animate-slide-up:nth-child(3) {
-  animation-delay: 0.6s;
+  animation-delay: 0.4s;
 }
 body,
 html {

@@ -1,0 +1,193 @@
+
+---
+// Define your product data easily right here in frontmatter
+const products = [
+  {
+    title: "PROFORCE ELITE V1",
+    description: "Engineered for uncompromising performance with ultra-low latency response and a lightweight aerospace carbon structure.",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    title: "TACTICAL APEX CORE",
+    description: "Built for extreme field conditions, featuring modular hardware configurations and weather-sealed housing.",
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    title: "NEXUS STEALTH EDITION",
+    description: "Merging minimalist aesthetics with powerhouse processing capabilities for the ultimate elite workflow setup.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80"
+  }
+];
+---
+
+<section class="products-section bg-pf-gohst-white min-h-screen relative z-1 overflow-hidden">
+  <div class="max-container h-full pt-28 pb-16 flex flex-col justify-between">
+
+    <div>
+      <h4 class="font-pf-mera-pro text-pf-navy text-sm tracking-[25%] text-center mb-12">THE PROFORCE LINEUP</h4>
+
+      <!-- Slider Main Wrapper -->
+      <div class="slider-container relative w-full max-w-5xl mx-auto h-[420px] rounded-2xl overflow-hidden px-4">
+        <div class="slides-wrapper relative w-full h-full">
+          {products.map((product, index) => (
+            <div
+              class={`slide absolute inset-0 w-full h-full flex flex-col md:flex-row items-center justify-between transition-opacity duration-500 ${index === 0 ? 'active opacity-100 z-10' : 'opacity-0 invisible z-0'}`}
+              data-index={index}
+            >
+              <!-- Content Block -->
+              <div class="slide-content flex-1 pr-0 md:pr-12 z-20 mb-8 md:mb-0">
+                <h2 class="slide-title text-3xl md:text-5xl font-bold text-pf-navy mb-4 font-pf-mera-pro">
+                  {product.title}
+                </h2>
+                <p class="slide-description text-gray-600 text-base md:text-lg leading-relaxed max-w-lg">
+                  {product.description}
+                </p>
+              </div>
+
+              <!-- Image Block with Blur Transition -->
+              <div class="slide-image-wrapper flex-1 w-full h-64 md:h-full relative rounded-xl overflow-hidden shadow-xl">
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  class={`slide-image w-full h-full object-cover transition-all duration-700 ease-out ${index === 0 ? 'filter-none scale-100' : 'blur-xl scale-110'}`}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- Dot Navigation -->
+    <div class="dots-container flex justify-center items-center gap-3 mt-8">
+      {products.map((_, index) => (
+        <button
+          class={`dot w-3 h-3 rounded-full transition-all duration-300 ${index === 0 ? 'bg-pf-navy scale-125' : 'bg-gray-300 hover:bg-gray-400'}`}
+          data-index={index}
+          aria-label={`Go to slide ${index + 1}`}
+        ></button>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+
+
+<script>
+      import { gsap } from "@/lib/gsap";
+  document.addEventListener("DOMContentLoaded", () => {
+
+
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    const sliderContainer = document.querySelector('.slider-container');
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let isAnimating = false;
+
+    // Cache original strings for scramble restoration
+    slides.forEach(slide => {
+      const titleEl = slide.querySelector('.slide-title');
+      const descEl = slide.querySelector('.slide-description');
+      titleEl.dataset.originalText = titleEl.textContent.trim();
+      descEl.dataset.originalText = descEl.textContent.trim();
+    });
+
+    function goToSlide(newIndex) {
+      if (isAnimating || newIndex === currentIndex) return;
+      isAnimating = true;
+
+      const currentSlide = slides[currentIndex];
+      const nextSlide = slides[newIndex];
+
+      // 1. Handle Slide Visibility & Blur Transitions
+      currentSlide.classList.remove('active', 'opacity-100', 'z-10');
+      currentSlide.classList.add('opacity-0', 'invisible', 'z-0');
+
+      // Blur out old image
+      const oldImg = currentSlide.querySelector('.slide-image');
+      oldImg.classList.remove('filter-none', 'scale-100');
+      oldImg.classList.add('blur-xl', 'scale-110');
+
+      nextSlide.classList.remove('opacity-0', 'invisible', 'z-0');
+      nextSlide.classList.add('active', 'opacity-100', 'z-10');
+
+      // Unblur new image
+      const nextImg = nextSlide.querySelector('.slide-image');
+      nextImg.classList.remove('blur-xl', 'scale-110');
+      nextImg.classList.add('filter-none', 'scale-100');
+
+      // 2. Update Dots State
+      dots[currentIndex].classList.remove('bg-pf-navy', 'scale-125');
+      dots[currentIndex].classList.add('bg-gray-300');
+      dots[newIndex].classList.add('bg-pf-navy', 'scale-125');
+      dots[newIndex].classList.remove('bg-gray-300');
+
+      // 3. Trigger Scramble Text Animation
+      const nextTitle = nextSlide.querySelector('.slide-title');
+      const nextDesc = nextSlide.querySelector('.slide-description');
+
+      nextTitle.textContent = "";
+      nextDesc.textContent = "";
+
+      // Scramble Header Title
+      gsap.to(nextTitle, {
+        duration: 1.0,
+        scrambleText: {
+          text: nextTitle.dataset.originalText,
+          chars: "uppercase",
+          speed: 0.3
+        }
+      });
+
+      // Scramble Description
+      gsap.to(nextDesc, {
+        duration: 1.2,
+        scrambleText: {
+          text: nextDesc.dataset.originalText,
+          chars: "lowerCase",
+          speed: 0.4
+        },
+        onComplete: () => {
+          currentIndex = newIndex;
+          isAnimating = false;
+        }
+      });
+    }
+
+    // Dot click listeners
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => {
+        goToSlide(index);
+      });
+    });
+
+    // Touch / Swipe Navigation (Mobile & Medium Screens)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    sliderContainer.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    sliderContainer.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      if (touchStartX - touchEndX > swipeThreshold) {
+        // Swiped Left -> Next Slide (Infinite loop back to 0)
+        let nextIndex = (currentIndex + 1) % totalSlides;
+        goToSlide(nextIndex);
+      } else if (touchEndX - touchStartX > swipeThreshold) {
+        // Swiped Right -> Previous Slide (Loops to end if at start)
+        let prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        goToSlide(prevIndex);
+      }
+    }
+  });
+</script>

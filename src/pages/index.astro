@@ -6,9 +6,12 @@
  * nothing needs to: it's all static content).
  */
 import MainLayout from '@/layouts/MainLayout.astro';
-import HeroSection from '@/views/HeroSection.astro';
-import OnefilmSection from '@/views/OnefilmSection.astro';
-import ProductsSection from '@/views/ProductsSection.astro';
+import BenefitsSection from '@/views/home/BenefitsSection.astro';
+import HeroSection from '@/views/home/HeroSection.astro';
+import OnefilmSection from '@/views/home/OnefilmSection.astro';
+import ProductsSection from '@/views/home/ProductsSection.astro';
+import BecomeInstallerSection from '@/views/home/BecomeInstallerSection.astro';
+import MapSection from '@/views/home/MapSection.astro';
 
 
 ---
@@ -17,6 +20,8 @@ import ProductsSection from '@/views/ProductsSection.astro';
   <HeroSection/>
   <OnefilmSection/>
   <ProductsSection/>
-
+  <MapSection/>
+  <BenefitsSection/>
+  <BecomeInstallerSection/>
 
 </MainLayout>
