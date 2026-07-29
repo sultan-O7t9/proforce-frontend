@@ -35,6 +35,8 @@ const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 
 <Font cssVariable="--font-mera-pro" preload />
 <Font cssVariable="--font-galano-grotesque" preload />
+<!-- This allows any child page to inject custom tags here -->
+    <slot name="head" />
 
     <title>{pageTitle}</title>
   </head>

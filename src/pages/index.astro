@@ -5,6 +5,8 @@
  * JavaScript shipped (nothing here uses a `client:*` directive, and
  * nothing needs to: it's all static content).
  */
+import { getImage } from 'astro:assets';
+
 import MainLayout from '@/layouts/MainLayout.astro';
 import BenefitsSection from '@/views/home/BenefitsSection.astro';
 import HeroSection from '@/views/home/HeroSection.astro';
@@ -13,11 +15,21 @@ import ProductsSection from '@/views/home/ProductsSection.astro';
 import BecomeInstallerSection from '@/views/home/BecomeInstallerSection.astro';
 import MapSection from '@/views/home/MapSection.astro';
 
+import HeroBg from "@/assets/img/home/bg-temp.png";
+
+const optimizedBg = await getImage({
+  src: HeroBg,
+  format: 'webp',
+  width: 1366,
+});
 
 ---
 
 <MainLayout title="Home" className="relative">
-  <HeroSection/>
+  <Fragment slot="head">
+    <link rel="preload" as="image" href={optimizedBg.src} fetchpriority="high" />
+  </Fragment>
+  <HeroSection bgUrl={optimizedBg.src}/>
   <OnefilmSection/>
   <ProductsSection/>
   <MapSection/>
