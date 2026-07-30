@@ -20,6 +20,7 @@
   --color-brand-600: oklch(0.5 0.18 260);
   --color-pf-yellow: oklch(88.439% 0.16754 94.227);
   --color-pf-white-80: oklch(1 0 0 / 80%);
+  --color-pf-black: #060a14;
   --color-pf-navy: #21314d;
   --color-pf-navy-dark: #0d1833;
   --color-pf-navy-dark-transparent: rgba(13, 24, 51, 0.5);

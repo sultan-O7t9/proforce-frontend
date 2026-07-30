@@ -38,6 +38,13 @@ export default defineConfig({
         variants: [
           {
             src: [
+              "./src/assets/fonts/galano-grotesque/GalanoGrotesque-Regular.woff2",
+            ],
+            weight: "400",
+            style: "normal",
+          },
+          {
+            src: [
               "./src/assets/fonts/galano-grotesque/GalanoGrotesque-Medium.woff2",
             ],
             weight: "500",

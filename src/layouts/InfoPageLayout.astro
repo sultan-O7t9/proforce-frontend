@@ -1,0 +1,28 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+
+interface Props {
+      title?:string;
+}
+const {title=""} = Astro.props;
+---
+
+
+
+<MainLayout title={title} className="relative" headerTheme="dark">
+  <section class="info-page-section pb-24">
+        <h1 class="font-pf-mera-pro pt-10 md:pt-16 tracking-[10%] text-xl md:text-2xl text-pf-navy-dark uppercase text-center px-8 mb-10 md:mb-24">{title}</h1>
+        <div class="max-container px-8 md:px-12 lg:px-[clamp(1rem,6.2vw+1rem,100px)] min-h-screen flex flex-col font-pf-galano-grotesque gap-6 md:gap-10">
+           <slot/>
+            </div>
+  </section>
+</MainLayout>
+
+<script>
+         const header = document.querySelector(".main-header") as (HTMLElement | null)
+      const privacyContainer = document.querySelector(".info-page-section") as (HTMLElement | null);
+
+      if(header && privacyContainer) {
+            privacyContainer.style.paddingTop= header.getBoundingClientRect().height+'px';
+      }
+</script>

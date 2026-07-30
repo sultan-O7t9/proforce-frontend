@@ -20,9 +20,10 @@ interface Props {
   title?: string;
   description?: string;
   className?: string;
+  headerTheme?:'light'|'dark'
 }
 
-const { title, description = SITE.description, } = Astro.props;
+const { title, description = SITE.description, headerTheme='light'} = Astro.props;
 const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
 ---
 
@@ -41,7 +42,7 @@ const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
     <title>{pageTitle}</title>
   </head>
   <body class="flex min-h-screen flex-col bg-white text-slate-900 font-pf-galano-grotesque">
-    <Header />
+    <Header theme={headerTheme} />
     <main class={twMerge("flex-1", Astro.props.className)}>
       <slot />
     </main>

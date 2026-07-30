@@ -165,8 +165,8 @@ const products = [
 
     // Cache original strings for feature scramble text
     slides.forEach(slide => {
-      const fTitles = slide.querySelectorAll('.slide-feature-title');
-      const fDescs = slide.querySelectorAll('.slide-feature-desc');
+      const fTitles = slide.querySelectorAll('.slide-feature-title') as NodeListOf<HTMLElement>;
+      const fDescs = slide.querySelectorAll('.slide-feature-desc') as NodeListOf<HTMLElement>;;
 
       fTitles.forEach(el => el.dataset.originalText = el.textContent?.trim() || '');
       fDescs.forEach(el => el.dataset.originalText = el.textContent?.trim() || '');
@@ -208,8 +208,8 @@ const products = [
       dots[newIndex].classList.remove('bg-transparent');
 
       // 4. Trigger Scramble Text Animation on Features
-      const nextTitles = nextSlide.querySelectorAll('.slide-feature-title');
-      const nextDescs = nextSlide.querySelectorAll('.slide-feature-desc');
+      const nextTitles = nextSlide.querySelectorAll('.slide-feature-title') as NodeListOf<HTMLElement>;
+      const nextDescs = nextSlide.querySelectorAll('.slide-feature-desc') as NodeListOf<HTMLElement>;
 
       nextTitles.forEach(el => el.textContent = "");
       nextDescs.forEach(el => el.textContent = "");
