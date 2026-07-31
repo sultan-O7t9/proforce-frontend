@@ -1,0 +1,74 @@
+---
+import { getImage } from 'astro:assets';
+
+import MainLayout from '@/layouts/MainLayout.astro';
+
+import LoginBg from "@/assets/img/dealer-login-bg.png";
+import MainButton from '@/components/buttons/MainButton.astro';
+
+const optimizedBg = await getImage({
+  src: LoginBg,
+  format: 'webp',
+  width: 1266,
+});
+
+const {title} = Astro.props;
+---
+
+<MainLayout title={title} className="relative" headerTheme='dark'>
+  <Fragment slot="head">
+    <link rel="preload" as="image" href={optimizedBg.src} fetchpriority="high" />
+  </Fragment>
+
+  <section class="dealer-login-section-container">
+      <div class=" max-container px-8 md:px-16.5 lg:px-[clamp(1rem,6.2vw+1rem,100px)] py-8 md:py-17.5">
+      <div class="bg-pf-gohst-white/50 rounded-lg py-8 md:py-15 px-8 md:px-10 flex flex-col justify-center items-center gap-8.75 md:gap-17.5">
+            <div class="flex flex-col gap-4 md:gap-6">
+                  <h1 class="font-pf-mera-pro tracking-[10%] text-xl md:text-2xl uppercase  text-center">Dealer Portal</h1>
+                  <h6 class="font-pf-galano-grotesque font-medium text-sm md:text-base tracking-[1%] text-center">Access your dashboard to manage stock, order products, and scale your business.</h6>
+            </div>
+             <slot/>
+            </div>
+      </div>
+      <div class="max-container mb-8 md:mb-17.5 px-4 md:px-8.5 lg:px-[clamp(1rem,3.1vw+1rem,50px)]">
+            <div class="bg-center bg-no-repeat bg-cover p-4.5 md:p-11.5" style={`background-image: url('${optimizedBg.src}');`}>
+
+                  <div class=" border border-[rgba(255,255,255,0.4)] md:[border-image:linear-gradient(to_right,rgba(255,255,255,0.4)_0%,rgba(255,255,255,0)_100%)_1] py-11.5 px-8 sm:px-12 md:px-14 flex flex-col gap-8 items-start">
+                        <h2 class="uppercase text-pf-yellow font-pf-mera-pro tracking-[15%] text-lg text-center sm:text-left sm:text-2xl">Join Proforce</h2>
+                        <p class="max-w-111.25 opacity-80 text-white font-pf-galano-grotesque leading-6.5 text-[15px] font-normal text-center sm:text-left">Become a certified Proforce partner. Grow your business with industry-leading products, transparent terms, and a commitment to shared success.</p>
+                        <MainButton label="Apply Now" href="" className="text-xs md:text-sm py-4 md:py-4 px-6 md:px-11 flex justify-center font-semibold tracking-[1%] text-pf-navy bg-white transition-colors duration-200 hover:bg-transparent hover:text-white border-white"/>
+                  </div>
+            </div>
+      </div>
+  </section>
+</MainLayout>
+
+<script>
+      const header = document.querySelector(".main-header") as (HTMLElement | null)
+      const heroSectionCotnainer = document.querySelector(".dealer-login-section-container") as (HTMLElement | null);
+      const passwordToggleButton = document.querySelector(".password-toggle")
+
+      if(header && heroSectionCotnainer) {
+            heroSectionCotnainer.style.paddingTop= header.getBoundingClientRect().height+'px';
+      }
+
+      if(passwordToggleButton)
+      passwordToggleButton.addEventListener('click', ()=>{
+
+        const passwordInput = document.getElementById('password') as HTMLInputElement;
+        const eyeOpen = document.getElementById('eye-open');
+        const eyeClosed = document.getElementById('eye-closed');
+
+        if (eyeOpen && eyeClosed && passwordInput && passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeOpen.classList.add('hidden');
+            eyeClosed.classList.remove('hidden');
+        } else {
+            passwordInput.type = 'password';
+            eyeOpen?.classList.remove('hidden');
+            eyeClosed?.classList.add('hidden');
+        }
+    })
+
+
+</script>

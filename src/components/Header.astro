@@ -1,17 +1,9 @@
 ---
-/**
- * Reads nav items from src/lib/site.ts rather than hardcoding them
- * here — add/remove a page from NAV_LINKS and this component (and any
- * other component that also needs the nav, e.g. a mobile menu) updates
- * automatically.
- *
- * No `client:*` directive is used anywhere in this component: it's
- * plain server-rendered markup, shipping zero JavaScript, which is the
- * right default for a nav bar with no interactive state.
- */
-import { SITE, NAV_LINKS } from '@/lib/site';
+import { NAV_LINKS, ROUTES } from '@/lib/site';
 import { twMerge } from 'tailwind-merge';
 import CtaButton from './buttons/CtaButton.astro';
+import MobileNav from './MobileNav.astro';
+
 interface Props {
   theme?:'light'|'dark'
   class?:string
@@ -26,18 +18,12 @@ const proforceLogo= {
 <header data-theme={theme} class={twMerge("main-header fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 md:pt-8.75 md:pb-5 ",theme==='dark'?'border border-pf-navy/20 bg-white':'',)}>
   <div class="max-container flex  items-center justify-between ">
   <!-- <div class="max-container flex  items-center justify-between px-17.5 py-8.75 "> -->
-    <a href="/" aria-label="Proforce Logo" class="text-lg font-bold tracking-tight text-slate-900 transition-transform duration-300 hover:scale-95">
+    <a href={ROUTES.HOME.href} aria-label="Proforce Logo" class="text-lg font-bold tracking-tight text-slate-900 transition-transform duration-300 hover:scale-95">
       <img src={proforceLogo[theme]} alt={"Proforce Logo"} class="h-8 lg:h-10 w-auto object-cover" />
     </a>
-    <nav>
-      <button aria-label="Toggle menu" class="md:hidden flex flex-col justify-center gap-1.25 h-9 w-10  bg-[rgba(6,10,20,0.1)]  backdrop-blur-[30px] rounded cursor-pointer group hover:scale-105 transition-transform duration-100 hover:shadow-[0_0_2px_rgba(253,214,53,0.25)]">
-        <div class="ml-3.5 w-5 rounded-2xl bg-pf-yellow border-2 border-pf-yellow group-hover:animate-[shift-left-right_0.4s_ease-in-out_0.3s]"></div>
-
-        <div class="ml-2.5 w-5 rounded-2xl bg-pf-yellow border-2 border-pf-yellow group-hover:animate-[shift-left-right_0.4s_ease-in-out_0.2s]"></div>
-        <div class="ml-1.5 w-5 rounded-2xl bg-pf-yellow border-2 border-pf-yellow group-hover:animate-[shift-left-right_0.4s_ease-in-out_0.1s]"></div>
-
-      </button>
-      <ul class={twMerge("hidden md:flex gap-[3.5vw] lg:gap-14 text-pf-white-80 font-pf-galano-grotesque font-semibold items-center",theme==='dark'?'text-pf-navy/80':'')}>
+    <MobileNav theme={theme} />
+    <nav class="hidden md:block">
+      <ul class={twMerge("flex gap-[3.5vw] lg:gap-14 text-pf-white-80 font-pf-galano-grotesque font-semibold items-center",theme==='dark'?'text-pf-navy/80':'')}>
         {NAV_LINKS.map((link) => (
           <li>
             <a href={link.href}  class="text-[clamp(0.75rem,1.3vw,0.95rem)]  uppercase tracking-[1%] whitespace-nowrap after:content-[''] after:block after:w-full after:h-0.5 after:bg-pf-yellow after:scale-x-0 after:origin-right after:transition-transform after:duration-300 after:rounded-lg hover:after:origin-left hover:after:scale-x-100 transition-colors duration-300 hover:text-pf-yellow">
@@ -60,9 +46,12 @@ const header = document.querySelector('.main-header') as HTMLElement
 
 
 let theme = 'light';
-if(header)
+let screenWidth = 0;
+if(header){
   theme = header?.dataset.theme??'light';
-
+  screenWidth=header.getBoundingClientRect().width
+}
+const padding = screenWidth && screenWidth > 768?"1rem":'0.5rem';
 // 1. ScrollTrigger Header Animation
 gsap.to('.main-header', {
   scrollTrigger: {
@@ -72,8 +61,8 @@ gsap.to('.main-header', {
     scrub: 1,
   },
   backgroundColor: theme==="dark"?'white':'rgba(6, 10, 20, 0.8)',
-  paddingTop: '1rem',
-  paddingBottom: '1rem',
+  paddingTop: padding,
+  paddingBottom: padding,
   boxShadow: theme==="dark"?'':'0 2px 4px rgba(0, 0, 0, 0.1)',
 });
 

@@ -1,6 +1,6 @@
 ---
 import FooterWatermark from "@/assets/img/footer-watermark.svg"
-import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/site"
+import { FOOTER_LINKS, ROUTES, SOCIAL_LINKS } from "@/lib/site"
 
 
 
@@ -20,7 +20,7 @@ import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/site"
         }
       </ul>
     </nav>
-    <a href="/" aria-label="Proforce Logo" class="order-1 md:order-2">
+    <a href={ROUTES.HOME.href} aria-label="Proforce Logo" class="order-1 md:order-2">
       <img src="/images/icons/footer-logo.svg" class="cursor-pointer max-h-38.5 w-auto object-cover transition-all duration-300 hover:scale-95" />
     </a>
       <nav class="order-3">
@@ -39,6 +39,6 @@ import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/site"
   </div>
   <div class="p-0 m-0 h-[0.6px] w-full bg-white opacity-40" />
   <div class="max-container flex  items-center justify-between text-white py-8 relative z-1">
-    <h6 class="font-pf-galano-grotesque tracking-[2%] text-pf-white-80 text-base">© {new Date().getFullYear()} <a href="/" class="transition-colors duration-300 hover:text-pf-yellow cursor-pointer">Proforce.</a> All Rights Reserved.</h6>
+    <h6 class="font-pf-galano-grotesque tracking-[2%] text-pf-white-80 text-base">© {new Date().getFullYear()} <a href={ROUTES.HOME.href} class="transition-colors duration-300 hover:text-pf-yellow cursor-pointer">Proforce.</a> All Rights Reserved.</h6>
   </div>
 </footer>

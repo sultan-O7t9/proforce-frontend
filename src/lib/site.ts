@@ -9,6 +9,10 @@ export const SITE = {
   url: "https://example.com",
 } as const;
 
+export const BREAKPOINTS = {
+  md: 768,
+} as const;
+
 export const ROUTES = {
   HOME: { id: 1, name: "Proforce Home", href: "/" },
   PRODUCTS: { id: 2, name: "Products", href: "/products" },
@@ -16,13 +20,17 @@ export const ROUTES = {
   PRIVACY: { id: 4, name: "Privacy Policy", href: "/privacy-policy" },
   TERMS: { id: 5, name: "Terms & Conditions", href: "/terms" },
   SUPPORT: { id: 6, name: "Warranty & Support", href: "/support" },
-  DEALER: { id: 7, name: "Dealer Portal", href: "/dealer" },
+  DEALER_LOGIN: { id: 7, name: "Dealer Portal", href: "/dealer/login" },
+  DEALER_FORGOT_PASSWORD: {
+    id: 8,
+    name: "Dealer Portal Login - Forgot Password?",
+    href: "/dealer/forgot-password",
+  },
 } as const;
-
 export const NAV_LINKS = [
   { ...ROUTES.PRODUCTS },
   { ...ROUTES.SUPPORT },
-  { ...ROUTES.DEALER },
+  { ...ROUTES.DEALER_LOGIN },
 ] as const;
 
 export const FOOTER_LINKS = [
