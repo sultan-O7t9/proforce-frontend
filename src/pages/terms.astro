@@ -2,28 +2,36 @@
 import InfoPageLayout from "@/layouts/InfoPageLayout.astro";
 
 import { TERMS } from "@/lib/site";
-
 ---
 
 <InfoPageLayout title="Terms & Conditions">
-      <h6 class="font-pf-galano-grotesque text-lg tracking-[8%] text-pf-navy-dark opacity-60 font-medium uppercase">LAST UPDATED: <b class="font-semibold">July 11, 2026</b></h6>
-            {
-                  TERMS?
-                  TERMS.map(policy=><div>
-                        <h3 class="font-semibold text-xl md:text-2xl mb-2 md:mb-5 opacity-90 text-pf-black tracking-[-1%]">{policy.heading}</h3>
-                        <p class="text-base md:text-xl opacity-80 text-pf-black leading-8">{policy.description}</p>
-                        {
-                              policy.bullets?
-                        <ul class="list-disc pl-5 mt-4 md:mt-9 flex flex-col gap-3 md:gap-5">
-                              {policy.bullets.map(
-                                    bullet=>(
-                                          <li class="text-base md:text-xl opacity-80 text-pf-black leading-8 font-normal"><b class="font-medium">{bullet.heading} </b>{bullet.description}</li>
-                                    )
-                              )}
-                        </ul>
-                        :null}
-                  </div>)
-                  :null
-
-            }
+  <h6
+    class="font-pf-galano-grotesque text-pf-navy-dark text-lg font-medium tracking-[8%] uppercase opacity-60"
+  >
+    LAST UPDATED: <b class="font-semibold">July 11, 2026</b>
+  </h6>
+  {
+    TERMS
+      ? TERMS.map((policy) => (
+          <div>
+            <h3 class="text-pf-black mb-2 text-xl font-semibold tracking-[-1%] opacity-90 md:mb-5 md:text-2xl">
+              {policy.heading}
+            </h3>
+            <p class="text-pf-black text-base leading-8 opacity-80 md:text-xl">
+              {policy.description}
+            </p>
+            {policy.bullets ? (
+              <ul class="mt-4 flex list-disc flex-col gap-3 pl-5 md:mt-9 md:gap-5">
+                {policy.bullets.map((bullet) => (
+                  <li class="text-pf-black text-base leading-8 font-normal opacity-80 md:text-xl">
+                    <b class="font-medium">{bullet.heading} </b>
+                    {bullet.description}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ))
+      : null
+  }
 </InfoPageLayout>

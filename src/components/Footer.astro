@@ -1,44 +1,69 @@
 ---
-import FooterWatermark from "@/assets/img/footer-watermark.svg"
-import { FOOTER_LINKS, ROUTES, SOCIAL_LINKS } from "@/lib/site"
-
-
-
+import FooterWatermark from "@/assets/img/footer-watermark.svg";
+import { FOOTER_LINKS, ROUTES, SOCIAL_LINKS } from "@/lib/site";
 ---
 
-<footer class="bg-pf-navy-dark w-full flex flex-col relative">
-  <img class="max-h-full w-full object-cover self-center absolute top-1/3 md:bottom-0" src={FooterWatermark.src}/>
-  <div class="max-container flex flex-col md:flex-row w-full items-center justify-between text-white pt-10 pb-8 px-10 md:px-12 lg:px-[clamp(1rem,6.2vw+1rem,100px)] relative z-1 gap-6">
+<footer class="bg-pf-navy-dark relative flex w-full flex-col">
+  <img
+    class="absolute top-1/3 max-h-full w-full self-center object-cover md:bottom-0"
+    src={FooterWatermark.src}
+  />
+  <div
+    class="max-container relative z-1 flex w-full flex-col items-center justify-between gap-6 px-10 pt-10 pb-8 text-white md:flex-row md:px-12 lg:px-[clamp(1rem,6.2vw+1rem,100px)]"
+  >
     <nav class="order-2 md:order-1">
-      <ul class="flex flex-col gap-4 items-center md:items-start">
+      <ul class="flex flex-col items-center gap-4 md:items-start">
         {
-          FOOTER_LINKS.map(link=>
-            <li class="text-pf-white-80 tracking-[1%] uppercase text-sm  font-pf-galano-grotesque whitespace-nowrap after:content-[''] after:block after:w-full after:h-0.5 after:bg-pf-yellow after:scale-x-0 after:origin-right after:transition-transform after:duration-300 after:rounded-lg hover:after:origin-left hover:after:scale-x-100 transition-colors duration-300 hover:text-pf-yellow">
-              <a href={link.href} >{link.name}</a>
+          FOOTER_LINKS.map((link) => (
+            <li class="text-pf-white-80 font-pf-galano-grotesque after:bg-pf-yellow hover:text-pf-yellow text-sm tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100">
+              <a href={link.href}>{link.name}</a>
             </li>
-          )
+          ))
         }
       </ul>
     </nav>
-    <a href={ROUTES.HOME.href} aria-label="Proforce Logo" class="order-1 md:order-2">
-      <img src="/images/icons/footer-logo.svg" class="cursor-pointer max-h-38.5 w-auto object-cover transition-all duration-300 hover:scale-95" />
+    <a
+      href={ROUTES.HOME.href}
+      aria-label="Proforce Logo"
+      class="order-1 md:order-2"
+    >
+      <img
+        src="/images/icons/footer-logo.svg"
+        class="max-h-38.5 w-auto cursor-pointer object-cover transition-all duration-300 hover:scale-95"
+      />
     </a>
-      <nav class="order-3">
+    <nav class="order-3">
       <ul class="flex flex-row gap-4">
         {
-          SOCIAL_LINKS.map(link=>
-            <li class="text-pf-white-80 tracking-[1%] uppercase text-sm  font-pf-galano-grotesque cursor-pointer ">
-              <a href={link.href} aria-label={link.name} target="_blank" class="h-11.5 w-11.5 flex justify-center items-center rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)]transition-colors duration-300 hover:border-pf-yellow group">
-                <link.icon/>
+          SOCIAL_LINKS.map((link) => (
+            <li class="text-pf-white-80 font-pf-galano-grotesque cursor-pointer text-sm tracking-[1%] uppercase">
+              <a
+                href={link.href}
+                aria-label={link.name}
+                target="_blank"
+                class="border-[rgba(255,255,255,0.1)]transition-colors hover:border-pf-yellow group flex h-11.5 w-11.5 items-center justify-center rounded-full border bg-[rgba(255,255,255,0.05)] duration-300"
+              >
+                <link.icon />
               </a>
             </li>
-          )
+          ))
         }
       </ul>
     </nav>
   </div>
-  <div class="p-0 m-0 h-[0.6px] w-full bg-white opacity-40" />
-  <div class="max-container flex  items-center justify-between text-white py-8 relative z-1">
-    <h6 class="font-pf-galano-grotesque tracking-[2%] text-pf-white-80 text-base">© {new Date().getFullYear()} <a href={ROUTES.HOME.href} class="transition-colors duration-300 hover:text-pf-yellow cursor-pointer">Proforce.</a> All Rights Reserved.</h6>
+  <div class="m-0 h-[0.6px] w-full bg-white p-0 opacity-40"></div>
+  <div
+    class="max-container relative z-1 flex items-center justify-between py-8 text-white"
+  >
+    <h6
+      class="font-pf-galano-grotesque text-pf-white-80 text-base tracking-[2%]"
+    >
+      © {new Date().getFullYear()}
+      <a
+        href={ROUTES.HOME.href}
+        class="hover:text-pf-yellow cursor-pointer transition-colors duration-300"
+        >Proforce.</a
+      > All Rights Reserved.
+    </h6>
   </div>
 </footer>

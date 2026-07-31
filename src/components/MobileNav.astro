@@ -3,103 +3,181 @@ import { NAV_LINKS, ROUTES } from "@/lib/site";
 import { twMerge } from "tailwind-merge";
 import CtaButton from "./buttons/CtaButton.astro";
 
-const {theme} = Astro.props;
+const { theme } = Astro.props;
 
-const navToggleStyles=twMerge("rounded-2xl bg-pf-yellow border-2 border-pf-yellow",theme==='dark'?'border-pf-navy bg-pf-navy':'')
+const navToggleStyles = twMerge(
+  "rounded-2xl bg-pf-yellow border-2 border-pf-yellow",
+  theme === "dark" ? "border-pf-navy bg-pf-navy" : "",
+);
 ---
 
 <nav class="md:hidden">
-      <button aria-label="Toggle menu" class={twMerge("header-menu-toggle flex flex-col justify-center items-center gap-1.25 h-12 w-12  bg-pf-navy/10 border border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",theme==="dark"?"bg-transparent border-transparent":"")}>
-        <div class="flex items-center gap-0.5">
-          <div class:list={["line w-1",navToggleStyles]}></div>
-          <div class:list={["line-cross line-cross-1 origin-right w-5",navToggleStyles]}></div>
-        </div>
-        <div class="flex items-center gap-0.5">
-          <div class:list={["line w-1.25",navToggleStyles]}></div>
-          <div class:list={["line w-4.75",navToggleStyles]}></div>
-        </div>
-        <div class="flex items-center gap-0.5">
-          <div class:list={["line w-1.5",navToggleStyles]}></div>
-          <div class:list={["line-cross line-cross-2 origin-right w-4.5",navToggleStyles]}></div>
-        </div>
-      </button>
-
-      <!-- Backdrop -->
-      <div class="translate-x-full pointer-events-none backdrop w-screen h-screen fixed top-0 left-0 bg-pf-yellow px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 md:pt-8.75 md:pb-5 ">
-            <div class="translate-x-[120%] absolute backdrop-2 bg-pf-navy w-full h-full top-0 left-0 px-10 pt-10 flex flex-col">
-                  <div class="flex justify-between items-center mb-8">
-                        <a href={ROUTES.HOME.href} aria-label="Proforce Logo" class="text-lg font-bold tracking-tight text-slate-900 transition-transform duration-300 hover:scale-95">
-      <img src="/images/icons/proforce-logo-white-1.svg" alt={"Proforce Logo"} class="h-8 lg:h-10 w-auto object-cover" />
-    </a>
-
-                        <button aria-label="Menu Close Button" class={twMerge("menu-close-btn flex flex-col justify-center items-center gap-1.25 h-12 w-12  bg-pf-navy/10 border-white border group hover:border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group")}>
-
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"  class="w-8 h-8 stroke-white group-hover:stroke-pf-yellow">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-</svg>
-                        </button>
-                  </div>
-                  <nav class="flex-1 flex flex-col ">
-                        <ul class="  flex-1 flex flex-col justify-center h-full gap-8 items-center">
-                                {NAV_LINKS.map((link) => (
-          <li class="text-center">
-            <a href={link.href}  class=" font-pf-mera-pro text-[clamp(10px,3vw+6px,14px)]  uppercase tracking-[15%] after:content-[''] after:block after:w-full after:h-0.5 after:bg-pf-yellow after:scale-x-0 after:origin-right after:transition-transform after:duration-300 after:rounded-lg hover:after:origin-left hover:after:scale-x-100 transition-colors duration-300 hover:text-pf-yellow text-white font-semibold">
-              {link.name}
-            </a>
-          </li>
-        ))}
-          <li class="font-pf-galano-grotesqu">
-           <CtaButton label='Find Installer' href='/installer' variant={'filled'} className="text-lg font-semibold hover:text-white" />
-          </li>
-                        </ul>
-                  </nav>
-                  <div class="p-0 m-0 h-[0.6px] w-full bg-white opacity-40" />
-  <div class="max-container flex  items-center justify-between text-white py-8 relative z-1">
-    <h6 class="text-center font-pf-galano-grotesque tracking-[2%] text-pf-white-80 text-sm">© {new Date().getFullYear()} <a href={ROUTES.HOME.href} class="transition-colors duration-300 hover:text-pf-yellow cursor-pointer">Proforce.</a> All Rights Reserved.</h6>
-  </div>
-            </div>
+  <button
+    aria-label="Toggle menu"
+    class={twMerge(
+      "header-menu-toggle flex flex-col justify-center items-center gap-1.25 h-12 w-12  bg-pf-navy/10 border border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
+      theme === "dark" ? "bg-transparent border-transparent" : "",
+    )}
+  >
+    <div class="flex items-center gap-0.5">
+      <div class:list={["line w-1", navToggleStyles]}></div>
+      <div
+        class:list={[
+          "line-cross line-cross-1 w-5 origin-right",
+          navToggleStyles,
+        ]}
+      >
       </div>
+    </div>
+    <div class="flex items-center gap-0.5">
+      <div class:list={["line w-1.25", navToggleStyles]}></div>
+      <div class:list={["line w-4.75", navToggleStyles]}></div>
+    </div>
+    <div class="flex items-center gap-0.5">
+      <div class:list={["line w-1.5", navToggleStyles]}></div>
+      <div
+        class:list={[
+          "line-cross line-cross-2 w-4.5 origin-right",
+          navToggleStyles,
+        ]}
+      >
+      </div>
+    </div>
+  </button>
+
+  <!-- Backdrop -->
+  <div
+    class="backdrop bg-pf-yellow pointer-events-none fixed top-0 left-0 h-screen w-screen translate-x-full px-8 py-5 md:px-10 md:pt-8.75 md:pb-5 lg:px-[clamp(1rem,4vw+1rem,70px)]"
+  >
+    <div
+      class="backdrop-2 bg-pf-navy absolute top-0 left-0 flex h-full w-full translate-x-[120%] flex-col px-10 pt-10"
+    >
+      <div class="mb-8 flex items-center justify-between">
+        <a
+          href={ROUTES.HOME.href}
+          aria-label="Proforce Logo"
+          class="text-lg font-bold tracking-tight text-slate-900 transition-transform duration-300 hover:scale-95"
+        >
+          <img
+            src="/images/icons/proforce-logo-white-1.svg"
+            alt={"Proforce Logo"}
+            class="h-8 w-auto object-cover lg:h-10"
+          />
+        </a>
+
+        <button
+          aria-label="Menu Close Button"
+          class={twMerge(
+            "menu-close-btn flex flex-col justify-center items-center gap-1.25 h-12 w-12  bg-pf-navy/10 border-white border group hover:border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
+          )}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            class="group-hover:stroke-pf-yellow h-8 w-8 stroke-white"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav class="flex flex-1 flex-col">
+        <ul
+          class="flex h-full flex-1 flex-col items-center justify-center gap-8"
+        >
+          {
+            NAV_LINKS.map((link) => (
+              <li class="text-center">
+                <a
+                  href={link.href}
+                  class="font-pf-mera-pro after:bg-pf-yellow hover:text-pf-yellow text-[clamp(10px,3vw+6px,14px)] font-semibold tracking-[15%] text-white uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))
+          }
+          <li class="font-pf-galano-grotesqu">
+            <CtaButton
+              label="Find Installer"
+              href="/installer"
+              variant={"filled"}
+              className="text-lg font-semibold hover:text-white"
+            />
+          </li>
+        </ul>
+      </nav>
+      <div class="m-0 h-[0.6px] w-full bg-white p-0 opacity-40"></div>
+      <div
+        class="max-container relative z-1 flex items-center justify-between py-8 text-white"
+      >
+        <h6
+          class="font-pf-galano-grotesque text-pf-white-80 text-center text-sm tracking-[2%]"
+        >
+          © {new Date().getFullYear()}
+          <a
+            href={ROUTES.HOME.href}
+            class="hover:text-pf-yellow cursor-pointer transition-colors duration-300"
+            >Proforce.</a
+          > All Rights Reserved.
+        </h6>
+      </div>
+    </div>
+  </div>
 </nav>
 
 <script>
-      import { gsap } from "@/lib/gsap";
-const menuToggle = document.querySelector(".header-menu-toggle");
-console.log(menuToggle)
-const menuCloseBtn = document.querySelector(".menu-close-btn"); // Add a class or selector
+  import { gsap } from "@/lib/gsap";
+  const menuToggle = document.querySelector(".header-menu-toggle");
+  console.log(menuToggle);
+  const menuCloseBtn = document.querySelector(".menu-close-btn"); // Add a class or selector
 
-menuToggle?.addEventListener("click", () => {
+  menuToggle?.addEventListener("click", () => {
     // Play menu open animation
-
 
     // Disable background scrolling
     document.body.style.overflow = "hidden";
 
     // Optional: Fade in your backdrop with GSAP
- gsap.timeline()
-  .to('.backdrop', {
-    x: 0,
-    pointerEvents: "auto",
-    duration: 1
-  })
-  .to('.backdrop-2', {
-    x: 0,
-    pointerEvents: "auto",
-    duration: 1,
-    ease: "power4.out" // Correct syntax for parameter-based bounce
-  }, "<0.25");
-});
+    gsap
+      .timeline()
+      .to(".backdrop", {
+        x: 0,
+        pointerEvents: "auto",
+        duration: 1,
+      })
+      .to(
+        ".backdrop-2",
+        {
+          x: 0,
+          pointerEvents: "auto",
+          duration: 1,
+          ease: "power4.out", // Correct syntax for parameter-based bounce
+        },
+        "<0.25",
+      );
+  });
 
-menuCloseBtn?.addEventListener('click',()=>{
-
+  menuCloseBtn?.addEventListener("click", () => {
     // Re-enable background scrolling
     document.body.style.overflow = "";
 
     // Fade out backdrop
-    gsap.timeline().to('.backdrop-2', { x: "120%", pointerEvents: "none", duration: 0.5 })
-    .to('.backdrop', {
-    x: "100%",
-    pointerEvents: "none",
-    duration: 0.5,
-  }, "<");
-})
+    gsap
+      .timeline()
+      .to(".backdrop-2", { x: "120%", pointerEvents: "none", duration: 0.5 })
+      .to(
+        ".backdrop",
+        {
+          x: "100%",
+          pointerEvents: "none",
+          duration: 0.5,
+        },
+        "<",
+      );
+  });
 </script>

@@ -1,96 +1,122 @@
 ---
-import { NAV_LINKS, ROUTES } from '@/lib/site';
-import { twMerge } from 'tailwind-merge';
-import CtaButton from './buttons/CtaButton.astro';
-import MobileNav from './MobileNav.astro';
+import { NAV_LINKS, ROUTES } from "@/lib/site";
+import { twMerge } from "tailwind-merge";
+import CtaButton from "./buttons/CtaButton.astro";
+import MobileNav from "./MobileNav.astro";
 
 interface Props {
-  theme?:'light'|'dark'
-  class?:string
+  theme?: "light" | "dark";
+  class?: string;
 }
-const {theme='light'} = Astro.props;
-const proforceLogo= {
-  'light':"/images/icons/proforce-logo-white-1.svg",
-  'dark':"/images/icons/proforce-logo-dark-1.svg",
+const { theme = "light" } = Astro.props;
+const proforceLogo = {
+  light: "/images/icons/proforce-logo-white-1.svg",
+  dark: "/images/icons/proforce-logo-dark-1.svg",
 };
 ---
 
-<header data-theme={theme} class={twMerge("main-header fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 md:pt-8.75 md:pb-5 ",theme==='dark'?'border border-pf-navy/20 bg-white':'',)}>
-  <div class="max-container flex  items-center justify-between ">
-  <!-- <div class="max-container flex  items-center justify-between px-17.5 py-8.75 "> -->
-    <a href={ROUTES.HOME.href} aria-label="Proforce Logo" class="text-lg font-bold tracking-tight text-slate-900 transition-transform duration-300 hover:scale-95">
-      <img src={proforceLogo[theme]} alt={"Proforce Logo"} class="h-8 lg:h-10 w-auto object-cover" />
+<header
+  data-theme={theme}
+  class={twMerge(
+    "main-header fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 md:pt-8.75 md:pb-5 ",
+    theme === "dark" ? "border border-pf-navy/20 bg-white" : "",
+  )}
+>
+  <div class="max-container flex items-center justify-between">
+    <!-- <div class="max-container flex  items-center justify-between px-17.5 py-8.75 "> -->
+    <a
+      href={ROUTES.HOME.href}
+      aria-label="Proforce Logo"
+      class="text-lg font-bold tracking-tight text-slate-900 transition-transform duration-300 hover:scale-95"
+    >
+      <img
+        src={proforceLogo[theme]}
+        alt={"Proforce Logo"}
+        class="h-8 w-auto object-cover lg:h-10"
+      />
     </a>
     <MobileNav theme={theme} />
     <nav class="hidden md:block">
-      <ul class={twMerge("flex gap-[3.5vw] lg:gap-14 text-pf-white-80 font-pf-galano-grotesque font-semibold items-center",theme==='dark'?'text-pf-navy/80':'')}>
-        {NAV_LINKS.map((link) => (
-          <li>
-            <a href={link.href}  class="text-[clamp(0.75rem,1.3vw,0.95rem)]  uppercase tracking-[1%] whitespace-nowrap after:content-[''] after:block after:w-full after:h-0.5 after:bg-pf-yellow after:scale-x-0 after:origin-right after:transition-transform after:duration-300 after:rounded-lg hover:after:origin-left hover:after:scale-x-100 transition-colors duration-300 hover:text-pf-yellow">
-              {link.name}
-            </a>
-          </li>
-        ))}
-          <li>
-           <CtaButton label='Find Installer' href='/installer' variant={theme==='dark'?'filled':'outlined'} />
-          </li>
+      <ul
+        class={twMerge(
+          "flex gap-[3.5vw] lg:gap-14 text-pf-white-80 font-pf-galano-grotesque font-semibold items-center",
+          theme === "dark" ? "text-pf-navy/80" : "",
+        )}
+      >
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="after:bg-pf-yellow hover:text-pf-yellow text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <CtaButton
+            label="Find Installer"
+            href="/installer"
+            variant={theme === "dark" ? "filled" : "outlined"}
+          />
+        </li>
       </ul>
     </nav>
   </div>
 </header>
 <script>
-// src/lib/gsap.ts
-import { gsap } from '../lib/gsap';
+  // src/lib/gsap.ts
+  import { gsap } from "../lib/gsap";
 
-const header = document.querySelector('.main-header') as HTMLElement
+  const header = document.querySelector(".main-header") as HTMLElement;
 
-
-let theme = 'light';
-let screenWidth = 0;
-if(header){
-  theme = header?.dataset.theme??'light';
-  screenWidth=header.getBoundingClientRect().width
-}
-const padding = screenWidth && screenWidth > 768?"1rem":'0.5rem';
-// 1. ScrollTrigger Header Animation
-gsap.to('.main-header', {
-  scrollTrigger: {
-    trigger: '.main-header',
-    start: 'top top',
-    end: '+=800',
-    scrub: 1,
-  },
-  backgroundColor: theme==="dark"?'white':'rgba(6, 10, 20, 0.8)',
-  paddingTop: padding,
-  paddingBottom: padding,
-  boxShadow: theme==="dark"?'':'0 2px 4px rgba(0, 0, 0, 0.1)',
-});
-
-// 2. Button Hover Effect
-const btnCta = document.querySelector('.btn-cta') as (HTMLElement | null);
-const circle = btnCta?.querySelector('.circle-util') as HTMLElement | null;
-
-if (btnCta && circle) {
-  const animation = gsap.to(circle, {
-    scale: 2,
-    duration: 0.5,
-    ease: 'power1.inOut',
-    paused: true, // Keep it paused initially
+  let theme = "light";
+  let screenWidth = 0;
+  if (header) {
+    theme = header?.dataset.theme ?? "light";
+    screenWidth = header.getBoundingClientRect().width;
+  }
+  const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
+  // 1. ScrollTrigger Header Animation
+  gsap.to(".main-header", {
+    scrollTrigger: {
+      trigger: ".main-header",
+      start: "top top",
+      end: "+=800",
+      scrub: 1,
+    },
+    backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
+    paddingTop: padding,
+    paddingBottom: padding,
+    boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
   });
 
-  btnCta?.addEventListener('mouseenter', (e: MouseEvent) => {
-    const dimensions = btnCta.getBoundingClientRect();
+  // 2. Button Hover Effect
+  const btnCta = document.querySelector(".btn-cta") as HTMLElement | null;
+  const circle = btnCta?.querySelector(".circle-util") as HTMLElement | null;
 
-    // Position the circle instantly before playing forward
-    circle.style.top = `${e.clientY - dimensions.top}px`;
-    circle.style.left = `${e.clientX - dimensions.left}px`;
+  if (btnCta && circle) {
+    const animation = gsap.to(circle, {
+      scale: 2,
+      duration: 0.5,
+      ease: "power1.inOut",
+      paused: true, // Keep it paused initially
+    });
 
-    animation.play();
-  });
+    btnCta?.addEventListener("mouseenter", (e: MouseEvent) => {
+      const dimensions = btnCta.getBoundingClientRect();
 
-  btnCta.addEventListener('mouseleave', () => {
-    animation.timeScale(2).reverse();
-  });
-}
+      // Position the circle instantly before playing forward
+      circle.style.top = `${e.clientY - dimensions.top}px`;
+      circle.style.left = `${e.clientX - dimensions.left}px`;
 
+      animation.play();
+    });
+
+    btnCta.addEventListener("mouseleave", () => {
+      animation.timeScale(2).reverse();
+    });
+  }
 </script>

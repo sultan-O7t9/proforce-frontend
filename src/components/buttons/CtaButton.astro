@@ -1,18 +1,32 @@
 ---
-import { twMerge } from 'tailwind-merge'
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   label: string;
   href: string;
   className?: string;
-  variant?:'outlined'|'filled';
+  variant?: "outlined" | "filled";
 }
-const {label, href, className, variant='filled'} = Astro.props;
+const { label, href, className, variant = "filled" } = Astro.props;
 ---
- <div class={twMerge("cursor-pointer overflow-hidden text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,2.2vw,1.9rem)]   py-[clamp(0.75rem,1.2vw,1rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta ", variant==='filled'?'bg-pf-yellow backdrop-blur-none text-pf-navy hover:text-pf-yellow':'', className)}>
 
-              <div class={twMerge("hidden md:block rounded-full circle-util aspect-square w-[200%] bg-pf-yellow absolute z-0 top-0 left-0 scale-0 pointer-events-none -translate-3/6 -translate-y-1/2",variant==='filled'?'bg-pf-navy':'')}></div>
-              <a href={href}  class="relative z-10">
-                  {label}
-              </a>
-            </div>
+<div
+  class={twMerge(
+    "cursor-pointer overflow-hidden text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,2.2vw,1.9rem)]   py-[clamp(0.75rem,1.2vw,1rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta ",
+    variant === "filled"
+      ? "bg-pf-yellow backdrop-blur-none text-pf-navy hover:text-pf-yellow"
+      : "",
+    className,
+  )}
+>
+  <div
+    class={twMerge(
+      "hidden md:block rounded-full circle-util aspect-square w-[200%] bg-pf-yellow absolute z-0 top-0 left-0 scale-0 pointer-events-none -translate-3/6 -translate-y-1/2",
+      variant === "filled" ? "bg-pf-navy" : "",
+    )}
+  >
+  </div>
+  <a href={href} class="relative z-10">
+    {label}
+  </a>
+</div>

@@ -1,40 +1,50 @@
 ---
-import MainButton from "@/components/buttons/MainButton.astro"
+import MainButton from "@/components/buttons/MainButton.astro";
 
 interface Props {
   bgUrl: string;
 }
 
 const { bgUrl } = Astro.props;
-
 ---
-<section class="bg-pf-navy h-screen hero-section-container sticky top-0 bg-cover bg-right items-start justify-center flex flex-col px-8 md:px-12 lg:px-[clamp(1rem,6.2vw+1rem,100px)] py-5 md:py-8.75 " style={`background-image: url('${bgUrl}');`}>
-      <div class="max-container w-full flex flex-col gap-12 md:gap-20 ">
-          <h2 class="flex flex-col text-[clamp(1rem,7vw,45px)] font-pf-mera-pro leading-10 lg:leading-20 tracking-[15%] md:tracking-[18%] text-white">
-      <span class="opacity-0 animate-slide-up">
-            PRISTINE.
+
+<section
+  class="bg-pf-navy hero-section-container sticky top-0 flex h-screen flex-col items-start justify-center bg-cover bg-right px-8 py-5 md:px-12 md:py-8.75 lg:px-[clamp(1rem,6.2vw+1rem,100px)]"
+  style={`background-image: url('${bgUrl}');`}
+>
+  <div class="max-container flex w-full flex-col gap-12 md:gap-20">
+    <h2
+      class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white md:tracking-[18%] lg:leading-20"
+    >
+      <span class="animate-slide-up opacity-0"> PRISTINE. </span>
+      <span class="animate-slide-up opacity-0"> INVISIBLE. </span>
+      <span
+        class="animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
+      >
+        INVINCIBLE.
       </span>
-      <span class="opacity-0 animate-slide-up">
-            INVISIBLE.
-      </span>
-      <span class="text-transparent opacity-0 animate-slide-up [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]">
-            INVINCIBLE.
-      </span>
-</h2>
-            <div class="flex justify-start flex-col gap-4 self-start">
-                  <MainButton label="Explore Products" showAero/>
-                  <MainButton label="Find an Installer" showAero href="" className="md:hidden text-pf-yellow border-pf-yellow" aeroClass="fill-pf-yellow" />
-            </div>
-      </div>
+    </h2>
+    <div class="flex flex-col justify-start gap-4 self-start">
+      <MainButton label="Explore Products" showAero />
+      <MainButton
+        label="Find an Installer"
+        showAero
+        href=""
+        className="text-pf-yellow border-pf-yellow md:hidden"
+        aeroClass="fill-pf-yellow"
+      />
+    </div>
+  </div>
 </section>
 
 <script>
-      const header = document.querySelector(".main-header") as (HTMLElement | null)
-      const heroSectionCotnainer = document.querySelector(".hero-section-container") as (HTMLElement | null);
+  const header = document.querySelector(".main-header") as HTMLElement | null;
+  const heroSectionCotnainer = document.querySelector(
+    ".hero-section-container",
+  ) as HTMLElement | null;
 
-      if(header && heroSectionCotnainer) {
-            heroSectionCotnainer.style.paddingTop= header.getBoundingClientRect().height+'px';
-      }
-
-
+  if (header && heroSectionCotnainer) {
+    heroSectionCotnainer.style.paddingTop =
+      header.getBoundingClientRect().height + "px";
+  }
 </script>
