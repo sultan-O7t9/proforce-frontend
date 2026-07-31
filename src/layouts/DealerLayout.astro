@@ -21,8 +21,8 @@ const {title} = Astro.props;
   </Fragment>
 
   <section class="dealer-login-section-container">
-      <div class=" max-container px-8 md:px-16.5 lg:px-[clamp(1rem,6.2vw+1rem,100px)] py-8 md:py-17.5">
-      <div class="bg-pf-gohst-white/50 rounded-lg py-8 md:py-15 px-8 md:px-10 flex flex-col justify-center items-center gap-8.75 md:gap-17.5">
+      <div class=" max-container px-4 sm:px-8 md:px-16.5 lg:px-[clamp(1rem,6.2vw+1rem,100px)] py-8 md:py-17.5">
+      <div class="bg-pf-gohst-white/50 rounded-lg py-8 md:py-15 px-4 s:px-8 md:px-10 flex flex-col justify-center items-center gap-8.75 md:gap-17.5">
             <div class="flex flex-col gap-4 md:gap-6">
                   <h1 class="font-pf-mera-pro tracking-[10%] text-xl md:text-2xl uppercase  text-center">Dealer Portal</h1>
                   <h6 class="font-pf-galano-grotesque font-medium text-sm md:text-base tracking-[1%] text-center">Access your dashboard to manage stock, order products, and scale your business.</h6>
@@ -46,29 +46,11 @@ const {title} = Astro.props;
 <script>
       const header = document.querySelector(".main-header") as (HTMLElement | null)
       const heroSectionCotnainer = document.querySelector(".dealer-login-section-container") as (HTMLElement | null);
-      const passwordToggleButton = document.querySelector(".password-toggle")
+
 
       if(header && heroSectionCotnainer) {
             heroSectionCotnainer.style.paddingTop= header.getBoundingClientRect().height+'px';
       }
-
-      if(passwordToggleButton)
-      passwordToggleButton.addEventListener('click', ()=>{
-
-        const passwordInput = document.getElementById('password') as HTMLInputElement;
-        const eyeOpen = document.getElementById('eye-open');
-        const eyeClosed = document.getElementById('eye-closed');
-
-        if (eyeOpen && eyeClosed && passwordInput && passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            eyeOpen.classList.add('hidden');
-            eyeClosed.classList.remove('hidden');
-        } else {
-            passwordInput.type = 'password';
-            eyeOpen?.classList.remove('hidden');
-            eyeClosed?.classList.add('hidden');
-        }
-    })
 
 
 </script>
