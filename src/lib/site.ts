@@ -1,20 +1,42 @@
-/**
- * Central place for site-wide constants (name, description, nav links,
- * social links, etc.). Import this anywhere instead of hardcoding
- * strings like the site name or nav items in multiple components —
- * one edit here updates every page that references it.
- */
+import IconFacebook from "@/components/icons/IconFacebook.astro";
+import IconInstagram from "@/components/icons/IconInstagram.astro";
+import IconTiktok from "@/components/icons/IconTiktok.astro";
+import IconYoutube from "@/components/icons/IconYoutube.astro";
+
 export const SITE = {
   name: "Proforce Frontend",
   description: "A minimal, best-practice Astro + Tailwind starter project.",
   url: "https://example.com",
 } as const;
 
+export const ROUTES = {
+  HOME: { id: 1, name: "Proforce Home", href: "/" },
+  PRODUCTS: { id: 2, name: "Products", href: "/products" },
+  INSTALLERS: { id: 3, name: "Find Installers", href: "/installers" },
+  PRIVACY: { id: 4, name: "Privacy Policy", href: "/privacy-policy" },
+  TERMS: { id: 5, name: "Terms & Conditions", href: "/terms" },
+  SUPPORT: { id: 6, name: "Warranty & Support", href: "/support" },
+  DEALER: { id: 7, name: "Dealer Portal", href: "/dealer" },
+} as const;
+
 export const NAV_LINKS = [
-  { href: "/products", label: "Products" },
-  { href: "/support", label: "Warranty & Support" },
-  { href: "/dealer", label: "Dealer Portal" },
+  { ...ROUTES.PRODUCTS },
+  { ...ROUTES.SUPPORT },
+  { ...ROUTES.DEALER },
 ] as const;
+
+export const FOOTER_LINKS = [
+  { id: 1, name: "One Film USA", href: "" },
+  { ...ROUTES.PRIVACY },
+  { ...ROUTES.TERMS },
+];
+
+export const SOCIAL_LINKS = [
+  { id: 1, name: "Facebook", icon: IconFacebook, href: "" },
+  { id: 1, name: "Instagram", icon: IconInstagram, href: "" },
+  { id: 1, name: "Youtube", icon: IconYoutube, href: "" },
+  { id: 1, name: "Tiktok", icon: IconTiktok, href: "" },
+];
 
 interface LegalInfoInterface {
   id: number;
@@ -22,6 +44,7 @@ interface LegalInfoInterface {
   description: string;
   bullets?: { id: number; heading: string; description: string }[];
 }
+
 export const PRIVACY_POLICY: LegalInfoInterface[] = [
   {
     id: 1,
@@ -86,6 +109,7 @@ export const PRIVACY_POLICY: LegalInfoInterface[] = [
       "You retain full control over your personal information. You may request to access, update, or delete your data at any time. For any privacy-related questions or requests, please reach out through the contact section on our website.",
   },
 ] as const;
+
 export const TERMS: LegalInfoInterface[] = [
   {
     id: 1,

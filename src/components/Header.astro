@@ -11,6 +11,7 @@
  */
 import { SITE, NAV_LINKS } from '@/lib/site';
 import { twMerge } from 'tailwind-merge';
+import CtaButton from './buttons/CtaButton.astro';
 interface Props {
   theme?:'light'|'dark'
   class?:string
@@ -40,15 +41,12 @@ const proforceLogo= {
         {NAV_LINKS.map((link) => (
           <li>
             <a href={link.href}  class="text-[clamp(0.75rem,1.3vw,0.95rem)]  uppercase tracking-[1%] whitespace-nowrap after:content-[''] after:block after:w-full after:h-0.5 after:bg-pf-yellow after:scale-x-0 after:origin-right after:transition-transform after:duration-300 after:rounded-lg hover:after:origin-left hover:after:scale-x-100 transition-colors duration-300 hover:text-pf-yellow">
-              {link.label}
+              {link.name}
             </a>
           </li>
         ))}
-          <li class={twMerge("cursor-pointer overflow-hidden text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,2.2vw,1.9rem)]   py-[clamp(0.75rem,1.2vw,1rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta ", theme==='dark'?'bg-pf-yellow backdrop-blur-none text-pf-navy hover:text-pf-yellow':'')}>
-            <div class={twMerge("rounded-full circle-util aspect-square w-[200%] bg-pf-yellow absolute z-0 top-0 left-0 scale-0 pointer-events-none -translate-3/6 -translate-y-1/2",theme==='dark'?'bg-pf-navy':'')}></div>
-            <a href={"/installer"}  class="relative z-10">
-                Find Installer
-            </a>
+          <li>
+           <CtaButton label='Find Installer' href='/installer' variant={theme==='dark'?'filled':'outlined'} />
           </li>
       </ul>
     </nav>

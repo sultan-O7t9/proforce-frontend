@@ -24,8 +24,8 @@
   --color-pf-navy: #21314d;
   --color-pf-navy-dark: #0d1833;
   --color-pf-navy-dark-transparent: rgba(13, 24, 51, 0.5);
-  --color-pf-light-navy: oklch(95.083% 0.02332 264.496);
-  --color-pf-gohst-white: oklch(98.156% 0.00872 264.614);
+  --color-pf-light-navy: #e7efff;
+  --color-pf-gohst-white: #f6f9ff;
   --color-pf-white-v2: oklch(97.197% 0.01328 262.46);
 }
 

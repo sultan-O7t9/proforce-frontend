@@ -1,23 +1,9 @@
 ---
 import FooterWatermark from "@/assets/img/footer-watermark.svg"
-import IconFacebook from './icons/IconFacebook.astro';
-import IconInstagram from "./icons/IconInstagram.astro";
-import IconYoutube from "./icons/IconYoutube.astro";
-import IconTiktok from "./icons/IconTiktok.astro";
+import { FOOTER_LINKS, SOCIAL_LINKS } from "@/lib/site"
 
-const footerLinks=[
-  {id:1,label:"One Film USA",href:""},
-  {id:2,label:"Privacy Policy",href:"/privacy-policy"},
-  {id:3,label:"Terms & Conditions",href:"/terms"},
 
-]
 
-const socialLinks=[
-  {id:1,label:"Facebook",icon:IconFacebook,href:""},
-  {id:1,label:"Instagram",icon:IconInstagram,href:""},
-  {id:1,label:"Youtube",icon:IconYoutube,href:""},
-  {id:1,label:"Tiktok",icon:IconTiktok,href:""},
-]
 ---
 
 <footer class="bg-pf-navy-dark w-full flex flex-col relative">
@@ -26,9 +12,9 @@ const socialLinks=[
     <nav class="order-2 md:order-1">
       <ul class="flex flex-col gap-4 items-center md:items-start">
         {
-          footerLinks.map(link=>
+          FOOTER_LINKS.map(link=>
             <li class="text-pf-white-80 tracking-[1%] uppercase text-sm  font-pf-galano-grotesque whitespace-nowrap after:content-[''] after:block after:w-full after:h-0.5 after:bg-pf-yellow after:scale-x-0 after:origin-right after:transition-transform after:duration-300 after:rounded-lg hover:after:origin-left hover:after:scale-x-100 transition-colors duration-300 hover:text-pf-yellow">
-              <a href={link.href} >{link.label}</a>
+              <a href={link.href} >{link.name}</a>
             </li>
           )
         }
@@ -40,9 +26,9 @@ const socialLinks=[
       <nav class="order-3">
       <ul class="flex flex-row gap-4">
         {
-          socialLinks.map(link=>
+          SOCIAL_LINKS.map(link=>
             <li class="text-pf-white-80 tracking-[1%] uppercase text-sm  font-pf-galano-grotesque cursor-pointer ">
-              <a href={link.href} aria-label={link.label} target="_blank" class="h-11.5 w-11.5 flex justify-center items-center rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)]transition-colors duration-300 hover:border-pf-yellow group">
+              <a href={link.href} aria-label={link.name} target="_blank" class="h-11.5 w-11.5 flex justify-center items-center rounded-full bg-[rgba(255,255,255,0.05)] border border-[rgba(255,255,255,0.1)]transition-colors duration-300 hover:border-pf-yellow group">
                 <link.icon/>
               </a>
             </li>
