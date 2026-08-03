@@ -1,5 +1,6 @@
 ---
 import MainButton from "@/components/buttons/MainButton.astro";
+import { ROUTES } from "@/lib/site";
 ---
 
 <section class="benefits-section bg-pf-white-v2 relative z-1 -m-2">
@@ -20,7 +21,7 @@ import MainButton from "@/components/buttons/MainButton.astro";
       <div>
         <MainButton
           label="Become an Installer"
-          href=""
+          href={ROUTES.INSTALLERS.href}
           className="bg-pf-navy hover:bg-pf-light-navy hover:text-pf-navy border-pf-navy px-5 py-3 font-semibold tracking-[1%] transition-colors duration-200 md:px-14 md:py-5"
         />
       </div>

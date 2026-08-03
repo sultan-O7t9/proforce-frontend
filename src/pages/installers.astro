@@ -8,35 +8,226 @@
 import { getImage } from "astro:assets";
 
 import MainLayout from "@/layouts/MainLayout.astro";
-import BenefitsSection from "@/views/home/BenefitsSection.astro";
-import HeroSection from "@/views/home/HeroSection.astro";
-import OnefilmSection from "@/views/home/OnefilmSection.astro";
-import ProductsSection from "@/views/home/ProductsSection.astro";
-import BecomeInstallerSection from "@/views/home/BecomeInstallerSection.astro";
-import MapSection from "@/views/home/MapSection.astro";
 
-import HeroBg from "@/assets/img/home/bg-temp.png";
+import InstallersTempMap from "@/assets/img/installers-temp-map.png";
+import Input from "@/components/forms/Input.astro";
+import IconWhatsApp from "@/components/icons/IconWhatsApp.astro";
+import IconLocation from "@/components/icons/IconLocation.astro";
+import MainButton from "@/components/buttons/MainButton.astro";
+import InstallerCard from "@/components/InstallerCard.astro";
 
 const optimizedBg = await getImage({
-  src: HeroBg,
+  src: InstallersTempMap,
   format: "webp",
-  width: 1366,
+  width: 1266,
 });
+interface Installer {
+  name: string;
+  location: string;
+  phone: string;
+  address: string;
+}
+const nearbyInstallers: Installer[] = [
+  {
+    name: "CARTIST CO.",
+    location: "Islamabad, Pakistan",
+    phone: "+92 300 1234567",
+    address: "Opposite NUST Gate # 02, H-13, Islamabad",
+  },
+  {
+    name: "Finesse Car Care",
+    location: "Islamabad, Pakistan",
+    phone: "+92 300 1234567",
+    address: "Service Road North, Margalla Rd, E-11/4",
+  },
+  {
+    name: "FINISH X",
+    location: "Islamabad, Pakistan",
+    phone: "+92 300 1234567",
+    address: "Finish X, Service Road South, G-12",
+  },
+];
+
+const otherInstallers: Record<string, Installer[]> = {
+  pakistan: [
+    {
+      name: "Luxe auto spa",
+      location: "Lahore, Pakistan",
+      phone: "+92 300 1234567",
+      address: "Service Road, Khuda Buksh Colony",
+    },
+    {
+      name: "Nano Shield",
+      location: "Lahore, Pakistan",
+      phone: "+92 300 1234567",
+      address: "Bedian Rd, Saadat Town, near Jammu Stop",
+    },
+    {
+      name: "Car Wrap",
+      location: "Lahore, Pakistan",
+      phone: "+92 300 1234567",
+      address: "16 Abbott Road, Montgomery Park Royal...",
+    },
+    {
+      name: "Reflection Detailing",
+      location: "Karachi, Pakistan",
+      phone: "+92 300 1234567",
+      address: "Plot# 33-34, Sector 16, Main Korangi Rd...",
+    },
+    {
+      name: "CarProofing Detailing",
+      location: "Karachi, Pakistan",
+      phone: "+92 300 1234567",
+      address: "51-C 15th Commercial St, D.H.A Phase II...",
+    },
+  ],
+  united_states: [
+    {
+      name: "GLOSSWORKS DETAIL LAB",
+      location: "Denver, USA",
+      phone: "+1 123 4567890",
+      address: "789 Elm Avenue, Suite 12, Boulder, CO",
+    },
+    {
+      name: "PRISTINE RIDE STUDIO",
+      location: "Seattle, USA",
+      phone: "+1 123 4567890",
+      address: "456 Oak Drive, Floor 3, Austin, TX 78701",
+    },
+    {
+      name: "LUXEAUTO DETAILERS",
+      location: "Portland, USA",
+      phone: "+1 123 4567890",
+      address: "321 Pine Lane, Unit 5, Portland, OR 97205",
+    },
+    {
+      name: "SHINECRAFT AUTO STUDIO",
+      location: "Austin, USA",
+      phone: "+1 123 4567890",
+      address: "123 Maple Street, Apt 4B, Springfield, IL 62704",
+    },
+    {
+      name: "ELITE FINISH GARAGE",
+      location: "Nashville, USA",
+      phone: "+1 123 4567890",
+      address: "654 Cedar Road, Apartment 9, Madison, WI 53703",
+    },
+  ],
+};
 ---
 
-<MainLayout title="Home" className="relative">
-  <Fragment slot="head">
-    <link
-      rel="preload"
-      as="image"
-      href={optimizedBg.src}
-      fetchpriority="high"
-    />
-  </Fragment>
-  <HeroSection bgUrl={optimizedBg.src} />
-  <OnefilmSection />
-  <ProductsSection />
-  <MapSection />
-  <BenefitsSection />
-  <BecomeInstallerSection />
+<MainLayout
+  title={""}
+  className="relative"
+  headerTheme="light"
+  ctaVariant="filled"
+  headerClass="bg-pf-navy-dark border-transparent"
+>
+  <section class="pb-24">
+    <div
+      data-padding-top={64}
+      class="bg-pf-navy-dark installers-container pb-15"
+    >
+      <div class="max-container flex flex-col items-center px-8 md:px-12.5">
+        <h1
+          class="font-pf-mera-pro mb-6 text-center text-lg tracking-[10%] text-white uppercase md:mb-12.5 md:text-2xl"
+        >
+          Find an Installer
+        </h1>
+        <img
+          src={optimizedBg.src}
+          alt="Installers Map"
+          class="mx-auto h-auto w-full object-cover"
+        />
+        <h4
+          class="font-pf-mera-pro mt-7 mb-4 text-center text-base tracking-[23%] text-white uppercase md:mt-17 md:mb-8 md:text-xl"
+        >
+          Search
+        </h4>
+        <Input
+          placeholder="Search by city or installer name..."
+          name="search"
+          id="search"
+          inputClass="focus:border-white/75 py-4 md:py-6 rounded-xs border-white/50 text-white pr-14"
+          containerClass="w-full max-w-175"
+          postIconClass="pr-5"
+          postIcon={(
+            <svg
+              width="25"
+              height="26"
+              viewBox="0 0 25 26"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g opacity="0.6">
+                <ellipse
+                  cx="11.7673"
+                  cy="11.7677"
+                  rx="11.0173"
+                  ry="11.0177"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M19.4307 20.0029L23.7501 24.3113"
+                  stroke="white"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+            </svg>
+          )}
+        />
+      </div>
+    </div>
+    <div class="max-container flex flex-col gap-3.75">
+      <div
+        class="bg-pf-yellow/10 px-10 pt-10 pb-8 md:px-14 md:pt-18.5 md:pb-15 lg:px-20"
+      >
+        <h3
+          class="font-pf-galano-grotesque text-pf-black mb-6 text-xl font-bold tracking-[2%] uppercase md:mb-12.5 md:text-[40px]"
+        >
+          Nearby <span class="font-medium">Installers</span>
+        </h3>
+        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            nearbyInstallers.map((installer) => (
+              <InstallerCard {...installer} />
+            ))
+          }
+        </ul>
+      </div>
+      {
+        Object.keys(otherInstallers).map((country) => (
+          <div class="bg-pf-gohst-white px-10 pt-10 pb-8 md:px-14 md:pt-18.5 md:pb-15 lg:px-20">
+            <h3 class="font-pf-galano-grotesque text-pf-black mb-6 text-xl font-bold tracking-[2%] uppercase md:mb-12.5 md:text-[40px]">
+              {country.replaceAll("_", " ")}
+            </h3>
+            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {otherInstallers[country].map((installer) => (
+                <InstallerCard {...installer} />
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
 </MainLayout>
+
+<script>
+  const header = document.querySelector(".main-header") as HTMLElement | null;
+  const heroSectionCotnainer = document.querySelector(
+    ".installers-container",
+  ) as HTMLElement | null;
+
+  if (header && heroSectionCotnainer) {
+    heroSectionCotnainer.style.paddingTop =
+      header.getBoundingClientRect().height +
+      (Number(heroSectionCotnainer.dataset.paddingTop) ?? 0) +
+      "px";
+  }
+</script>

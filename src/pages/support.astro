@@ -1,0 +1,325 @@
+---
+import MainButton from "@/components/buttons/MainButton.astro";
+import Checkbox from "@/components/forms/Checkbox.astro";
+import Input from "@/components/forms/Input.astro";
+import RadioGroup from "@/components/forms/RadioGroup.astro";
+import Select from "@/components/forms/Select.astro";
+import MainLayout from "@/layouts/MainLayout.astro";
+import { ROUTES } from "@/lib/site";
+
+import supportLogo from "@/assets/img/support-logo.svg";
+import WarrantyRegistration from "@/views/support/WarrantyRegistration.astro";
+import WarrantyVerification from "@/views/support/WarrantyVerification.astro";
+---
+
+<MainLayout title={"title"} className="relative" headerTheme="dark">
+  <section class="support-container">
+    <div
+      class="max-container flex flex-col gap-12 px-4 py-8 sm:px-8 md:gap-24 md:px-16.5 md:py-17.5 lg:px-[clamp(1rem,6.2vw+1rem,100px)]"
+    >
+      <div>
+        <div class="mb-10 flex flex-col gap-4 md:gap-6">
+          <h1
+            class="font-pf-mera-pro text-center text-xl tracking-[10%] uppercase md:text-2xl"
+          >
+            Warranty
+          </h1>
+          <h6
+            class="font-pf-galano-grotesque text-center text-sm font-medium tracking-[1%] md:text-base"
+          >
+            Access your dashboard to manage stock, order products, and scale
+            your business.
+          </h6>
+        </div>
+        <!--  -->
+        <div
+          class="tab-buttons-container border-pf-navy/20 mx-auto mb-8 max-w-92.5 rounded-full border p-1.25 md:mb-12.5"
+        >
+          <div class="relative flex">
+            <div
+              class="tab-indicator bg-pf-navy absolute top-0 bottom-0 left-0 z-0 h-full rounded-full transition-all duration-300 ease-out"
+            >
+            </div>
+
+            <button
+              class="tab-btn relative z-10 h-11 w-full flex-1 cursor-pointer rounded-full px-3 text-sm font-semibold text-white transition-colors duration-300 md:h-13.5 md:px-6 md:text-base"
+              data-index="0"
+              data-tab="tab-registration"
+              data-index="0"
+            >
+              Registration
+            </button>
+            <button
+              class="tab-btn text-pf-navy/80 relative z-10 h-11 w-full flex-1 cursor-pointer rounded-full px-3 text-sm font-semibold transition-colors duration-300 md:h-13.5 md:px-6 md:text-base"
+              data-tab="tab-verification"
+              data-index="1"
+            >
+              Verification
+            </button>
+          </div>
+        </div>
+
+        <WarrantyRegistration />
+        <WarrantyVerification />
+      </div>
+      <div>
+        <div class="mb-10 flex flex-col gap-4 md:gap-6">
+          <h1
+            class="font-pf-mera-pro text-center text-xl tracking-[10%] uppercase md:text-2xl"
+          >
+            Support
+          </h1>
+          <h6
+            class="font-pf-galano-grotesque text-center text-sm font-medium tracking-[1%] md:text-base"
+          >
+            Verify the authenticity of Proforce product to ensure warranty
+            coverage.
+          </h6>
+        </div>
+
+        <div
+          class="bg-pf-gohst-white/50 flex flex-col items-center justify-between gap-6 rounded-lg px-4 py-8 sm:px-8 md:flex-row md:px-10 md:py-18.5 lg:px-15"
+        >
+          <form
+            class="font-pf-galano-grotesque flex w-full max-w-120 flex-1 flex-col gap-6 md:gap-10"
+          >
+            <h3
+              class="font-pf-galano-grotesque mb-3 text-2xl font-bold tracking-[2%] capitalize"
+            >
+              Product Verification
+            </h3>
+            <Input
+              label="Product Roll ID"
+              placeholder="Enter ID mentioned on PFF Roll"
+              id="product-roll-id"
+              name="product-roll-id"
+              containerClass="mb-2"
+            />
+            <MainButton
+              label="Verify"
+              href=""
+              className="bg-pf-navy hover:text-pf-navy border-pf-navy flex justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:max-w-62.5 md:px-4 md:py-4 md:text-sm"
+            />
+            <p class="text-pf-black/70">
+              Need any help? <a
+                class="text-pf-navy hover:text-pf-yellow cursor-pointer font-bold"
+                >Contact Us</a
+              >
+            </p>
+          </form>
+          <div class="h-full flex-1">
+            <img
+              src={supportLogo.src}
+              class="ml-auto h-full w-auto object-contain"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+<!--
+<script>
+  import { gsap } from "../lib/gsap";
+
+  const header = document.querySelector(".main-header") as HTMLElement | null;
+  const heroSectionCotnainer = document.querySelector(
+    ".support-container",
+  ) as HTMLElement | null;
+
+  if (header && heroSectionCotnainer) {
+    heroSectionCotnainer.style.paddingTop =
+      header.getBoundingClientRect().height + "px";
+  }
+
+  const container = document.querySelector(".tab-buttons-container");
+
+  let currentTabIndex = 0;
+
+  if (container) {
+    const indicator = container.querySelector(".tab-indicator");
+    const buttons = container.querySelectorAll(".tab-btn");
+
+    function updateIndicator(activeBtn: HTMLButtonElement, animate = true) {
+      const targetWidth = activeBtn.offsetWidth;
+      const targetX = activeBtn.offsetLeft;
+
+      if (animate) {
+        gsap.to(indicator, {
+          width: targetWidth,
+          x: targetX,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      } else {
+        gsap.set(indicator, {
+          width: targetWidth,
+          x: targetX,
+        });
+      }
+    }
+
+    // Initialize position instantly on load (no animation)
+    const initialActive = container.querySelector(
+      '.tab-btn[data-index="0"]',
+    ) as HTMLButtonElement | null;
+    if (initialActive) {
+      updateIndicator(initialActive, false);
+    }
+
+    // Handle click events
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        // Update text colors
+        buttons.forEach((b) => {
+          b.classList.remove("text-white");
+          b.classList.add("text-gray-65");
+        });
+        btn.classList.remove("text-gray-65");
+        btn.classList.add("text-white");
+
+        // Animate pill to new position
+        updateIndicator(btn as HTMLButtonElement, true);
+      });
+    });
+
+    // Recalculate instantly on window resize to prevent layout lag
+    window.addEventListener("resize", () => {
+      const currentActive = container.querySelector(
+        ".tab-btn.text-white",
+      ) as HTMLButtonElement | null;
+      if (currentActive) {
+        updateIndicator(currentActive, false);
+      }
+    });
+  }
+</script> -->
+<script>
+  import { gsap } from "../lib/gsap";
+  import { $activeTab, setActiveTab } from "@/views/support/stores/tabsStore";
+
+  // Header and container padding calculation
+  const header = document.querySelector(".main-header") as HTMLElement | null;
+  const heroSectionCotnainer = document.querySelector(
+    ".support-container",
+  ) as HTMLElement | null;
+
+  if (header && heroSectionCotnainer) {
+    heroSectionCotnainer.style.paddingTop =
+      header.getBoundingClientRect().height + "px";
+  }
+
+  const container = document.querySelector(".tab-buttons-container");
+
+  if (container) {
+    const indicator = container.querySelector(".tab-indicator");
+    const buttons = container.querySelectorAll(".tab-btn");
+    const panels = document.querySelectorAll(".tab-panel");
+    console.log(panels);
+
+    function updateIndicator(activeBtn: HTMLButtonElement, animate = true) {
+      const targetWidth = activeBtn.offsetWidth;
+      const targetX = activeBtn.offsetLeft;
+
+      if (animate) {
+        gsap.to(indicator, {
+          width: targetWidth,
+          x: targetX,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      } else {
+        gsap.set(indicator, {
+          width: targetWidth,
+          x: targetX,
+        });
+      }
+    }
+
+    // Function to switch content panels with a smooth GSAP fade
+    function switchPanel(targetTabId: string) {
+      panels.forEach((panel) => {
+        const el = panel as HTMLElement;
+        if (panel.id === targetTabId) {
+          el.style.display = "block";
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 10 },
+            { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" },
+          );
+        } else {
+          gsap.to(el, {
+            opacity: 0,
+            y: -10,
+            duration: 0.2,
+            ease: "power2.in",
+            onComplete: () => {
+              el.style.display = "none";
+            },
+          });
+        }
+      });
+    }
+
+    // Subscribe to Nano Store changes (reactive state management)
+    $activeTab.subscribe((currentTab) => {
+      buttons.forEach((b) => {
+        const btn = b as HTMLButtonElement;
+        const btnTab = btn.getAttribute("data-tab");
+
+        if (btnTab === currentTab) {
+          btn.classList.remove("text-gray-65");
+          btn.classList.add("text-white");
+          updateIndicator(btn, true);
+        } else {
+          btn.classList.remove("text-white");
+          btn.classList.add("text-gray-65");
+        }
+      });
+
+      switchPanel(currentTab);
+    });
+
+    // Handle click events -> triggers store update
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetTab = btn.getAttribute("data-tab") as
+          "tab-registration" | "tab-verification";
+        if (targetTab) {
+          setActiveTab(targetTab); // Updates store, which triggers subscription above
+        }
+      });
+    });
+
+    // Initialize initial state matching store default instantly
+    const initialTab = $activeTab.get();
+    const initialBtn = container.querySelector(
+      `.tab-btn[data-tab="${initialTab}"]`,
+    ) as HTMLButtonElement | null;
+
+    if (initialBtn) {
+      updateIndicator(initialBtn, false);
+    }
+
+    panels.forEach((panel) => {
+      const el = panel as HTMLElement;
+      if (panel.id === initialTab) {
+        el.style.display = "block";
+        el.style.opacity = "1";
+      } else {
+        el.style.display = "none";
+        el.style.opacity = "0";
+      }
+    });
+
+    // Recalculate indicator on window resize
+    window.addEventListener("resize", () => {
+      const currentActive = container.querySelector(
+        ".tab-btn.text-white",
+      ) as HTMLButtonElement | null;
+      if (currentActive) {
+        updateIndicator(currentActive, false);
+      }
+    });
+  }
+</script>

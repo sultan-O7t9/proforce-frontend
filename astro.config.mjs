@@ -1,10 +1,12 @@
 import { defineConfig, fontProviders } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath } from "node:url";
+import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
   output: "static",
+  integrations: [svelte()],
   vite: {
     plugins: [tailwindcss()],
     resolve: {

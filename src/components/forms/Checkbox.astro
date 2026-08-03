@@ -1,0 +1,81 @@
+---
+import { twMerge } from "tailwind-merge";
+
+interface Props {
+  id?: string;
+  name?: string;
+  value?: string;
+  label?: string;
+  checked?: boolean;
+  labelElement?: astroHTML.JSX.Element;
+  containerClass?: string;
+}
+
+const {
+  id = "vehicle3",
+  name = "vehicle3",
+  value = "Boat",
+  label,
+  checked = true,
+  labelElement,
+  containerClass = "",
+} = Astro.props;
+---
+
+<label
+  class={twMerge(
+    "group flex w-fit cursor-pointer items-center gap-4",
+    containerClass,
+  )}
+>
+  <input
+    type="checkbox"
+    id={id}
+    name={name}
+    value={value}
+    checked={checked}
+    class="peer checkbox-input sr-only"
+  />
+
+  <div
+    class="border-pf-navy/30 peer-checked:bg-pf-navy peer-checked:border-pf-navy relative m-0 flex h-6 w-6 items-center justify-center rounded-md border bg-transparent outline-0 transition-all"
+  >
+    {
+      checked ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          fill="none"
+          stroke={"white"}
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      ) : null
+    }
+  </div>
+
+  <span class="text-pf-black/70 text-sm font-medium select-none"
+    >{label ? label : labelElement}</span
+  >
+</label>
+
+<script>
+  const checkboxes =
+    document.querySelectorAll<HTMLInputElement>(".checkbox-input");
+
+  checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", (e) => {
+      const target = e.target as HTMLInputElement;
+      console.log({
+        name: target.name,
+        value: target.value,
+        checked: target.checked,
+      });
+    });
+  });
+</script>

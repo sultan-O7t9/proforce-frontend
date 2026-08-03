@@ -1,4 +1,9 @@
 ---
+import IconResistance from "@/assets/img/icon-resistance.svg";
+import IconProtection from "@/assets/img/icon-protection.svg";
+import IconHydrophobic from "@/assets/img/icon-hydrophobic.svg";
+import IconHealing from "@/assets/img/icon-healing.svg";
+
 const products = [
   {
     id: 1,
@@ -7,36 +12,36 @@ const products = [
     warranty: "6 years",
     image: "/images/products/product-phantom.png",
     features: [
-      { id: 1, title: "Impact Resistance", description: "Defends against rock chips, bug acids, and road debris." },
-      { id: 2, title: "UV Protection", description: "Prevents fading and yellowing from harsh sunlight exposure." },
-      { id: 3, title: "HYDROPHOBIC", description: "Advanced top coat repels water and makes cleaning effortless." },
-      { id: 4, title: "SELF-HEALING", description: "Minor scratches and swirl marks vanish with heat application." },
+      { id: 1, title: "IMPACT RESISTANCE", description: "Defends against rock chips, bug acids, and road debris.", icon: IconResistance },
+      { id: 2, title: "UV PROTECTION", description: "Prevents fading and yellowing from harsh sunlight exposure.", icon: IconProtection },
+      { id: 3, title: "HYDROPHOBIC", description: "Advanced top coat repels water and makes cleaning effortless.", icon: IconHydrophobic },
+      { id: 4, title: "SELF-HEALING", description: "Minor scratches and swirl marks vanish with heat application.", icon: IconHealing },
     ]
   },
   {
     id: 2,
     title: "Proforce Phantom+",
-    thickness: "8.5 mil",
-    warranty: "10 years",
-        image: "/images/products/product-phantom+.png",
+    thickness: "8 mil",
+    warranty: "6 years",
+    image: "/images/products/product-phantom+.png",
     features: [
-      { id: 1, title: "Impact Resistance", description: "Maximum defense against stone chips." },
-      { id: 2, title: "UV Protection", description: "Advanced optical grade stabilizer." },
-      { id: 3, title: "HYDROPHOBIC", description: "Extreme contact angle water shedding." },
-      { id: 4, title: "SELF-HEALING", description: "Thermal activated scratch recovery." },
+      { id: 1, title: "UPGRADED IMPACT SHIELD", description: "Thicker 8-mil barrier stops severe rock chips and aggressive road debris.", icon: IconResistance },
+      { id: 2, title: "ADVANCED UV BARRIER", description: "Fortified shield prevents fading and yellowing from intense solar exposure.", icon: IconProtection },
+      { id: 3, title: "ENHANCED HYDROPHOBICS", description: "Upgraded top coat actively repels water, making daily washing effortless.", icon: IconHydrophobic },
+      { id: 4, title: "ACTIVE SELF-HEALING", description: "Scratches and swirl marks vanish rapidly with standard heat application.", icon: IconHealing },
     ]
   },
   {
     id: 3,
     title: "Proforce Apex",
-    thickness: "10 mil",
-    warranty: "Lifetime",
-      image: "/images/products/product-apex.png",
+    thickness: "8 mil",
+    warranty: "10 years",
+    image: "/images/products/product-apex.png",
     features: [
-      { id: 1, title: "Impact Resistance", description: "Military-grade ballistic protection." },
-      { id: 2, title: "UV Protection", description: "Absolute block against sun damage." },
-      { id: 3, title: "HYDROPHOBIC", description: "Superior slickness coating technology." },
-      { id: 4, title: "SELF-HEALING", description: "Instant molecular structural repair." },
+      { id: 1, title: "ELITE IMPACT ARMOR", description: "Maximum 8-mil protection against severe impacts, bug acids, and harsh hazards.", icon: IconResistance },
+      { id: 2, title: "ULTIMATE GLOSS", description: "Enhances your factory paint with a dazzling, flawless mirror-like finish.", icon: IconProtection },
+      { id: 3, title: "EVOCOAT™ SELF-CLEANING", description: "Extreme hydrophobic technology which instantly repels water, dirt, and chemical contaminants.", icon: IconHydrophobic },
+      { id: 4, title: "RAPID SELF-HEALING", description: "Advanced polymer structure erases surface scratches instantly with minimal active heat.", icon: IconHealing },
     ]
   },
 ];
@@ -88,6 +93,7 @@ const products = [
                   <div class="flex flex-col justify-between order-2 md:order-1 text-left gap-4">
                     {product.features.slice(0, 2).map((feature) => (
                       <div class="feature-item">
+                        <feature.icon class="ml-0.5 mb-5"/>
                         <h3 class="slide-feature-title text-pf-navy font-bold text-base md:text-lg mb-1 font-pf-galano-grotesque">{feature.title}</h3>
                         <p class="slide-feature-desc text-pf-navy opacity-70 text-xs md:text-[13px] leading-5 tracking-normal font-pf-galano-grotesque">{feature.description}</p>
                       </div>
@@ -108,6 +114,8 @@ const products = [
                  <div class="flex flex-col justify-between order-3 text-left gap-4">
                     {product.features.slice(0, 2).map((feature) => (
                       <div class="feature-item">
+                        <feature.icon class="ml-0.5 mb-5"/>
+
                         <h3 class="slide-feature-title text-pf-navy font-bold text-base md:text-lg mb-1 font-pf-galano-grotesque">{feature.title}</h3>
                         <p class="slide-feature-desc text-pf-navy opacity-70 text-xs md:text-[13px] leading-5 tracking-normal font-pf-galano-grotesque">{feature.description}</p>
                       </div>

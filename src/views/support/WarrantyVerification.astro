@@ -1,0 +1,97 @@
+---
+import AlertMessage from "@/components/AlertMessage.astro";
+import MainButton from "@/components/buttons/MainButton.astro";
+import Checkbox from "@/components/forms/Checkbox.astro";
+import Input from "@/components/forms/Input.astro";
+import RadioGroup from "@/components/forms/RadioGroup.astro";
+import Select from "@/components/forms/Select.astro";
+import { ROUTES } from "@/lib/site";
+
+const countryOptions = [
+  { label: "United States", value: "us" },
+  { label: "Canada", value: "ca" },
+  { label: "United Kingdom", value: "uk" },
+];
+
+const result=true;
+---
+
+<div
+  id="tab-verification"
+  style="display: none; opacity: 0;"
+  class="tab-panel bg-pf-gohst-white/50 rounded-lg px-4 py-8 sm:px-8 md:px-10 md:py-18.5 lg:px-15"
+>
+  {!result?<h3
+    class="font-pf-galano-grotesque mb-8 md:mb-15 text-xl md:text-2xl font-bold tracking-[2%] capitalize"
+  >
+    Verify Warranty
+  </h3>
+  <form class="font-pf-galano-grotesque mt-10">
+    <div class="flex flex-col gap-0 md:gap-6 lg:flex-row lg:gap-15">
+      <div class="mb-7.5 flex flex-1 flex-col gap-6">
+        <Input
+          label="Product Roll ID"
+          placeholder="Enter ID mentioned on PFF Roll"
+          id="product-roll-id"
+          name="product-roll-id"
+        />
+      </div>
+      <div class="flex flex-1 flex-col gap-6">
+        <Input
+          label="Warranty Number"
+          placeholder="Warranty Number"
+          id="warranty-number"
+          name="warranty-number"
+        />
+      </div>
+    </div>
+    <MainButton
+      label="Verify"
+      href=""
+      className="bg-pf-navy hover:text-pf-navy border-pf-navy mt-5 flex md:max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm mb-8 md:mb-15"
+    />
+  </form>:
+  <AlertMessage title="Warranty Verified" type="success">
+    <Fragment slot={"action"}>
+  <div class="border-y border-y-pf-navy/20 w-full ">
+    <div class="font-pf-galano-grotesque text-sm md:text-lg font-medium text-pf-black/60 py-12.5 px-0 md:px-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 mx-auto">
+
+        <h6>Product</h6>
+        <p class="font-semibold text-pf-black">Proforce Phantom +</p>
+        <h6>Warranty Number</h6>
+        <p class="font-semibold text-pf-black">PF-345-379</p>
+
+        <h6>Installer</h6>
+        <p class="font-semibold text-pf-black">AMMO NYC</p>
+        <h6>Car Brand</h6>
+        <p class="font-semibold text-pf-black">Land Rover</p>
+
+        <h6>Date of Application</h6>
+        <p class="font-semibold text-pf-black">30/04/2026</p>
+        <h6>Car Model</h6>
+        <p class="font-semibold text-pf-black">Range Rover Sport</p>
+
+        <h6>Valid Until</h6>
+        <p class="font-semibold text-pf-black">30/04/2032</p>
+        <h6>Chasis Number</h6>
+        <p class="font-semibold text-pf-black">4NUDS13S352703901</p>
+
+
+    </div>
+  </div>
+  <div class="flex gap-4 sm:gap-7 flex-col sm:flex-row mt-10 justify-center items-center mx-auto w-full">
+  <MainButton
+      label="Download Certificate"
+      href=""
+      className="bg-pf-navy hover:text-pf-navy border-pf-navy flex md:max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-xs"
+      />
+  <MainButton
+      label="Email Certificate"
+      href=""
+      className="bg-transparent text-pf-navy hover:text-white border-pf-navy flex md:max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-xs"
+      />
+  </div>
+    </Fragment>
+  </AlertMessage>
+  }
+</div>

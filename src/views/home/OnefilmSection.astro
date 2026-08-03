@@ -5,7 +5,7 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
 
 <section class="onefilm-promo-container relative z-1 bg-white pt-10 md:pt-2">
   <div
-    class="max-container flex h-full min-h-screen w-full flex-col items-center justify-center gap-14 bg-[url('/images/onefilm-bg.svg')] bg-contain bg-center bg-no-repeat"
+    class="max-container flex h-full w-full flex-col items-center justify-center gap-14 bg-[url('/images/onefilm-bg.svg')] bg-contain bg-center bg-no-repeat md:min-h-screen"
   >
     <h4
       class="font-pf-mera-pro text-pf-navy px-8 text-center text-xs leading-6 tracking-[25%] md:text-sm"
@@ -13,7 +13,7 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
       ENGINEERED BY ONEFILM USA
     </h4>
     <h5
-      class="font-pf-galano-grotesque onefilm-headline text-pf-navy max-w-208 px-2 text-center text-xl leading-10 uppercase md:text-[40px] md:leading-16"
+      class="font-pf-galano-grotesque onefilm-headline text-pf-navy flex max-w-208 flex-wrap justify-center gap-2 px-2 text-center text-xl leading-10 uppercase md:text-[40px] md:leading-16"
     >
       <span>WE</span>
       <span>ENGINEER</span>
@@ -32,9 +32,9 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
       <span>YET</span>
       <span class="font-heavy">invincible.</span>
     </h5>
-    <div class="flex justify-center">
+    <div class="flex justify-center pb-20 md:pb-4">
       <MainButton
-        className="border-pf-navy hover:bg-pf-navy group flex justify-center border bg-transparent px-16 py-4.5 backdrop-blur-none transition-all duration-300 hover:text-white"
+        className="border-pf-navy hover:bg-pf-navy group flex justify-center border bg-transparent px-16 py-4.5 backdrop-blur-none transition-all duration-300 hover:text-white md:min-w-75"
         href="/products"
       >
         <img
@@ -50,26 +50,27 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
 
 <script>
   import { gsap } from "@/lib/gsap";
+  if (window.innerWidth >= 760) {
+    const spans = document.querySelectorAll(".onefilm-headline > span");
 
-  const spans = document.querySelectorAll(".onefilm-headline > span");
+    const spanTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".onefilm-promo-container",
+        start: "top top",
+        end: "+=600", // Controls duration of pinning & text reveal
+        pin: true,
+        pinSpacing: true, // Forces layout below to stay down until timeline completes
+        scrub: true,
+        invalidateOnRefresh: true,
+        markers: false,
+      },
+    });
 
-  const spanTl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".onefilm-promo-container",
-      start: "top top",
-      end: "+=600", // Controls duration of pinning & text reveal
-      pin: true,
-      pinSpacing: true, // Forces layout below to stay down until timeline completes
-      scrub: true,
-      invalidateOnRefresh: true,
-      markers: false,
-    },
-  });
-
-  // Sequentially collapses the background box height of each span block
-  spanTl.to(spans, {
-    "--after-height": "0px",
-    ease: "power2.out",
-    stagger: 0.3,
-  });
+    // Sequentially collapses the background box height of each span block
+    spanTl.to(spans, {
+      "--after-height": "0px",
+      ease: "power2.out",
+      stagger: 0.3,
+    });
+  }
 </script>

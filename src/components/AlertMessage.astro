@@ -1,0 +1,28 @@
+---
+import SuccessIcon from "@/assets/img/success-icon.svg";
+import ErrorIcon from "@/assets/img/error-icon.svg";
+
+interface Props {
+  type: "success" | "error";
+  title: string;
+  message?: string;
+}
+const { type, message, title } = Astro.props;
+const icons = {
+  success: SuccessIcon.src,
+  error: ErrorIcon.src,
+};
+---
+
+<div class="flex flex-col items-center gap-7">
+  <img src={icons[type]} />
+  <h4
+    class="font-pf-mera-pro text-pf-navy mt-2 text-center text-xl tracking-[10%] uppercase"
+  >
+    {title}
+  </h4>
+  <h6 class="font-pf-galano-grotesque text-pf-black/70 text-center font-medium">
+    {message}
+  </h6>
+  <slot name="action" />
+</div>

@@ -132,21 +132,22 @@ html {
     --after-height: 50px;
   }
 }
-
-.onefilm-headline > span::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: var(--after-height);
-  border-radius: 8px;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  background: hsl(218, 40%, 95%);
+@media (width >= 48rem /* 768px */) {
+  .onefilm-headline > span::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: var(--after-height);
+    border-radius: 8px;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: hsl(218, 40%, 95%);
+  }
 }
 
 .products-section {
-  margin-top: -5.5rem;
+  margin-top: -5rem;
   clip-path: polygon(100% 5%, 100% 100%, 0% 100%, 0% 0%);
 }
 @media (width >= 48rem /* 768px */) {

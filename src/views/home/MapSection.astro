@@ -1,6 +1,7 @@
 ---
 import MapImage from "@/assets/img/home/map.svg";
 import MainButton from "@/components/buttons/MainButton.astro";
+import { ROUTES } from "@/lib/site";
 ---
 
 <section class="bg-pf-navy-gradient relative z-1 -m-2">
@@ -50,7 +51,7 @@ import MainButton from "@/components/buttons/MainButton.astro";
       <MainButton
         label="Find your nearest Installer"
         showAero
-        href=""
+        href={ROUTES.INSTALLERS.href}
         className="text-pf-yellow border-pf-yellow mx-auto"
         aeroClass="fill-pf-yellow"
       />

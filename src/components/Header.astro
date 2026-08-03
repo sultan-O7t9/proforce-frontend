@@ -7,8 +7,9 @@ import MobileNav from "./MobileNav.astro";
 interface Props {
   theme?: "light" | "dark";
   class?: string;
+  ctaVariant?: "outlined" | "filled";
 }
-const { theme = "light" } = Astro.props;
+const { theme = "light", ctaVariant } = Astro.props;
 const proforceLogo = {
   light: "/images/icons/proforce-logo-white-1.svg",
   dark: "/images/icons/proforce-logo-dark-1.svg",
@@ -20,6 +21,7 @@ const proforceLogo = {
   class={twMerge(
     "main-header fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 md:pt-8.75 md:pb-5 ",
     theme === "dark" ? "border border-pf-navy/20 bg-white" : "",
+    Astro.props.class,
   )}
 >
   <div class="max-container flex items-center justify-between">
@@ -58,8 +60,12 @@ const proforceLogo = {
         <li>
           <CtaButton
             label="Find Installer"
-            href="/installer"
-            variant={theme === "dark" ? "filled" : "outlined"}
+            href={ROUTES.INSTALLERS.href}
+            variant={ctaVariant
+              ? ctaVariant
+              : theme === "dark"
+                ? "filled"
+                : "outlined"}
           />
         </li>
       </ul>

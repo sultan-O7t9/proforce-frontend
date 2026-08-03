@@ -1,0 +1,55 @@
+---
+import { twMerge } from "tailwind-merge";
+
+const options = [
+  { name: "Proforce Phantom", sku: "PFP7-60-50" },
+  { name: "Proforce Phantom +", sku: "PFP8-60-50" },
+  { name: "Proforce Apex", sku: "PFA8-60-50" },
+];
+
+const {containerClass = ""} = Astro.props;
+
+---
+
+<div class={twMerge("flex flex-row flex-wrap gap-5 md:gap-8 items-center",containerClass)}>
+  {
+    options.map((option, index) => (
+      <label class="flex items-center gap-5 cursor-pointer group">
+        <input
+          type="radio"
+          name="product_model"
+          value={option.sku}
+          checked={index === 0}
+          class="peer sr-only"
+        />
+        <!-- Custom Radio Circle matching the screenshot -->
+        <div class="w-5 h-5 rounded-full border border-pf-navy flex items-center justify-center peer-checked:border-pf-navy peer-checked:bg-[radial-gradient(circle,#21314d_30%,transparent_40%)]"></div>
+
+        <div class="flex flex-col gap-1">
+          <span class="text-sm sm:text-base font-semibold text-pf-black group-hover:text-pf-navy">
+            {option.name}
+          </span>
+          <span class="text-sm text-pf-black opacity-60 uppercase font-medium group-hover:text-pf-navy">
+            {option.sku}
+          </span>
+        </div>
+      </label>
+    ))
+  }
+</div>
+
+<script>
+  const radioInputs = document.querySelectorAll<HTMLInputElement>('input[name="product_model"]');
+
+  radioInputs.forEach((input) => {
+    input.addEventListener("change", (e) => {
+      const target = e.target as HTMLInputElement;
+      if (target.checked) {
+        console.log({
+          sku: target.value,
+          name: target.closest("label")?.querySelector("span")?.textContent?.trim()
+        });
+      }
+    });
+  });
+</script>

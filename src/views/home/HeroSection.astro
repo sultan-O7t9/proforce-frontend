@@ -1,5 +1,6 @@
 ---
 import MainButton from "@/components/buttons/MainButton.astro";
+import { ROUTES } from "@/lib/site";
 
 interface Props {
   bgUrl: string;
@@ -29,7 +30,7 @@ const { bgUrl } = Astro.props;
       <MainButton
         label="Find an Installer"
         showAero
-        href=""
+        href={ROUTES.INSTALLERS.href}
         className="text-pf-yellow border-pf-yellow md:hidden"
         aeroClass="fill-pf-yellow"
       />

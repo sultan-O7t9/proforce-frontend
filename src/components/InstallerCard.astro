@@ -1,0 +1,58 @@
+---
+import MainButton from "./buttons/MainButton.astro";
+import IconLocation from "./icons/IconLocation.astro";
+import IconWhatsApp from "./icons/IconWhatsApp.astro";
+
+interface Props {
+  name: string;
+  location: string;
+  phone: string;
+  address: string;
+}
+const { name, location, phone, address } = Astro.props;
+---
+
+<li
+  class="font-pf-galano-grotesque rounded-lg bg-white px-4 pt-6 pb-6 shadow-[0px_2px_40px_rgba(0,0,0,0.06)] md:max-w-96.25 md:px-5 md:pt-8"
+>
+  <div class="px-3">
+    <h4
+      class="text-pf-navy mb-2 text-lg font-bold tracking-[2%] uppercase md:mb-3 md:text-xl"
+    >
+      {name}
+    </h4>
+    <p
+      class="text-pf-navy/70 mb-8 text-xs font-medium tracking-[1%] md:text-sm"
+    >
+      {location}
+    </p>
+    <address
+      class="text-pf-navy mb-8 flex flex-col gap-4.5 text-sm font-medium tracking-[1%] not-italic"
+    >
+      <a class="flex items-center gap-1.25" href="#">
+        <>
+          <IconWhatsApp />
+          <span>{phone}</span>
+        </>
+      </a>
+      <a class="flex items-center gap-1.25" href="#">
+        <>
+          <IconLocation />
+          <span class="line-clamp-1">{address}</span>
+        </>
+      </a>
+    </address>
+  </div>
+  <div class="flex flex-col gap-4.25 sm:flex-row">
+    <MainButton
+      label="Directions"
+      href=""
+      className="text-pf-navy border-pf-navy flex w-full justify-center rounded-xs bg-transparent px-5 py-3 text-sm font-medium tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white sm:max-h-11 sm:w-4/5 sm:max-w-62.5 md:px-4 md:py-3 md:text-xs md:text-[13px]"
+    />
+    <MainButton
+      label="Get Quote"
+      href=""
+      className="bg-pf-navy hover:text-pf-navy border-pf-navy flex w-full justify-center rounded-xs px-5 py-3 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:max-h-11 sm:w-4/5 sm:max-w-62.5 md:px-4 md:py-3 md:text-xs md:text-[13px]"
+    />
+  </div>
+</li>
