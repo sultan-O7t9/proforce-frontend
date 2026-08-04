@@ -1,0 +1,147 @@
+---
+export function getStaticPaths() {
+  return [
+    { params: { slug: "proforce-phantom", id: "1", name: "Proforce Phantom" } },
+  ];
+}
+
+import { getImage } from "astro:assets";
+
+import MainLayout from "@/layouts/MainLayout.astro";
+
+import HeroBg from "@/assets/img/phantom.png";
+import JetSvg from "@/assets/img/jet.svg";
+import TempProductBg from "@/assets/img/temp-product-bg.png";
+import MainButton from "@/components/buttons/MainButton.astro";
+
+const optimizedBg = await getImage({
+  src: HeroBg,
+  format: "webp",
+  width: 1366,
+});
+---
+
+<MainLayout title="Home" className="relative">
+  <Fragment slot="head">
+    <link
+      rel="preload"
+      as="image"
+      href={optimizedBg.src}
+      fetchpriority="high"
+    />
+  </Fragment>
+  <section
+    class={"bg-pf-navy hero-section-container sticky top-0 flex min-h-[85vh] flex-col items-start justify-center bg-cover bg-right px-8 py-5 md:px-12 lg:px-[clamp(1rem,6.2vw+1rem,100px)]"}
+    style={`background-image: url('${optimizedBg.src}');`}
+  >
+    <div class="max-container flex w-full flex-col gap-12 md:gap-16">
+      <h2
+        class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white uppercase md:tracking-[18%] lg:leading-20"
+      >
+        <span class="animate-slide-up opacity-0"> Proforce </span>
+        <span
+          class="animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
+        >
+          Phantom
+        </span>
+      </h2>
+      <h4
+        class="font-pf-galano-grotesque text-[30px] tracking-[20%] text-white uppercase"
+      >
+        PFP7-60-50
+      </h4>
+    </div>
+  </section>
+  <section class="bg-pf-gohst-white relative z-1 px-8 py-20 text-center">
+    <h3
+      class="font-pf-mera-pro text-pf-navy-dark m-12 mx-auto text-sm tracking-[25%] uppercase"
+    >
+      Proforce Phantom
+    </h3>
+    <p
+      class="font-pf-galano-grotesque text-pf-navy-dark mx-auto max-w-218.5 text-2xl leading-11"
+    >
+      Designed for the daily driver who refuses to compromise on aesthetics.
+      Proforce Phantom delivers an invisible, resilient shield against road
+      debris, rock chips, and harsh elements, all while maintaining absolute
+      clarity.
+    </p>
+    <div class="bg-pf-gohst-white absolute left-0 h-62.75 w-full"></div>
+  </section>
+  <section class="relative z-1 -m-1">
+    <!-- <img style={`background-image: url('${WarrantyBg.src}');`} class="w-full" /> -->
+    <!-- <WarrantyBg class="max-h-125.5 w-full" /> -->
+    <div class="relative">
+      <div class="absolute bottom-0 left-0 h-62.75 w-full bg-white"></div>
+      <div
+        class="bg-pf-navy-dark relative flex h-[65vh] max-h-125.5 w-full items-center justify-center [clip-path:polygon(0_0,100%_22%,100%_78%,0%_100%)]"
+      >
+        <JetSvg class="absolute top-0 left-0" />
+        <h3
+          class="font-pf-mera-pro relative text-[80px] tracking-[12%] text-[#4D5A71]"
+        >
+          <span
+            class="font-pf-galano-grotesque relative text-[88px] font-extrabold text-white/5 uppercase"
+            ><span
+              class="absolute -left-0.5 w-full text-transparent [-webkit-text-stroke:2px_white]"
+              >6 years</span
+            >6 years</span
+          >{" "}<span
+            ><span
+              class="absolute top-0.5 -right-0.5 text-transparent opacity-50 [-webkit-text-stroke:1px_#4D5A71]"
+              >Warranty</span
+            >Warranty</span
+          >
+        </h3>
+      </div>
+    </div>
+    <div class="relative z-1 bg-white px-25">
+      <!-- <div class="relative z-1 -mt-10 px-25"> -->
+
+      <div
+        class="max-container relative flex items-end justify-between gap-4 py-25"
+      >
+        <div>
+          <h6
+            class="font-pf-mera-pro text-pf-navy mb-5 text-sm tracking-[25%] uppercase opacity-50"
+          >
+            The Technology
+          </h6>
+          <h5
+            class="font-pf-galano-grotesque text-pf-navy mb-7 text-[50px] font-bold uppercase"
+          >
+            hyper-flex TECH
+          </h5>
+          <p
+            class="font-pf-galano-grotesque text-pf-navy-dark mb-13 max-w-165.75 text-xl leading-9 opacity-80"
+          >
+            Our proprietary hyper-flex technology ensures the film contours
+            smoothly around the most aggressive curves without any risk of glue
+            shifting or top-coat distortion.
+          </p>
+          <MainButton
+            label="Download Specs"
+            href=""
+            className="text-pf-navy-dark border-pf-navy-dark hover:bg-pf-navy hover:border-pf-navy flex justify-center rounded-sm border bg-transparent px-5 py-3.5 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:text-white sm:w-4/5 md:max-w-62.5 md:px-4 md:py-4 md:text-base"
+          />
+        </div>
+        <div
+          class="absolute right-0 h-154.5 w-86.75 overflow-hidden rounded-xl bg-red-500"
+        >
+          <img src={TempProductBg.src} class="h-full object-cover" />
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+<script>
+  const header = document.querySelector(".main-header") as HTMLElement | null;
+  const heroSectionCotnainer = document.querySelector(
+    ".hero-section-container",
+  ) as HTMLElement | null;
+
+  if (header && heroSectionCotnainer) {
+    heroSectionCotnainer.style.paddingTop =
+      header.getBoundingClientRect().height + "px";
+  }
+</script>
