@@ -139,33 +139,6 @@ const products = [
     boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
   });
 
-  // 2. Button Hover Effect
-  const btnCta = document.querySelector(".btn-cta") as HTMLElement | null;
-  const circle = btnCta?.querySelector(".circle-util") as HTMLElement | null;
-
-  if (btnCta && circle) {
-    const animation = gsap.to(circle, {
-      scale: 2,
-      duration: 0.5,
-      ease: "power1.inOut",
-      paused: true, // Keep it paused initially
-    });
-
-    btnCta?.addEventListener("mouseenter", (e: MouseEvent) => {
-      const dimensions = btnCta.getBoundingClientRect();
-
-      // Position the circle instantly before playing forward
-      circle.style.top = `${e.clientY - dimensions.top}px`;
-      circle.style.left = `${e.clientX - dimensions.left}px`;
-
-      animation.play();
-    });
-
-    btnCta.addEventListener("mouseleave", () => {
-      animation.timeScale(2).reverse();
-    });
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".products-dropdown-container");
     const trigger = container?.querySelector(".products-trigger");
