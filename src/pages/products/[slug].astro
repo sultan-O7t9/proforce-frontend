@@ -235,7 +235,7 @@ const subName = titleParts.slice(1).join(" ");
       >
         <JetSvg class="absolute top-0 left-0 h-full" />
         <h3
-          class="font-pf-mera-pro relative flex flex-col items-center gap-1 text-4xl tracking-[12%] whitespace-break-spaces text-[#4D5A71] md:block md:text-[80px]"
+          class="font-pf-mera-pro relative flex flex-col items-center gap-1 text-center text-4xl tracking-[12%] whitespace-break-spaces text-[#4D5A71] md:block md:text-[80px]"
         >
           <span
             class="font-pf-galano-grotesque relative font-extrabold text-white/5 uppercase md:text-[88px]"
@@ -255,7 +255,7 @@ const subName = titleParts.slice(1).join(" ");
 
     <div class="relative z-1 bg-white px-8 md:px-25">
       <div
-        class="max-container relative flex flex-col items-end justify-between gap-4 py-8 md:flex-row md:py-25"
+        class="max-container relative flex flex-col items-end justify-between gap-4 py-8 md:flex-row lg:py-25"
       >
         <div class="order-2 mt-4 text-center md:mt-0 md:text-left">
           <h6
@@ -276,15 +276,15 @@ const subName = titleParts.slice(1).join(" ");
           <MainButton
             label="Download Specs"
             href=""
-            className="text-pf-navy-dark border-pf-navy-dark hover:bg-pf-navy hover:border-pf-navy flex justify-center rounded-sm border bg-transparent px-5 py-3.5 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:text-white sm:w-4/5 md:max-w-62.5 md:px-4 md:py-4 md:text-base"
+            className="text-pf-navy-dark border-pf-navy-dark hover:bg-pf-navy hover:border-pf-navy mx-auto flex justify-center rounded-sm border bg-transparent px-5 py-3.5 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:text-white sm:w-4/5 md:mx-0 md:max-w-62.5 md:px-4 md:py-4 md:text-base"
           />
         </div>
         <div
-          class="relative right-0 order-1 h-auto w-full overflow-hidden rounded-xl bg-red-500 md:absolute md:order-3 md:h-154.5 md:w-86.75"
+          class="relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-red-500 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
         >
           <img
             src={TempProductBg.src}
-            class="h-full object-cover"
+            class="h-full w-full object-cover"
             alt="Technology background"
           />
         </div>
@@ -330,12 +330,12 @@ const subName = titleParts.slice(1).join(" ");
           <img
             src={product.image}
             alt={product.title}
-            class="slide-image order-1 aspect-520/242 w-full max-w-[520px] scale-100 object-contain filter-none transition-all duration-700 ease-out md:order-2"
+            class="slide-image order-1 aspect-520/242 w-full max-w-[520px] scale-100 object-contain filter-none transition-all duration-700 ease-out md:order-2 md:w-auto"
           />
 
           <!-- Right Features (2 items) -->
           <div
-            class="order-2 flex flex-col justify-between gap-8 text-left md:order-1 md:gap-4"
+            class="order-2 flex flex-col justify-between gap-8 text-left md:order-3 md:gap-4"
           >
             {
               product.features.slice(2, 4).map((feature) => (
@@ -379,13 +379,15 @@ const subName = titleParts.slice(1).join(" ");
             <MainButton
               label="View Nearby Installers"
               href={ROUTES.INSTALLERS.href}
-              className="text-pf-navy flex max-w-75 justify-center border-white bg-white px-6 py-4.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:px-11 md:py-4.5 md:text-sm"
+              className="text-pf-navy mx-auto flex max-w-75 justify-center border-white bg-white px-6 py-4.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:mx-0 md:py-4.5 md:text-sm lg:px-11"
             />
           </div>
-          <div class="flex-1">
+          <div
+            class="flex min-w-[50%] flex-1 justify-center md:justify-end lg:min-w-auto"
+          >
             <img
               src={MapImage.src}
-              class="ml-auto max-h-70.75 object-contain"
+              class="max-h-70.75 object-contain"
               alt="Proforce Installer Locations Map - Worldwide"
             />
           </div>
