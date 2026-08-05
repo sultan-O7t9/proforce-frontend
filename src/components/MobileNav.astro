@@ -9,13 +9,19 @@ const navToggleStyles = twMerge(
   "rounded-2xl bg-pf-yellow border-2 border-pf-yellow",
   theme === "dark" ? "border-pf-navy bg-pf-navy" : "",
 );
+
+const products = [
+  { name: "Proforce Phantom", slug: "proforce-phantom" },
+  { name: "Proforce Phantom+", slug: "proforce-phantom-plus" },
+  { name: "Proforce Apex", slug: "proforce-apex" },
+];
 ---
 
 <nav class="md:hidden">
   <button
     aria-label="Toggle menu"
     class={twMerge(
-      "header-menu-toggle flex flex-col justify-center items-center gap-1.25 h-12 w-12  bg-pf-navy/10 border border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
+      "header-menu-toggle flex flex-col justify-center items-center gap-1.25 h-12 w-12 bg-pf-navy/10 border border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
       theme === "dark" ? "bg-transparent border-transparent" : "",
     )}
   >
@@ -47,10 +53,10 @@ const navToggleStyles = twMerge(
 
   <!-- Backdrop -->
   <div
-    class="backdrop bg-pf-yellow pointer-events-none fixed top-0 left-0 h-screen w-screen translate-x-full px-8 py-5 md:px-10 md:pt-8.75 md:pb-5 lg:px-[clamp(1rem,4vw+1rem,70px)]"
+    class="backdrop bg-pf-yellow pointer-events-none fixed top-0 left-0 z-50 h-screen w-screen translate-x-full px-8 py-5 md:px-10 md:pt-8.75 md:pb-5 lg:px-[clamp(1rem,4vw+1rem,70px)]"
   >
     <div
-      class="backdrop-2 bg-pf-navy absolute top-0 left-0 flex h-full w-full translate-x-[120%] flex-col px-10 pt-10"
+      class="backdrop-2 from-pf-navy to-pf-navy-dark bg-pf-navy absolute top-0 left-0 flex h-full w-full translate-x-[120%] flex-col bg-linear-to-r px-10 pt-10"
     >
       <div class="mb-8 flex items-center justify-between">
         <a
@@ -68,7 +74,7 @@ const navToggleStyles = twMerge(
         <button
           aria-label="Menu Close Button"
           class={twMerge(
-            "menu-close-btn flex flex-col justify-center items-center gap-1.25 h-12 w-12  bg-pf-navy/10 border-white border group hover:border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
+            "menu-close-btn flex flex-col justify-center items-center gap-1.25 h-12 w-12 bg-pf-navy/10 border-white border group hover:border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
           )}
         >
           <svg
@@ -85,10 +91,59 @@ const navToggleStyles = twMerge(
           </svg>
         </button>
       </div>
-      <nav class="flex flex-1 flex-col">
-        <ul
-          class="flex h-full flex-1 flex-col items-center justify-center gap-8"
-        >
+
+      <nav class="flex flex-1 flex-col overflow-y-auto">
+        <ul class="flex flex-col items-center justify-center gap-8 py-4">
+          <!-- Products Accordion Item -->
+          <li class="relative flex w-full flex-col items-center text-center">
+            <button
+              type="button"
+              class="mobile-products-trigger font-pf-mera-pro after:bg-pf-yellow hover:text-pf-yellow relative inline-flex cursor-pointer items-center gap-2 text-[clamp(10px,3vw+6px,14px)] font-semibold tracking-[15%] text-white uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100"
+            >
+              {ROUTES.PRODUCTS.name}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2.5"
+                stroke="currentColor"
+                class="accordion-arrow hover:text-pf-yellow absolute -right-4 h-4 w-4 shrink-0 text-white transition-colors"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+              </svg>
+            </button>
+
+            <!-- Accordion Submenu -->
+            <div
+              class="mobile-products-accordion flex max-h-0 w-full max-w-[220px] flex-col items-center overflow-hidden"
+            >
+              <div class="flex w-full flex-col items-center gap-4 pt-4">
+                {
+                  products.map((product) => (
+                    <a
+                      href={ROUTES.PRODUCTS(product.slug, product.name).href}
+                      class="hover:text-pf-yellow text-xs font-normal tracking-[1%] whitespace-nowrap text-white transition-colors"
+                    >
+                      {product.name.split(" ")[0]}{" "}
+                      <span
+                        class={
+                          product.name.split(" ")[1].toLowerCase() === "apex"
+                            ? "font-pf-mera-pro uppercase"
+                            : ""
+                        }
+                      >
+                        {product.name.split(" ")[1]}
+                      </span>
+                    </a>
+                  ))
+                }
+              </div>
+            </div>
+          </li>
+
           {
             NAV_LINKS.map((link) => (
               <li class="text-center">
@@ -101,7 +156,7 @@ const navToggleStyles = twMerge(
               </li>
             ))
           }
-          <li class="font-pf-galano-grotesqu">
+          <li class="font-pf-galano-grotesque">
             <CtaButton
               label="Find Installer"
               href={ROUTES.INSTALLERS.href}
@@ -111,6 +166,7 @@ const navToggleStyles = twMerge(
           </li>
         </ul>
       </nav>
+
       <div class="m-0 h-[0.6px] w-full bg-white p-0 opacity-40"></div>
       <div
         class="max-container relative z-1 flex items-center justify-between py-8 text-white"
@@ -131,20 +187,66 @@ const navToggleStyles = twMerge(
 </nav>
 
 <script>
-  import { gsap } from "@/lib/gsap";
+  import { gsap } from "../lib/gsap";
+
   const menuToggle = document.querySelector(".header-menu-toggle");
-  console.log(menuToggle);
-  const menuCloseBtn = document.querySelector(".menu-close-btn"); // Add a class or selector
+  const menuCloseBtn = document.querySelector(".menu-close-btn");
+
+  const productsTrigger = document.querySelector(
+    ".mobile-products-trigger",
+  ) as HTMLButtonElement;
+  const productsAccordion = document.querySelector(
+    ".mobile-products-accordion",
+  );
+  const accordionArrow = document.querySelector(".accordion-arrow");
+
+  let isAccordionOpen = false;
+
+  productsTrigger?.addEventListener("click", () => {
+    isAccordionOpen = !isAccordionOpen;
+
+    if (isAccordionOpen) {
+      // Rotate Arrow & Expand Accordion
+      gsap.to(accordionArrow, {
+        rotate: 180,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+      gsap.to(productsAccordion, {
+        maxHeight: "166px",
+        duration: 0.3,
+        ease: "power2.out",
+        onComplete: () => {
+          // Enable overflow-y-auto only AFTER animation completes to avoid mid-transition scrollbars
+          if (productsAccordion) {
+            (productsAccordion as HTMLElement).style.overflowY = "auto";
+          }
+        },
+      });
+    } else {
+      // Hide scrollbar immediately on collapse so it doesn't flicker while reversing
+      if (productsAccordion) {
+        (productsAccordion as HTMLElement).style.overflowY = "hidden";
+      }
+      gsap.to(accordionArrow, { rotate: 0, duration: 0.3, ease: "power2.in" });
+      gsap.to(productsAccordion, {
+        maxHeight: 0,
+        duration: 0.3,
+        ease: "power2.in",
+      });
+    }
+  });
 
   menuToggle?.addEventListener("click", () => {
-    // Play menu open animation
-
-    // Disable background scrolling
     document.body.style.overflow = "hidden";
 
-    // Optional: Fade in your backdrop with GSAP
     gsap
-      .timeline()
+      .timeline({
+        onComplete: () => {
+          productsTrigger?.click();
+          // Put your code here
+        },
+      })
       .to(".backdrop", {
         x: 0,
         pointerEvents: "auto",
@@ -156,17 +258,21 @@ const navToggleStyles = twMerge(
           x: 0,
           pointerEvents: "auto",
           duration: 1,
-          ease: "power4.out", // Correct syntax for parameter-based bounce
+          ease: "power4.out",
         },
         "<0.25",
       );
   });
 
   menuCloseBtn?.addEventListener("click", () => {
-    // Re-enable background scrolling
     document.body.style.overflow = "";
 
-    // Fade out backdrop
+    if (isAccordionOpen) {
+      isAccordionOpen = false;
+      gsap.set(productsAccordion, { maxHeight: 0, overflowY: "hidden" });
+      gsap.set(accordionArrow, { rotate: 0 });
+    }
+
     gsap
       .timeline()
       .to(".backdrop-2", { x: "120%", pointerEvents: "none", duration: 0.5 })

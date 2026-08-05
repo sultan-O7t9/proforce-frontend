@@ -1,187 +1,70 @@
 ---
+export function getStaticPaths() {
+  return [
+    { params: { slug: "proforce-phantom", id: "1", name: "Proforce Phantom" } },
+  ];
+}
 import MapImage from "@/assets/img/home/map.svg";
+
 import { getImage } from "astro:assets";
+
 import MainLayout from "@/layouts/MainLayout.astro";
-import PhantomBg from "@/assets/img/phantom-bg.png";
-import PhantomPlusBg from "@/assets/img/phantom-plus-bg.png";
-import ApexBg from "@/assets/img/apex-bg.png";
+
+import HeroBg from "@/assets/img/phantom.png";
 import JetSvg from "@/assets/img/jet.svg";
 import TempProductBg from "@/assets/img/temp-product-bg.png";
 import MainButton from "@/components/buttons/MainButton.astro";
+
+const optimizedBg = await getImage({
+  src: HeroBg,
+  format: "webp",
+  width: 1366,
+});
 
 import IconResistance from "@/assets/img/icon-resistance.svg";
 import IconProtection from "@/assets/img/icon-protection.svg";
 import IconHydrophobic from "@/assets/img/icon-hydrophobic.svg";
 import IconHealing from "@/assets/img/icon-healing.svg";
-import { ROUTES } from "@/lib/site";
 
-export function getStaticPaths() {
-  const products = [
+const product = {
+  id: 1,
+  title: "Proforce Phantom",
+  thickness: "7 mil",
+  warranty: "6 years",
+  image: "/images/products/product-phantom-plus.png",
+  features: [
     {
       id: 1,
-      background: PhantomBg,
-      title: "Proforce Phantom",
-      slug: "proforce-phantom",
-      thickness: "7 mil",
-      warranty: "6 years",
-      technology: {
-        heading: "hyper-flex TECH",
-        description:
-          "Our proprietary hyper-flex technology ensures the film contours smoothly around the most aggressive curves without any risk of glue shifting or top-coat distortion.",
-      },
-      image: "/images/products/product-phantom-plus.png",
-      sku: "PFP7-60-50",
-      description:
-        "Designed for the daily driver who refuses to compromise on aesthetics. Proforce Phantom delivers an invisible, resilient shield against road debris, rock chips, and harsh elements, all while maintaining absolute clarity.",
-      features: [
-        {
-          id: 1,
-          title: "IMPACT RESISTANCE",
-          description:
-            "Defends against rock chips, bug acids, and road debris.",
-          icon: IconResistance,
-        },
-        {
-          id: 2,
-          title: "UV PROTECTION",
-          description:
-            "Prevents fading and yellowing from harsh sunlight exposure.",
-          icon: IconProtection,
-        },
-        {
-          id: 3,
-          title: "HYDROPHOBIC",
-          description:
-            "Advanced top coat repels water and makes cleaning effortless.",
-          icon: IconHydrophobic,
-        },
-        {
-          id: 4,
-          title: "SELF-HEALING",
-          description:
-            "Minor scratches and swirl marks vanish with heat application.",
-          icon: IconHealing,
-        },
-      ],
+      title: "IMPACT RESISTANCE",
+      description: "Defends against rock chips, bug acids, and road debris.",
+      icon: IconResistance,
     },
     {
       id: 2,
-      background: PhantomPlusBg,
-      title: "Proforce Phantom+",
-      slug: "proforce-phantom-plus",
-      thickness: "8 mil",
-      warranty: "6 years",
-      technology: {
-        heading: "hyper-flex TECH",
-        description:
-          "Our proprietary hyper-flex technology ensures the film contours smoothly around the most aggressive curves without any risk of glue shifting or top-coat distortion.",
-      },
-      image: "/images/products/product-phantom-plus.png",
-      sku: "PFP8-60-50",
+      title: "UV PROTECTION",
       description:
-        "For environments demanding a heavier shield. Proforce Phantom+ utilizes a thicker 8-mil construction for superior impact resistance, ensuring maximum protection without losing effortless workability.",
-      features: [
-        {
-          id: 1,
-          title: "UPGRADED IMPACT SHIELD",
-          description:
-            "Thicker 8-mil barrier stops severe rock chips and aggressive road debris.",
-          icon: IconResistance,
-        },
-        {
-          id: 2,
-          title: "ADVANCED UV BARRIER",
-          description:
-            "Fortified shield prevents fading and yellowing from intense solar exposure.",
-          icon: IconProtection,
-        },
-        {
-          id: 3,
-          title: "ENHANCED HYDROPHOBICS",
-          description:
-            "Upgraded top coat actively repels water, making daily washing effortless.",
-          icon: IconHydrophobic,
-        },
-        {
-          id: 4,
-          title: "ACTIVE SELF-HEALING",
-          description:
-            "Scratches and swirl marks vanish rapidly with standard heat application.",
-          icon: IconHealing,
-        },
-      ],
+        "Prevents fading and yellowing from harsh sunlight exposure.",
+      icon: IconProtection,
     },
     {
       id: 3,
-      background: ApexBg,
-      title: "Proforce Apex",
-      productColor: "primary",
-      slug: "proforce-apex",
-      thickness: "8 mil",
-      warranty: "10 years",
-      image: "/images/products/product-apex.png",
-      sku: "PFA8-60-50",
-      technology: {
-        heading: "EVOCOAT TECHNOLOGY™",
-        description:
-          "Unleash brilliance with our Evocoat-enhanced PPF. This proprietary nano-ceramic topcoat boosts gloss to a dazzling, mirror-like finish while defending against UV damage.",
-      },
+      title: "HYDROPHOBIC",
       description:
-        "Meet our flagship film. Engineered for the perfectionist, Proforce Apex combines elite durability with unmatched optical clarity and deep gloss. It doesn't just protect your vehicle—it elevates it, delivering a flawless, show-car finish.",
-      features: [
-        {
-          id: 1,
-          title: "ELITE IMPACT ARMOR",
-          description:
-            "Maximum 8-mil protection against severe impacts, bug acids, and harsh hazards.",
-          icon: IconResistance,
-        },
-        {
-          id: 2,
-          title: "ULTIMATE GLOSS",
-          description:
-            "Enhances your factory paint with a dazzling, flawless mirror-like finish.",
-          icon: IconProtection,
-        },
-        {
-          id: 3,
-          title: "EVOCOAT™ SELF-CLEANING",
-          description:
-            "Extreme hydrophobic technology which instantly repels water, dirt, and chemical contaminants.",
-          icon: IconHydrophobic,
-        },
-        {
-          id: 4,
-          title: "RAPID SELF-HEALING",
-          description:
-            "Advanced polymer structure erases surface scratches instantly with minimal active heat.",
-          icon: IconHealing,
-        },
-      ],
+        "Advanced top coat repels water and makes cleaning effortless.",
+      icon: IconHydrophobic,
     },
-  ];
-
-  return products.map((product) => ({
-    params: { slug: product.slug },
-    props: { product },
-  }));
-}
-
-const { product } = Astro.props;
-
-const optimizedBg = await getImage({
-  src: product.background,
-  format: "webp",
-  width: 1366,
-});
-
-// Split product title into main name and subtitle/variant for the hero layout
-const titleParts = product.title.split(" ");
-const brandName = titleParts[0];
-const subName = titleParts.slice(1).join(" ");
+    {
+      id: 4,
+      title: "SELF-HEALING",
+      description:
+        "Minor scratches and swirl marks vanish with heat application.",
+      icon: IconHealing,
+    },
+  ],
+};
 ---
 
-<MainLayout title={product.title} className="relative">
+<MainLayout title="Home" className="relative">
   <Fragment slot="head">
     <link
       rel="preload"
@@ -198,17 +81,17 @@ const subName = titleParts.slice(1).join(" ");
       <h2
         class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white uppercase md:tracking-[18%] lg:leading-20"
       >
-        <span class="animate-slide-up opacity-0"> {brandName} </span>
+        <span class="animate-slide-up opacity-0"> Proforce </span>
         <span
           class="animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
         >
-          {subName}
+          Phantom
         </span>
       </h2>
       <h4
         class="font-pf-galano-grotesque text-[30px] tracking-[20%] text-white uppercase"
       >
-        {product.sku}
+        PFP7-60-50
       </h4>
     </div>
   </section>
@@ -218,15 +101,21 @@ const subName = titleParts.slice(1).join(" ");
     <h3
       class="font-pf-mera-pro text-pf-navy-dark mx-auto mb-5 text-xs tracking-[25%] uppercase md:mb-12 md:text-sm"
     >
-      {product.title}
+      Proforce Phantom
     </h3>
     <p
       class="font-pf-galano-grotesque text-pf-navy-dark mx-auto max-w-218.5 text-base leading-8 sm:text-2xl md:leading-11"
     >
-      {product.description}
+      Designed for the daily driver who refuses to compromise on aesthetics.
+      Proforce Phantom delivers an invisible, resilient shield against road
+      debris, rock chips, and harsh elements, all while maintaining absolute
+      clarity.
     </p>
+    <!-- <div class="bg-pf-gohst-white absolute left-0 h-62.75 w-full"></div> -->
   </section>
   <section class="relative z-1 -m-1">
+    <!-- <img style={`background-image: url('${WarrantyBg.src}');`} class="w-full" /> -->
+    <!-- <WarrantyBg class="max-h-125.5 w-full" /> -->
     <div class="relative">
       <div class="absolute -bottom-px left-0 h-1/2 w-full bg-white"></div>
       <div class="bg-pf-gohst-white absolute -top-px left-0 h-1/2 w-full"></div>
@@ -241,8 +130,8 @@ const subName = titleParts.slice(1).join(" ");
             class="font-pf-galano-grotesque relative font-extrabold text-white/5 uppercase md:text-[88px]"
             ><span
               class="absolute -left-0.5 w-full text-transparent [-webkit-text-stroke:2px_white]"
-              >{product.warranty}</span
-            >{product.warranty}</span
+              >6 years</span
+            >6 years</span
           >{" "}<span class="relative"
             ><span
               class="absolute -right-0.5 text-transparent opacity-50 [-webkit-text-stroke:1px_#4D5A71]"
@@ -254,6 +143,8 @@ const subName = titleParts.slice(1).join(" ");
     </div>
 
     <div class="relative z-1 bg-white px-8 md:px-25">
+      <!-- <div class="relative z-1 -mt-10 px-25"> -->
+
       <div
         class="max-container relative flex flex-col items-end justify-between gap-4 py-8 md:flex-row md:py-25"
       >
@@ -266,12 +157,14 @@ const subName = titleParts.slice(1).join(" ");
           <h5
             class="font-pf-galano-grotesque text-pf-navy mb-4 text-3xl font-bold uppercase md:mb-7 md:text-[50px]"
           >
-            {product.technology.heading}
+            hyper-flex TECH
           </h5>
           <p
             class="font-pf-galano-grotesque text-pf-navy-dark mb-7 max-w-165.75 text-base leading-9 opacity-80 md:mb-13 md:text-xl"
           >
-            {product.technology.description}
+            Our proprietary hyper-flex technology ensures the film contours
+            smoothly around the most aggressive curves without any risk of glue
+            shifting or top-coat distortion.
           </p>
           <MainButton
             label="Download Specs"
@@ -282,11 +175,7 @@ const subName = titleParts.slice(1).join(" ");
         <div
           class="relative right-0 order-1 h-auto w-full overflow-hidden rounded-xl bg-red-500 md:absolute md:order-3 md:h-154.5 md:w-86.75"
         >
-          <img
-            src={TempProductBg.src}
-            class="h-full object-cover"
-            alt="Technology background"
-          />
+          <img src={TempProductBg.src} class="h-full object-cover" />
         </div>
       </div>
     </div>
@@ -327,13 +216,17 @@ const subName = titleParts.slice(1).join(" ");
           </div>
 
           <!-- Center Image with Blur Transition -->
+          {
+            /* <div class="slide-image-wrapper flex flex-col items-center justify-center relative w-full order-1 md:order-2 "> */
+          }
           <img
             src={product.image}
             alt={product.title}
-            class="slide-image order-1 aspect-520/242 w-full max-w-[520px] scale-100 object-contain filter-none transition-all duration-700 ease-out md:order-2"
+            class={`slide-image order-1 md:order-2 object-contain aspect-520/242 max-w-[520px] transition-all duration-700 w-full ease-out ${0 === 0 ? "filter-none scale-100" : "blur-xl scale-110 object-center"}`}
           />
 
-          <!-- Right Features (2 items) -->
+          {/* </div> */}
+
           <div
             class="order-2 flex flex-col justify-between gap-8 text-left md:order-1 md:gap-4"
           >
@@ -351,6 +244,23 @@ const subName = titleParts.slice(1).join(" ");
               ))
             }
           </div>
+          <!-- Right Features (2 items) -->
+          <!-- <div class="order-3 flex flex-col justify-between gap-4 text-left">
+            {
+              product.features.slice(2, 4).map((feature) => (
+                <div class="feature-item">
+                  <feature.icon class="mb-5 ml-0.5" />
+
+                  <h3 class="slide-feature-title text-pf-navy font-pf-galano-grotesque mb-1 text-base font-bold md:text-lg">
+                    {feature.title}
+                  </h3>
+                  <p class="slide-feature-desc text-pf-navy font-pf-galano-grotesque text-xs leading-5 tracking-normal opacity-70 md:text-[13px]">
+                    {feature.description}
+                  </p>
+                </div>
+              ))
+            }
+          </div> -->
         </div>
       </div>
     </div>
@@ -378,7 +288,7 @@ const subName = titleParts.slice(1).join(" ");
             </p>
             <MainButton
               label="View Nearby Installers"
-              href={ROUTES.INSTALLERS.href}
+              href=""
               className="text-pf-navy flex max-w-75 justify-center border-white bg-white px-6 py-4.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:px-11 md:py-4.5 md:text-sm"
             />
           </div>
@@ -394,7 +304,6 @@ const subName = titleParts.slice(1).join(" ");
     </div>
   </section>
 </MainLayout>
-
 <script>
   const header = document.querySelector(".main-header") as HTMLElement | null;
   const heroSectionCotnainer = document.querySelector(

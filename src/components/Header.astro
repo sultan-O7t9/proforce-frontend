@@ -14,6 +14,12 @@ const proforceLogo = {
   light: "/images/icons/proforce-logo-white-1.svg",
   dark: "/images/icons/proforce-logo-dark-1.svg",
 };
+
+const products = [
+  { name: "Proforce Phantom", slug: "proforce-phantom" },
+  { name: "Proforce Phantom+", slug: "proforce-phantom-plus" },
+  { name: "Proforce Apex", slug: "proforce-apex" },
+];
 ---
 
 <header
@@ -45,6 +51,40 @@ const proforceLogo = {
           theme === "dark" ? "text-pf-navy/80" : "",
         )}
       >
+        <!-- Products Dropdown Nav Item -->
+        <li class="products-dropdown-container relative">
+          <p
+            class="products-trigger after:bg-pf-yellow hover:text-pf-yellow cursor-pointer text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100"
+          >
+            {ROUTES.PRODUCTS.name}
+          </p>
+
+          <!-- Dropdown Menu -->
+          <div
+            class="products-menu pointer-events-none invisible absolute top-full left-0 z-50 mt-2 flex h-41.5 max-h-41.5 w-50 max-w-50 flex-col justify-around rounded-2xl bg-[#1b2a4a] p-4 opacity-0 shadow-xl after:absolute after:-top-2 after:left-0 after:h-2 after:w-full after:content-['']"
+          >
+            {
+              products.map((product) => (
+                <a
+                  href={ROUTES.PRODUCTS(product.slug, product.name).href}
+                  class="hover:text-pf-yellow text-sm font-normal tracking-[1%] whitespace-nowrap text-white transition-colors"
+                >
+                  {product.name.split(" ")[0]}{" "}
+                  <span
+                    class={
+                      product.name.split(" ")[1].toLowerCase() === "apex"
+                        ? "font-pf-mera-pro uppercase"
+                        : ""
+                    }
+                  >
+                    {product.name.split(" ")[1]}
+                  </span>
+                </a>
+              ))
+            }
+          </div>
+        </li>
+
         {
           NAV_LINKS.map((link) => (
             <li>
@@ -125,4 +165,68 @@ const proforceLogo = {
       animation.timeScale(2).reverse();
     });
   }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".products-dropdown-container");
+    const trigger = container?.querySelector(".products-trigger");
+    const menu = container?.querySelector(".products-menu");
+
+    if (!container || !trigger || !menu) return;
+
+    let isOpen = false;
+    let tl = gsap.timeline({ paused: true });
+
+    tl.fromTo(
+      menu,
+      { opacity: 0, y: 8, visibility: "hidden" },
+      {
+        opacity: 1,
+        y: 0,
+        visibility: "visible",
+        duration: 0.2,
+        ease: "power2.out",
+      },
+    );
+
+    // Toggle on Click / Touch
+    trigger.addEventListener("click", (e) => {
+      e.stopPropagation();
+      isOpen = !isOpen;
+      if (isOpen) {
+        menu.classList.remove("pointer-events-none");
+        tl.play();
+      } else {
+        tl.reverse().then(() => {
+          menu.classList.add("pointer-events-none");
+        });
+      }
+    });
+
+    // Open on Hover (Desktop)
+    container.addEventListener("mouseenter", () => {
+      if (!isOpen) {
+        menu.classList.remove("pointer-events-none");
+        tl.play();
+      }
+    });
+
+    // Close on Mouse Leave (Desktop)
+    container.addEventListener("mouseleave", () => {
+      if (!isOpen) {
+        tl.reverse().then(() => {
+          menu.classList.add("pointer-events-none");
+        });
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!container.contains(e.target as Node) && isOpen) {
+        isOpen = false;
+        tl.reverse().then(() => {
+          menu.classList.add("pointer-events-none");
+        });
+      }
+    });
+  });
 </script>

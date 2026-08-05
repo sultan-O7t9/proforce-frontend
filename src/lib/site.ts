@@ -14,21 +14,24 @@ export const BREAKPOINTS = {
 } as const;
 
 export const ROUTES = {
-  HOME: { id: 1, name: "Proforce Home", href: "/" },
-  PRODUCTS: { id: 2, name: "Products", href: "/products" },
-  INSTALLERS: { id: 3, name: "Find Installers", href: "/installers" },
-  PRIVACY: { id: 4, name: "Privacy Policy", href: "/privacy-policy" },
-  TERMS: { id: 5, name: "Terms & Conditions", href: "/terms" },
-  SUPPORT: { id: 6, name: "Warranty & Support", href: "/support" },
-  DEALER_LOGIN: { id: 7, name: "Dealer Portal", href: "/dealer/login" },
+  HOME: { id: "1", name: "Proforce Home", href: "/" },
+  PRODUCTS: (productSlug: string, productName: string) => ({
+    id: "2" + productSlug,
+    name: productName,
+    href: "/products/" + productSlug,
+  }),
+  INSTALLERS: { id: "3", name: "Find Installers", href: "/installers" },
+  PRIVACY: { id: "4", name: "Privacy Policy", href: "/privacy-policy" },
+  TERMS: { id: "5", name: "Terms & Conditions", href: "/terms" },
+  SUPPORT: { id: "6", name: "Warranty & Support", href: "/support" },
+  DEALER_LOGIN: { id: "7", name: "Dealer Portal", href: "/dealer/login" },
   DEALER_FORGOT_PASSWORD: {
-    id: 8,
+    id: "8",
     name: "Dealer Portal Login - Forgot Password?",
     href: "/dealer/forgot-password",
   },
 } as const;
 export const NAV_LINKS = [
-  { ...ROUTES.PRODUCTS },
   { ...ROUTES.SUPPORT },
   { ...ROUTES.DEALER_LOGIN },
 ] as const;
