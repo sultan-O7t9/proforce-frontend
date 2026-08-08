@@ -7,7 +7,7 @@ import PhantomPlusBg from "@/assets/img/phantom-plus-bg.png";
 import ApexBg from "@/assets/img/apex-bg.png";
 import JetSvg from "@/assets/img/jet.svg";
 import TempProductBg from "@/assets/img/temp-product-bg.png";
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 
 import IconResistance from "@/assets/img/icon-resistance.svg";
 import IconProtection from "@/assets/img/icon-protection.svg";
@@ -216,12 +216,12 @@ const subName = titleParts.slice(1).join(" ");
     class="bg-pf-gohst-white relative z-1 px-8 pt-12 pb-6 text-center md:pt-20 md:pb-20"
   >
     <h3
-      class="font-pf-mera-pro text-pf-navy-dark mx-auto mb-5 text-xs tracking-[25%] uppercase md:mb-12 md:text-sm"
+      class="font-pf-mera-pro text-pf-navy-dark product-title-heading mx-auto mb-5 text-xs tracking-[25%] uppercase md:mb-12 md:text-sm"
     >
       {product.title}
     </h3>
     <p
-      class="font-pf-galano-grotesque text-pf-navy-dark mx-auto max-w-218.5 text-base leading-8 sm:text-2xl md:leading-11"
+      class="font-pf-galano-grotesque text-pf-navy-dark product-descripton mx-auto max-w-218.5 text-base leading-8 sm:text-2xl md:leading-11"
     >
       {product.description}
     </p>
@@ -259,21 +259,22 @@ const subName = titleParts.slice(1).join(" ");
       >
         <div class="order-2 mt-4 text-center md:mt-0 md:text-left">
           <h6
-            class="font-pf-mera-pro text-pf-navy mb-3 text-xs tracking-[25%] uppercase opacity-50 md:mb-5 md:text-sm"
+            class="font-pf-mera-pro text-pf-navy tech-heading mb-3 text-xs tracking-[25%] uppercase opacity-50 md:mb-5 md:text-sm"
           >
             The Technology
           </h6>
           <h5
-            class="font-pf-galano-grotesque text-pf-navy mb-4 text-3xl font-bold uppercase md:mb-7 md:text-[50px]"
+            class="font-pf-galano-grotesque text-pf-navy tech-name mb-4 text-3xl font-bold uppercase md:mb-7 md:text-[50px]"
           >
             {product.technology.heading}
           </h5>
           <p
-            class="font-pf-galano-grotesque text-pf-navy-dark mb-7 max-w-165.75 text-base leading-9 opacity-80 md:mb-13 md:text-xl"
+            class="font-pf-galano-grotesque text-pf-navy-dark tech-description mb-7 max-w-165.75 text-base leading-9 opacity-80 md:mb-13 md:text-xl"
           >
             {product.technology.description}
           </p>
           <MainButton
+            client:load
             label="Download Specs"
             href=""
             className="text-pf-navy-dark border-pf-navy-dark hover:bg-pf-navy hover:border-pf-navy mx-auto flex justify-center rounded-sm border bg-transparent px-5 py-3.5 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:text-white sm:w-4/5 md:mx-0 md:max-w-62.5 md:px-4 md:py-4 md:text-base"
@@ -366,7 +367,7 @@ const subName = titleParts.slice(1).join(" ");
             class="font-pf-galano-grotesque flex flex-col justify-end pb-7 pl-0 text-center md:pl-12 md:text-left"
           >
             <h5
-              class="mb-4 text-lg font-bold tracking-[5%] text-white uppercase md:text-[28px]"
+              class="protect-heading mb-4 text-lg font-bold tracking-[5%] text-white uppercase md:text-[28px]"
             >
               Ready to Protect your Vehicle?
             </h5>
@@ -377,6 +378,7 @@ const subName = titleParts.slice(1).join(" ");
               certified Proforce installer today for a custom quote.
             </p>
             <MainButton
+              client:load
               label="View Nearby Installers"
               href={ROUTES.INSTALLERS.href}
               className="text-pf-navy mx-auto flex max-w-75 justify-center border-white bg-white px-6 py-4.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:mx-0 md:py-4.5 md:text-sm lg:px-11"
@@ -398,6 +400,14 @@ const subName = titleParts.slice(1).join(" ");
 </MainLayout>
 
 <script>
+  import { setupWordScrollAnimation } from "@/lib/gsap";
+
+  setupWordScrollAnimation(".product-title-heading");
+  setupWordScrollAnimation(".product-descripton", 0.05, 1);
+  setupWordScrollAnimation(".tech-heading");
+  setupWordScrollAnimation(".tech-name");
+  setupWordScrollAnimation(".tech-description");
+  setupWordScrollAnimation(".protect-heading");
   const header = document.querySelector(".main-header") as HTMLElement | null;
   const heroSectionCotnainer = document.querySelector(
     ".hero-section-container",

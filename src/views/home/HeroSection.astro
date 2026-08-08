@@ -1,5 +1,5 @@
 ---
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 import { ROUTES } from "@/lib/site";
 import { twMerge } from "tailwind-merge";
 
@@ -31,8 +31,14 @@ const { bgUrl, className } = Astro.props;
       </span>
     </h2>
     <div class="flex flex-col justify-start gap-4 self-start">
-      <MainButton label="Explore Products" showAero />
       <MainButton
+        client:load
+        label="Explore Products"
+        showAero
+        href="#products-section"
+      />
+      <MainButton
+        client:load
         label="Find an Installer"
         showAero
         href={ROUTES.INSTALLERS.href}

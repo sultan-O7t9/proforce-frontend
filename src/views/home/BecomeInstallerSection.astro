@@ -1,5 +1,5 @@
 ---
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 import { ROUTES } from "@/lib/site";
 ---
 
@@ -9,22 +9,30 @@ import { ROUTES } from "@/lib/site";
       class="border-pf-navy flex flex-col items-center justify-center gap-6 border py-6 md:gap-16.5 md:p-12"
     >
       <h4
-        class="font-pf-mera-pro text-pf-navy px-4 text-center text-xs leading-6 tracking-[25%] md:text-sm"
+        class="font-pf-mera-pro text-pf-navy dealer-heading px-4 text-center text-xs leading-6 tracking-[25%] md:text-sm"
       >
         THE PROFORCE DEALER PORTAL
       </h4>
       <h6
-        class="font-pf-galano-grotesque text-pf-navy max-w-223.5 px-6 text-center text-2xl leading-10 font-bold uppercase md:px-0 md:text-5xl md:leading-16"
+        class="font-pf-galano-grotesque text-pf-navy dealer-text max-w-223.5 px-6 text-center text-2xl leading-10 font-bold uppercase md:px-0 md:text-5xl md:leading-16"
       >
         ALIGN YOUR BUSINESS WITH THE ULTIMATE PROTECTIVE FORCE
       </h6>
       <div>
         <MainButton
+          client:load
           label="Become an Installer"
-          href={ROUTES.INSTALLERS.href}
+          href={ROUTES.DEALER_REGISTER.href}
           className="bg-pf-navy hover:bg-pf-light-navy hover:text-pf-navy border-pf-navy px-5 py-3 font-semibold tracking-[1%] transition-colors duration-200 md:px-14 md:py-5"
         />
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  import { setupWordScrollAnimation, gsap } from "@/lib/gsap";
+
+  setupWordScrollAnimation(".dealer-heading");
+  setupWordScrollAnimation(".dealer-text", 0.05, 0.5);
+</script>

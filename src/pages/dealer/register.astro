@@ -1,0 +1,158 @@
+---
+import MainLayout from "@/layouts/MainLayout.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
+import { ROUTES } from "@/lib/site";
+import Input from "@/components/forms/Input.svelte";
+import RadioGroup from "@/components/forms/RadioGroup.astro";
+import Select from "@/components/forms/Select.svelte";
+import FilePicker from "@/components/forms/FilePicker.astro";
+
+const countryOptions = [
+  { label: "United States", value: "us" },
+  { label: "Canada", value: "ca" },
+  { label: "United Kingdom", value: "uk" },
+];
+
+const roleOptions = [
+  { name: "Distributor", value: "distributor" },
+  { name: "Installer", value: "installer" },
+];
+---
+
+<MainLayout
+  title={"Dealer Portal - Become a Partner"}
+  className="relative"
+  headerTheme="dark"
+>
+  <section class="dealer-login-section-container">
+    <div
+      class="max-container px-4 py-8 sm:px-8 md:px-16.5 md:py-17.5 lg:px-[clamp(1rem,6.2vw+1rem,100px)]"
+    >
+      <div
+        class="bg-pf-gohst-white/50 s:px-8 flex flex-col items-center justify-center gap-8.75 rounded-lg px-4 py-8 md:gap-17.5 md:px-10 md:py-15"
+      >
+        <div class="flex flex-col gap-4 md:gap-6">
+          <h1
+            class="font-pf-mera-pro text-center text-xl tracking-[10%] uppercase md:text-2xl"
+          >
+            Become a Partner
+          </h1>
+          <h6
+            class="font-pf-galano-grotesque text-center text-sm font-medium tracking-[1%] md:text-base"
+          >
+            Provide your business details below, our team will review your
+            application and contact you.
+          </h6>
+        </div>
+        <!--  -->
+        <form class="font-pf-galano-grotesque mx-auto mt-10 w-full max-w-252.5">
+          <RadioGroup
+            options={roleOptions}
+            containerClass="w-full max-w-168.5 justify-start md:gap-25"
+          />
+          <div class="mt-10 mb-17.5 flex flex-col gap-6 lg:flex-row lg:gap-15">
+            <div class="flex flex-1 flex-col gap-6">
+              <Input
+                client:load
+                label="Business Name"
+                placeholder="Business Name"
+                id="business-name"
+                name="business-name"
+              />
+              <Input
+                client:load
+                label="Business Email"
+                placeholder="Business Email"
+                id="business-email"
+                name="business-email"
+                type="email"
+              />
+              <Input
+                client:load
+                label="Business Phone Number"
+                placeholder="Business Phone Number"
+                id="business-phone"
+                name="business-phone"
+              />
+              <Input
+                client:load
+                label="Business Address"
+                placeholder="Business Address"
+                id="business-address"
+                name="business-address"
+              />
+              <Select
+                client:load
+                label="Country"
+                placeholder="Select Country"
+                id="installer-country"
+                name="installer-country"
+                options={countryOptions}
+              />
+            </div>
+            <div class="flex flex-1 flex-col gap-6">
+              <Input
+                client:load
+                label="Your Name"
+                placeholder="Full Name"
+                id="fullname"
+                name="fullname"
+              />
+              <Input
+                client:load
+                label="Business Website"
+                placeholder="Website Link"
+                id="business-website"
+                name="business-website"
+                type="text"
+              />
+              <Input
+                client:load
+                label="Years in Business "
+                placeholder="Number of Years"
+                id="business-age"
+                name="business-age"
+                type="text"
+              />
+              <Input
+                client:load
+                label="Social Media"
+                placeholder="Social Media (link only)"
+                id="business-social"
+                name="business-social"
+              />
+              <FilePicker
+                id="business-attachment"
+                name="business-attachment"
+                label="Attach File"
+                placeholder="Upload File (Max 5MB)"
+                accept="image/*"
+                inputClass="bg-transparent"
+              />
+            </div>
+          </div>
+
+          <MainButton
+            client:load
+            label="Submit for Registration"
+            href=""
+            className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex max-w-95 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm"
+          />
+        </form>
+        <!--  -->
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  const header = document.querySelector(".main-header") as HTMLElement | null;
+  const heroSectionCotnainer = document.querySelector(
+    ".dealer-login-section-container",
+  ) as HTMLElement | null;
+
+  if (header && heroSectionCotnainer) {
+    heroSectionCotnainer.style.paddingTop =
+      header.getBoundingClientRect().height + "px";
+  }
+</script>

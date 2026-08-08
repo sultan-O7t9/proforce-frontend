@@ -16,6 +16,7 @@ import BecomeInstallerSection from "@/views/home/BecomeInstallerSection.astro";
 import MapSection from "@/views/home/MapSection.astro";
 
 import HeroBg from "@/assets/img/home/bg-temp.png";
+import LoaderScreen from "@/components/LoaderScreen.astro";
 
 const optimizedBg = await getImage({
   src: HeroBg,
@@ -33,6 +34,7 @@ const optimizedBg = await getImage({
       fetchpriority="high"
     />
   </Fragment>
+  <!-- <LoaderScreen /> -->
   <HeroSection bgUrl={optimizedBg.src} />
   <OnefilmSection />
   <ProductsSection />

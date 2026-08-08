@@ -1,9 +1,9 @@
 ---
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 import Checkbox from "@/components/forms/Checkbox.astro";
-import Input from "@/components/forms/Input.astro";
+import Input from "@/components/forms/Input.svelte";
 import RadioGroup from "@/components/forms/RadioGroup.astro";
-import Select from "@/components/forms/Select.astro";
+import Select from "@/components/forms/Select.svelte";
 import MainLayout from "@/layouts/MainLayout.astro";
 import { ROUTES } from "@/lib/site";
 
@@ -11,6 +11,7 @@ import supportLogo from "@/assets/img/support-logo.svg";
 import WarrantyRegistration from "@/views/support/WarrantyRegistration.astro";
 import WarrantyVerification from "@/views/support/WarrantyVerification.astro";
 import ContactModal from "@/views/support/ContactModal.astro";
+import ReportModal from "@/views/support/ReportModal.astro";
 ---
 
 <MainLayout title={"title"} className="relative" headerTheme="dark">
@@ -90,6 +91,7 @@ import ContactModal from "@/views/support/ContactModal.astro";
               Product Verification
             </h3>
             <Input
+              client:load
               label="Product Roll ID"
               placeholder="Enter ID mentioned on PFF Roll"
               id="product-roll-id"
@@ -97,11 +99,13 @@ import ContactModal from "@/views/support/ContactModal.astro";
               containerClass="mb-2"
             />
             <MainButton
+              client:load
               label="Verify"
               href=""
               className="bg-pf-navy hover:text-pf-navy border-pf-navy flex justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:max-w-62.5 md:px-4 md:py-4 md:text-sm"
             />
             <ContactModal />
+            <!-- <ReportModal /> -->
           </form>
           <div class="h-full flex-1">
             <img

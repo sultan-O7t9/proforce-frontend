@@ -131,7 +131,8 @@ const products = [
       trigger: ".main-header",
       start: "top top",
       end: "+=800",
-      scrub: 1,
+      // scrub: 1, // removed
+      toggleActions: "play none reverse none",
     },
     backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
     paddingTop: padding,

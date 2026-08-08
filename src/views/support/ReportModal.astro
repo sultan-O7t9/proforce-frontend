@@ -1,3 +1,134 @@
-<h1>HEllo World</h1>
+---
+import MainButton from "@/components/buttons/MainButton.svelte";
+import FilePicker from "@/components/forms/FilePicker.astro";
+import Input from "@/components/forms/Input.svelte";
+import Select from "@/components/forms/Select.svelte";
+import Textarea from "@/components/forms/Textarea.astro";
+import ModalComponent from "@/components/ModalComponent.astro";
 
-<!-- #TODO:Add report Modal -->
+const countryOptions = [
+  { label: "United States", value: "us" },
+  { label: "Canada", value: "ca" },
+  { label: "United Kingdom", value: "uk" },
+];
+---
+
+<ModalComponent id="report-modal">
+  <Fragment slot="anchor">
+    <p class="text-pf-black/70">
+      Need any help? <button
+        data-open-modal="report-modal"
+        class="text-pf-navy report-btn hover:text-pf-yellow cursor-pointer font-bold"
+        >report Us</button
+      >
+    </p>
+  </Fragment>
+  <Fragment slot="header">
+    <h3
+      class="font-pf-mera-pro text-pf-navy-dark mb-2.5 text-center text-base tracking-[10%] uppercase md:text-2xl"
+    >
+      Report
+    </h3>
+    <p
+      class="font-pf-galano-grotesque text-pf-navy-dark/60 text-center text-sm font-medium tracking-[1%] md:text-base"
+    >
+      Report unverified or suspicious products to our support team.
+    </p>
+  </Fragment>
+  <Fragment slot="content">
+    <!-- Name Field -->
+    <Input
+      client:load
+      labelClass="md:mb-2.5"
+      autofocus
+      name="fullname"
+      placeholder={"Full Name"}
+      id="fullname"
+      type={"text"}
+      label="Your Name"
+      inputClass="py-3 md:py-3.5"
+    />
+    <!-- Email Field -->
+    <Input
+      client:load
+      name="email"
+      placeholder={"Your Email Address"}
+      id="email"
+      type={"email"}
+      labelClass="md:mb-2.5"
+      inputClass="py-3 md:py-3.5"
+      label="Email Address"
+    />
+    <Select
+      client:load
+      options={countryOptions}
+      label="Authorized Installer"
+      labelClass="md:mb-2.5"
+      selectClass="py-3 md:py-3.5"
+      placeholder="Select Studio"
+      id="installer"
+      name="installer"
+    />
+    <!-- Conditional Fields Container (Hidden by default) -->
+    <div
+      id="conditional-installer-fields"
+      class="hidden transition-all duration-200"
+    >
+      <Input
+        client:load
+        labelClass="md:mb-2.5"
+        name="installer-name"
+        placeholder={"Installer Name"}
+        id="installer-name"
+        type={"text"}
+        label="Installer Name"
+        inputClass="py-3 md:py-3.5"
+      />
+      <Input
+        client:load
+        labelClass="md:mb-2.5"
+        name="installer-address"
+        placeholder={"Installer's Address"}
+        id="installer-address"
+        type={"text"}
+        label="Installer's Address"
+        inputClass="py-3 md:py-3.5"
+      />
+    </div>
+    <Select
+      client:load
+      options={countryOptions}
+      label="Product"
+      labelClass="md:mb-2.5"
+      selectClass="py-3 md:py-3.5"
+      placeholder="Select Product"
+      id="installer"
+      name="installer"
+    />
+    <!-- Message TextArea -->
+    <Textarea
+      labelClass="md:mb-2.5"
+      id="message"
+      name="message"
+      label="Additional Details"
+      placeholder="Please provide any extra information to help us investigate..."
+      textareaClass="min-h-27.25"
+    />
+    <FilePicker
+      labelClass="md:mb-2.5"
+      inputClass="py-3 md:py-3.5"
+      id="report-attachment"
+      name="report-attachment"
+      label="Attach File"
+      placeholder="Upload File (Max 5MB)"
+      accept="image/*"
+    />
+
+    <MainButton
+      client:load
+      label="Submit"
+      href=""
+      className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex w-full max-w-95 justify-center self-end px-4 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm"
+    />
+  </Fragment>
+</ModalComponent>

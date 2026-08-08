@@ -1,10 +1,10 @@
 ---
 import AlertMessage from "@/components/AlertMessage.astro";
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 import Checkbox from "@/components/forms/Checkbox.astro";
-import Input from "@/components/forms/Input.astro";
+import Input from "@/components/forms/Input.svelte";
 import RadioGroup from "@/components/forms/RadioGroup.astro";
-import Select from "@/components/forms/Select.astro";
+import Select from "@/components/forms/Select.svelte";
 import { ROUTES } from "@/lib/site";
 
 const countryOptions = [
@@ -12,6 +12,13 @@ const countryOptions = [
   { label: "Canada", value: "ca" },
   { label: "United Kingdom", value: "uk" },
 ];
+
+const productRadioOptions = [
+  { name: "Proforce Phantom", description: "PFP7-60-50",value:"PFP7-60-50" },
+  { name: "Proforce Phantom +", description: "PFP8-60-50",value:"PFP8-60-50" },
+  { name: "Proforce Apex", description: "PFA8-60-50",value:"PFA8-60-50" },
+];
+
 const result=false;
 ---
 
@@ -24,44 +31,44 @@ const result=false;
   >
     Activate your Warranty
   </h3>
-  <RadioGroup containerClass="w-full max-w-168.5 justify-between" />
+  <RadioGroup options={productRadioOptions} containerClass="w-full max-w-168.5 justify-between" />
   <form class="font-pf-galano-grotesque mt-10">
     <div class="flex flex-col gap-6 lg:flex-row lg:gap-15">
       <div class="flex flex-1 flex-col gap-6">
-        <Input
+        <Input client:load
           label="Customer Name"
           placeholder="Full Name"
           id="customer-name"
           name="customer-name"
         />
-        <Input
+        <Input client:load
           label="Email"
           placeholder="Customer Email Address"
           id="customer-email"
           name="customer-email"
           type="email"
         />
-        <Input
+        <Input client:load
           label="Mobile Number"
           placeholder="Customer WhatsApp Number"
           id="customer-phone"
           name="customer-phone"
         />
-        <Select
+        <Select client:load
           label="Country"
           placeholder="Select Country"
           id="installer-country"
           name="installer-country"
           options={countryOptions}
         />
-        <Select
+        <Select client:load
           label="City"
           placeholder="Select City"
           id="installer-city"
           name="installer-city"
           options={countryOptions}
         />
-        <Select
+        <Select client:load
           options={countryOptions}
           label="Installer"
           placeholder="Select Studio"
@@ -70,38 +77,38 @@ const result=false;
         />
       </div>
       <div class="flex flex-1 flex-col gap-6">
-        <Input
+        <Input client:load
           label="Car Brand"
           placeholder="Car Brand"
           id="car-brand"
           name="car-brand"
         />
-        <Input
+        <Input client:load
           label="Car Model"
           placeholder="Car Model"
           id="car-model"
           name="car-model"
           type="text"
         />
-        <Input
+        <Input client:load
           label="Chasis / Registration Number"
           placeholder="Chasis / Registration Number"
           id="chasis-number"
           name="chasis-number"
         />
-        <Input
+        <Input client:load
           label="Product Roll ID"
           placeholder="Enter ID mentioned on PFF Roll"
           id="product-roll-id"
           name="product-roll-id"
         />
-        <Input
+        <Input client:load
           label="Warranty Number"
           placeholder="Warranty Number"
           id="warranty-number"
           name="warranty-number"
         />
-        <Input
+        <Input client:load
           label="Date of Application"
           placeholder="Select date when the PFF was applied"
           id="application-date"
@@ -127,7 +134,7 @@ const result=false;
         </span>
       )}
     />
-    <MainButton
+    <MainButton client:load
       label="Submit for Registration"
       href=""
       className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex max-w-95 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm"
@@ -135,7 +142,7 @@ const result=false;
   </form>:
   <AlertMessage title="Record Not Found" type="error" message="Please ensure the entered details are correct.">
     <Fragment slot="action">
-     <MainButton
+     <MainButton client:load
       label="Try Again"
       href=""
       className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm mt-10"

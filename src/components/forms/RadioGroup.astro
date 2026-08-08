@@ -1,13 +1,16 @@
 ---
 import { twMerge } from "tailwind-merge";
 
-const options = [
-  { name: "Proforce Phantom", sku: "PFP7-60-50" },
-  { name: "Proforce Phantom +", sku: "PFP8-60-50" },
-  { name: "Proforce Apex", sku: "PFA8-60-50" },
-];
+interface Props {
+  options:{
+    name: string;
+    description?: string;
+    value:string;
+}[];
+containerClass?:string;
+}
 
-const {containerClass = ""} = Astro.props;
+const {containerClass = "",options} = Astro.props;
 
 ---
 
@@ -18,7 +21,7 @@ const {containerClass = ""} = Astro.props;
         <input
           type="radio"
           name="product_model"
-          value={option.sku}
+          value={option.value}
           checked={index === 0}
           class="peer sr-only"
         />
@@ -29,9 +32,9 @@ const {containerClass = ""} = Astro.props;
           <span class="text-sm sm:text-base font-semibold text-pf-black group-hover:text-pf-navy">
             {option.name}
           </span>
-          <span class="text-sm text-pf-black opacity-60 uppercase font-medium group-hover:text-pf-navy">
-            {option.sku}
-          </span>
+          {option.description?<span class="text-sm text-pf-black opacity-60 uppercase font-medium group-hover:text-pf-navy">
+            {option.description}
+          </span>:null}
         </div>
       </label>
     ))
@@ -46,7 +49,7 @@ const {containerClass = ""} = Astro.props;
       const target = e.target as HTMLInputElement;
       if (target.checked) {
         console.log({
-          sku: target.value,
+          description: target.value,
           name: target.closest("label")?.querySelector("span")?.textContent?.trim()
         });
       }

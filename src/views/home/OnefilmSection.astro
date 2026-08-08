@@ -1,5 +1,5 @@
 ---
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
 ---
 
@@ -8,7 +8,7 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
     class="max-container flex h-full w-full flex-col items-center justify-center gap-14 bg-[url('/images/onefilm-bg.svg')] bg-contain bg-center bg-no-repeat md:min-h-screen"
   >
     <h4
-      class="font-pf-mera-pro text-pf-navy px-8 text-center text-xs leading-6 tracking-[25%] md:text-sm"
+      class="onefilm-heading font-pf-mera-pro text-pf-navy px-8 text-center text-xs leading-6 tracking-[25%] md:text-sm"
     >
       ENGINEERED BY ONEFILM USA
     </h4>
@@ -34,6 +34,7 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
     </h5>
     <div class="flex justify-center pb-20 md:pb-4">
       <MainButton
+        client:load
         className="border-pf-navy hover:bg-pf-navy group flex justify-center border bg-transparent px-16 py-4.5 backdrop-blur-none transition-all duration-300 hover:text-white md:min-w-75"
         href="/products"
       >
@@ -49,7 +50,9 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
 </section>
 
 <script>
-  import { gsap } from "@/lib/gsap";
+  import { gsap, setupWordScrollAnimation } from "@/lib/gsap";
+  setupWordScrollAnimation(".onefilm-heading");
+
   if (window.innerWidth >= 760) {
     const spans = document.querySelectorAll(".onefilm-headline > span");
 

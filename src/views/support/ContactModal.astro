@@ -1,6 +1,6 @@
 ---
-import MainButton from "@/components/buttons/MainButton.astro";
-import Input from "@/components/forms/Input.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
+import Input from "@/components/forms/Input.svelte";
 import Textarea from "@/components/forms/Textarea.astro";
 import ModalComponent from "@/components/ModalComponent.astro";
 ---
@@ -30,6 +30,7 @@ import ModalComponent from "@/components/ModalComponent.astro";
   <Fragment slot="content">
     <!-- Name Field -->
     <Input
+      client:load
       labelClass="md:mb-2.5"
       autofocus
       name="fullname"
@@ -41,6 +42,7 @@ import ModalComponent from "@/components/ModalComponent.astro";
     />
     <!-- Email Field -->
     <Input
+      client:load
       labelClass="md:mb-2.5"
       name="email"
       placeholder={"Your Email Address"}
@@ -59,6 +61,7 @@ import ModalComponent from "@/components/ModalComponent.astro";
       textareaClass="min-h-27.25"
     />
     <MainButton
+      client:load
       label="Submit"
       href=""
       className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex w-full max-w-95 justify-center self-end px-4 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm"

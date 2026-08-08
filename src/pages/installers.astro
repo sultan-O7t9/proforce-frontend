@@ -10,10 +10,10 @@ import { getImage } from "astro:assets";
 import MainLayout from "@/layouts/MainLayout.astro";
 
 import InstallersTempMap from "@/assets/img/installers-temp-map.png";
-import Input from "@/components/forms/Input.astro";
-import IconWhatsApp from "@/components/icons/IconWhatsApp.astro";
-import IconLocation from "@/components/icons/IconLocation.astro";
-import MainButton from "@/components/buttons/MainButton.astro";
+import Input from "@/components/forms/Input.svelte";
+// import IconWhatsApp from "@/components/icons/IconWhatsApp.astro";
+// import IconLocation from "@/components/icons/IconLocation.astro";
+// import MainButton from "@/components/buttons/MainButton.svelte";
 import InstallerCard from "@/components/InstallerCard.astro";
 
 const optimizedBg = await getImage({
@@ -130,7 +130,7 @@ const otherInstallers: Record<string, Installer[]> = {
     >
       <div class="max-container flex flex-col items-center px-8 md:px-12.5">
         <h1
-          class="font-pf-mera-pro mb-6 text-center text-lg tracking-[10%] text-white uppercase md:mb-12.5 md:text-2xl"
+          class="font-pf-mera-pro installer-heading mb-6 text-center text-lg tracking-[10%] text-white uppercase md:mb-12.5 md:text-2xl"
         >
           Find an Installer
         </h1>
@@ -140,47 +140,45 @@ const otherInstallers: Record<string, Installer[]> = {
           class="mx-auto h-auto w-full object-cover"
         />
         <h4
-          class="font-pf-mera-pro mt-7 mb-4 text-center text-base tracking-[23%] text-white uppercase md:mt-17 md:mb-8 md:text-xl"
+          class="font-pf-mera-pro search-heading mt-7 mb-4 text-center text-base tracking-[23%] text-white uppercase md:mt-17 md:mb-8 md:text-xl"
         >
           Search
         </h4>
         <Input
+          client:load
           placeholder="Search by city or installer name..."
           name="search"
           id="search"
           inputClass="focus:border-white/75 py-4 md:py-6 rounded-xs border-white/50 text-white pr-14"
           containerClass="w-full max-w-175"
           postIconClass="pr-5"
-          postIcon={(
-            <svg
-              width="25"
-              height="26"
-              viewBox="0 0 25 26"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g opacity="0.6">
-                <ellipse
-                  cx="11.7673"
-                  cy="11.7677"
-                  rx="11.0173"
-                  ry="11.0177"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-                <path
-                  d="M19.4307 20.0029L23.7501 24.3113"
-                  stroke="white"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </g>
-            </svg>
-          )}
-        />
+        >
+          <svg
+            width="25"
+            height="26"
+            viewBox="0 0 25 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g opacity="0.6">
+              <ellipse
+                cx="11.7673"
+                cy="11.7677"
+                rx="11.0173"
+                ry="11.0177"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"></ellipse>
+              <path
+                d="M19.4307 20.0029L23.7501 24.3113"
+                stroke="white"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </g>
+          </svg>
+        </Input>
       </div>
     </div>
     <div class="max-container flex flex-col gap-3.75">
@@ -219,6 +217,10 @@ const otherInstallers: Record<string, Installer[]> = {
 </MainLayout>
 
 <script>
+  import { setupWordScrollAnimation } from "@/lib/gsap";
+
+  setupWordScrollAnimation(".installer-heading");
+  setupWordScrollAnimation(".search-heading");
   const header = document.querySelector(".main-header") as HTMLElement | null;
   const heroSectionCotnainer = document.querySelector(
     ".installers-container",

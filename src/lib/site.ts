@@ -30,6 +30,11 @@ export const ROUTES = {
     name: "Dealer Portal Login - Forgot Password?",
     href: "/dealer/forgot-password",
   },
+  DEALER_REGISTER: {
+    id: "9",
+    name: "Dealer Portal - Become a Patner",
+    href: "/dealer/register",
+  },
 } as const;
 export const NAV_LINKS = [
   { ...ROUTES.SUPPORT },

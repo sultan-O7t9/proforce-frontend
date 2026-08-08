@@ -1,14 +1,21 @@
 <section class="benefits-section bg-pf-light-navy relative z-1 -m-2">
   <div class="max-container flex h-full flex-col gap-6 py-16 md:gap-18">
     <h4
-      class="font-pf-mera-pro text-pf-navy px-8 text-center text-xs leading-6 tracking-[25%] md:text-sm"
+      class="font-pf-mera-pro text-pf-navy why-heading px-8 text-center text-xs leading-6 tracking-[25%] md:text-sm"
     >
       WHY PROFORCE PFF?
     </h4>
     <h6
-      class="font-pf-mera-pro text-pf-navy text-center text-2xl leading-10 tracking-[13%] uppercase md:text-[40px]"
+      class="font-pf-mera-pro text-pf-navy why-text text-center text-2xl leading-10 tracking-[13%] uppercase md:text-[40px]"
     >
       Invisible. Flawless. Force.
     </h6>
   </div>
 </section>
+
+<script>
+  import { setupWordScrollAnimation } from "@/lib/gsap";
+
+  setupWordScrollAnimation(".why-heading");
+  setupWordScrollAnimation(".why-text", 0.25, 1);
+</script>

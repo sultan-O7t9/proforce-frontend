@@ -1,5 +1,5 @@
 ---
-import MainButton from "./buttons/MainButton.astro";
+import MainButton from "./buttons/MainButton.svelte";
 import IconLocation from "./icons/IconLocation.astro";
 import IconWhatsApp from "./icons/IconWhatsApp.astro";
 
@@ -45,11 +45,13 @@ const { name, location, phone, address } = Astro.props;
   </div>
   <div class="flex flex-col gap-4.25 sm:flex-row">
     <MainButton
+      client:load
       label="Directions"
       href=""
       className="text-pf-navy border-pf-navy flex w-full justify-center rounded-xs bg-transparent px-5 py-3 text-sm font-medium tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white sm:max-h-11 sm:w-4/5 sm:max-w-62.5 md:px-4 md:py-3 md:text-xs md:text-[13px]"
     />
     <MainButton
+      client:load
       label="Get Quote"
       href=""
       className="bg-pf-navy hover:text-pf-navy border-pf-navy flex w-full justify-center rounded-xs px-5 py-3 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:max-h-11 sm:w-4/5 sm:max-w-62.5 md:px-4 md:py-3 md:text-xs md:text-[13px]"

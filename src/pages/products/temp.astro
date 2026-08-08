@@ -13,7 +13,7 @@ import MainLayout from "@/layouts/MainLayout.astro";
 import HeroBg from "@/assets/img/phantom-bg.png";
 import JetSvg from "@/assets/img/jet.svg";
 import TempProductBg from "@/assets/img/temp-product-bg.png";
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 
 const optimizedBg = await getImage({
   src: HeroBg,
@@ -167,6 +167,7 @@ const product = {
             shifting or top-coat distortion.
           </p>
           <MainButton
+            client:load
             label="Download Specs"
             href=""
             className="text-pf-navy-dark border-pf-navy-dark hover:bg-pf-navy hover:border-pf-navy flex justify-center rounded-sm border bg-transparent px-5 py-3.5 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:text-white sm:w-4/5 md:max-w-62.5 md:px-4 md:py-4 md:text-base"
@@ -287,6 +288,7 @@ const product = {
               certified Proforce installer today for a custom quote.
             </p>
             <MainButton
+              client:load
               label="View Nearby Installers"
               href=""
               className="text-pf-navy flex max-w-75 justify-center border-white bg-white px-6 py-4.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:px-11 md:py-4.5 md:text-sm"

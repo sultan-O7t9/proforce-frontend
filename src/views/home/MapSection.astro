@@ -1,15 +1,15 @@
 ---
 import MapImage from "@/assets/img/home/map.svg";
-import MainButton from "@/components/buttons/MainButton.astro";
+import MainButton from "@/components/buttons/MainButton.svelte";
 import { ROUTES } from "@/lib/site";
 ---
 
-<section class="bg-pf-navy-gradient relative z-1 -m-2">
+<section id="stats-section" class="bg-pf-navy-gradient relative z-1 -m-2">
   <div
     class="max-container flex h-full flex-col items-center justify-center gap-6 py-16"
   >
     <h4
-      class="font-pf-mera-pro mb-7 px-8 text-center text-xs leading-6 tracking-[25%] text-white md:text-sm"
+      class="font-pf-mera-pro map-heading mb-7 px-8 text-center text-xs leading-6 tracking-[25%] text-white md:text-sm"
     >
       CERTIFIED INSTALLATION
     </h4>
@@ -22,9 +22,10 @@ import { ROUTES } from "@/lib/site";
         class="bg-pf-navy-dark-transparent absolute top-6 right-7 z-1 flex aspect-15/13 w-24 flex-col items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.3)] pb-2 md:top-12.75 md:right-16 md:w-37.5 md:pb-4"
       >
         <h5
+          id="countries-count"
           class="font-pf-galano-grotesque text-pf-yellow text-3xl font-bold tracking-[6px] md:text-[45px]"
         >
-          12
+          0
         </h5>
         <h6
           class="font-pf-galano-grotesque text-[10px] font-semibold tracking-[8%] text-white uppercase md:text-xs"
@@ -36,9 +37,10 @@ import { ROUTES } from "@/lib/site";
         class="bg-pf-navy-dark-transparent absolute bottom-5 left-8 z-1 flex aspect-15/13 w-24 flex-col items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.3)] pb-2 md:bottom-26 md:left-33.75 md:w-37.5 md:pb-4"
       >
         <h5
+          id="installers-count"
           class="font-pf-galano-grotesque text-pf-yellow text-3xl font-bold tracking-[2px] md:text-[45px] md:tracking-[6px]"
         >
-          60+
+          0+
         </h5>
         <h6
           class="font-pf-galano-grotesque text-[10px] font-semibold tracking-[8%] text-white uppercase md:text-xs"
@@ -49,6 +51,7 @@ import { ROUTES } from "@/lib/site";
     </div>
     <div>
       <MainButton
+        client:load
         label="Find your nearest Installer"
         showAero
         href={ROUTES.INSTALLERS.href}
@@ -58,3 +61,58 @@ import { ROUTES } from "@/lib/site";
     </div>
   </div>
 </section>
+
+<script>
+  import { gsap, setupWordScrollAnimation } from "@/lib/gsap";
+
+  let ctx: gsap.Context;
+  setupWordScrollAnimation(".map-heading");
+  function initStatsAnimation() {
+    ctx = gsap.context(() => {
+      const section = document.querySelector("#stats-section");
+      const countriesEl = document.querySelector("#countries-count");
+      const installersEl = document.querySelector("#installers-count");
+
+      if (!section || !countriesEl || !installersEl) return;
+
+      const statsObj = { countries: 0, installers: 0 };
+
+      let lastCountries = -1;
+      let lastInstallers = -1;
+
+      gsap.to(statsObj, {
+        countries: 12,
+        installers: 60,
+        duration: 1.5,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: section,
+          start: "top 85%",
+          // markers: true,
+          once: true, // Triggers only once when scrolled into view and stays completed
+        },
+        onUpdate: () => {
+          const c = statsObj.countries | 0;
+          const i = statsObj.installers | 0;
+
+          if (c !== lastCountries) {
+            countriesEl.textContent = c.toString();
+            lastCountries = c;
+          }
+          if (i !== lastInstallers) {
+            installersEl.textContent = i + "+";
+            lastInstallers = i;
+          }
+        },
+      });
+    });
+  }
+
+  initStatsAnimation();
+
+  document.addEventListener("astro:before-swap", () => {
+    if (ctx) ctx.revert();
+  });
+
+  document.addEventListener("astro:after-swap", initStatsAnimation);
+</script>
