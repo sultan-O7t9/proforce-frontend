@@ -34,6 +34,10 @@
   --font-pf-galano-grotesque: var(--font-galano-grotesque);
 }
 
+html:has(dialog:modal) {
+  overflow: hidden;
+}
+
 .bg-pf-navy-gradient {
   background: linear-gradient(to bottom, #0d1833 0%, #060a14 100%);
 }

@@ -1,0 +1,67 @@
+---
+import MainButton from "@/components/buttons/MainButton.astro";
+import Input from "@/components/forms/Input.astro";
+import Textarea from "@/components/forms/Textarea.astro";
+import ModalComponent from "@/components/ModalComponent.astro";
+---
+
+<ModalComponent id="contact-modal">
+  <Fragment slot="anchor">
+    <p class="text-pf-black/70">
+      Need any help? <button
+        data-open-modal="contact-modal"
+        class="text-pf-navy contact-btn hover:text-pf-yellow cursor-pointer font-bold"
+        >Contact Us</button
+      >
+    </p>
+  </Fragment>
+  <Fragment slot="header">
+    <h3
+      class="font-pf-mera-pro text-pf-navy-dark mb-2.5 text-center text-base tracking-[10%] uppercase md:text-2xl"
+    >
+      Contact
+    </h3>
+    <p
+      class="font-pf-galano-grotesque text-pf-navy-dark/60 text-center text-sm font-medium tracking-[1%] md:text-base"
+    >
+      Send us a message and our team will get back to you soon.
+    </p>
+  </Fragment>
+  <Fragment slot="content">
+    <!-- Name Field -->
+    <Input
+      labelClass="md:mb-2.5"
+      autofocus
+      name="fullname"
+      placeholder={"Full Name"}
+      id="fullname"
+      type={"text"}
+      label="Your Name"
+      inputClass="py-3 md:py-3.5"
+    />
+    <!-- Email Field -->
+    <Input
+      labelClass="md:mb-2.5"
+      name="email"
+      placeholder={"Your Email Address"}
+      id="email"
+      type={"email"}
+      inputClass="py-3 md:py-3.5"
+      label="Email Address"
+    />
+    <!-- Message TextArea -->
+    <Textarea
+      labelClass="md:mb-2.5"
+      id="message"
+      name="message"
+      label="How can we help?"
+      placeholder="Please describe in detail so we can best assist you..."
+      textareaClass="min-h-27.25"
+    />
+    <MainButton
+      label="Submit"
+      href=""
+      className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex w-full max-w-95 justify-center self-end px-4 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm"
+    />
+  </Fragment>
+</ModalComponent>

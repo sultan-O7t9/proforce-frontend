@@ -10,6 +10,7 @@ import { ROUTES } from "@/lib/site";
 import supportLogo from "@/assets/img/support-logo.svg";
 import WarrantyRegistration from "@/views/support/WarrantyRegistration.astro";
 import WarrantyVerification from "@/views/support/WarrantyVerification.astro";
+import ContactModal from "@/views/support/ContactModal.astro";
 ---
 
 <MainLayout title={"title"} className="relative" headerTheme="dark">
@@ -100,12 +101,7 @@ import WarrantyVerification from "@/views/support/WarrantyVerification.astro";
               href=""
               className="bg-pf-navy hover:text-pf-navy border-pf-navy flex justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:max-w-62.5 md:px-4 md:py-4 md:text-sm"
             />
-            <p class="text-pf-black/70">
-              Need any help? <a
-                class="text-pf-navy hover:text-pf-yellow cursor-pointer font-bold"
-                >Contact Us</a
-              >
-            </p>
+            <ContactModal />
           </form>
           <div class="h-full flex-1">
             <img
@@ -322,4 +318,6 @@ import WarrantyVerification from "@/views/support/WarrantyVerification.astro";
       }
     });
   }
+
+  // Contact Form
 </script>
