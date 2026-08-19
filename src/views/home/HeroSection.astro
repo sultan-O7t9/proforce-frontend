@@ -8,6 +8,10 @@ interface Props {
   className?: string;
 }
 
+const line1 = "PRISTINE.";
+const line2 = "INVISIBLE.";
+const line3 = "INVINCIBLE.";
+
 const { bgUrl, className } = Astro.props;
 ---
 
@@ -22,15 +26,44 @@ const { bgUrl, className } = Astro.props;
     <h2
       class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white md:tracking-[18%] lg:leading-20"
     >
-      <span class="animate-slide-up opacity-0"> PRISTINE. </span>
-      <span class="animate-slide-up opacity-0"> INVISIBLE. </span>
-      <span
-        class="animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
+      <span class="animate-slide-u headline-text"
+        >{
+          line1
+            .split("")
+            .map((char) => (
+              <span class="char inline-block opacity-0">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))
+        }</span
       >
-        INVINCIBLE.
-      </span>
+      <span class="animate-slide-u headline-text"
+        >{
+          line2
+            .split("")
+            .map((char) => (
+              <span class="char inline-block opacity-0">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))
+        }</span
+      >
+      <span
+        class="animate-slide-u headline-text text-transparent [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
+        >{
+          line3
+            .split("")
+            .map((char) => (
+              <span class="char inline-block opacity-0">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))
+        }</span
+      >
     </h2>
-    <div class="flex flex-col justify-start gap-4 self-start">
+    <div
+      class="animate-slide-up slide-up-delay flex flex-col justify-start gap-4 self-start opacity-0"
+    >
       <MainButton
         client:load
         label="Explore Products"
@@ -50,6 +83,78 @@ const { bgUrl, className } = Astro.props;
 </section>
 
 <script>
+  import { gsap, SplitText } from "@/lib/gsap";
+
+  const chars = document.querySelectorAll(".char");
+
+  // gsap.to(chars, {
+  //   opacity: 1,
+  //   y: 0,
+  // Since they start at opacity 0, we can use fromTo or set initial state via gsap:
+  // Or simpler: gsap.fromTo(chars, { opacity: 0, y: 25 }, { opacity: 1, y: 0, stagger: 0.05, duration: 0.5 })
+  // });
+
+  // Better yet, using gsap.fromTo so you don't even need `opacity-0` in Tailwind classes if you prefer:
+  gsap.fromTo(
+    chars,
+    { opacity: 0, y: 25 },
+    {
+      opacity: 1,
+      y: 0,
+      delay: 0.1,
+      stagger: 0.05,
+      duration: 0.5,
+      ease: "power2.out",
+    },
+  );
+
+  // const elements = document.querySelectorAll<HTMLElement>(".headline-text");
+  // elements.forEach((el) => {
+  //   el.style.visibility = "hidden";
+  // });
+
+  // const split = SplitText.create(".headline-text", { type: "chars" });
+
+  // gsap.from(split.chars, { opacity: 0, y: 25, stagger: 0.05, duration: 0.5 });
+
+  // function headlineAnimation(
+  // ) {
+
+  //   const elements = document.querySelectorAll<HTMLElement>(selector);
+
+  //   elements.forEach((el) => {
+  //     // Prevent duplicate splitting if the function runs multiple times (e.g. view transitions)
+  //     if (el.dataset.wordAnimated === "true") return;
+  //     el.dataset.wordAnimated = "true";
+
+  //     const text = el.textContent || "";
+  //     let words: string[];
+  //     words = byCharacters ? text.trim().split("") : text.trim().split(/\s+/);
+
+  //     // Wrap each word in an outer container (for overflow clipping) and inner span (for translation)
+  //     el.innerHTML = words
+  //       .map(
+  //         (word) =>
+  //           `<span class="inline-block overflow-hidden pb-1 -mb-1"><span class="word-span inline-block translate-y-[100px] opacity-0 will-change-transform">${word}</span></span>`,
+  //       )
+  //       .join(" ");
+
+  //     const wordSpans = el.querySelectorAll(".word-span");
+
+  //     gsap.to(wordSpans, {
+  //       y: 0,
+  //       opacity: 1,
+  //       duration: duration ?? 0.8,
+  //       stagger: stagger ?? 0.04, // Delay between each word
+  //       ease: "power3.out",
+  //       scrollTrigger: {
+  //         trigger: el,
+  //         start: "top 85%", // Triggers when the top of the heading hits 85% of viewport height
+  //         toggleActions: "play none none none",
+  //       },
+  //     });
+  //   });
+  // }
   const header = document.querySelector(".main-header") as HTMLElement | null;
   const heroSectionCotnainer = document.querySelector(
     ".hero-section-container",
