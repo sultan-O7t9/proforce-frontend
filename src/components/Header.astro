@@ -67,7 +67,7 @@ const products = [
               products.map((product) => (
                 <a
                   href={ROUTES.PRODUCTS(product.slug, product.name).href}
-                  class="hover:text-pf-yellow text-sm font-normal tracking-[1%] whitespace-nowrap text-white transition-colors"
+                  class="hover:text-pf-yellow w-full text-sm font-normal tracking-[1%] whitespace-nowrap text-white transition-colors"
                 >
                   {product.name.split(" ")[0]}{" "}
                   <span
@@ -114,7 +114,7 @@ const products = [
 </header>
 <script>
   // src/lib/gsap.ts
-  import { gsap } from "../lib/gsap";
+  import { gsap, ScrollTrigger } from "../lib/gsap";
 
   const header = document.querySelector(".main-header") as HTMLElement;
 
@@ -124,21 +124,58 @@ const products = [
     theme = header?.dataset.theme ?? "light";
     screenWidth = header.getBoundingClientRect().width;
   }
+
   const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
-  // 1. ScrollTrigger Header Animation
-  gsap.to(".main-header", {
-    scrollTrigger: {
-      trigger: ".main-header",
-      start: "top top",
-      end: "+=800",
-      // scrub: 1, // removed
-      toggleActions: "play none reverse none",
-    },
+
+  // Create the timeline
+  const headerTl = gsap.to(".main-header", {
+    duration: 0.3,
+    paused: true,
     backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
     paddingTop: padding,
     paddingBottom: padding,
     boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
   });
+
+  // Control it via ScrollTrigger (handles performance & ticks automatically)
+  ScrollTrigger.create({
+    start: `${window.innerHeight / 2}px top`,
+    end: 99999, // Keeps it active for the rest of the scroll
+    onEnter: () => headerTl.play(),
+    onLeaveBack: () => headerTl.reverse(),
+  });
+  // const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
+  // const headerTl = gsap.to(".main-header", {
+  //   duration: 0.5,
+  //   paused: true,
+  //   backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
+  //   paddingTop: padding,
+  //   paddingBottom: padding,
+  //   boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
+  // });
+  // document.addEventListener("scroll", () => {
+  //   if (window.scrollY >= window.innerHeight / 2) {
+  //     headerTl.play();
+  //   } else {
+  //     headerTl.reverse();
+  //   }
+  // });
+  console.log(window.innerHeight, "WINDOW");
+  // console.log(document.height)
+  // 1. ScrollTrigger Header Animation
+  // gsap.to(".main-header", {
+  //   scrollTrigger: {
+  //     trigger: ".main-header",
+  //     start: "top top",
+  //     end: "+=400",
+  //     scrub: true, // removed
+  //     toggleActions: "play none reverse none",
+  //   },
+  //   backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
+  //   paddingTop: padding,
+  //   paddingBottom: padding,
+  //   boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
+  // });
 
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".products-dropdown-container");
