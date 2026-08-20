@@ -7,6 +7,15 @@
     import MainButton from "@/components/buttons/MainButton.svelte";
     import AlertMessage from "@/components/AlertMessage.svelte";
     import { COUNTRY_OPTIONS, ROUTES } from "@/lib/site";
+    import AlertMessageModal from "@/components/AlertMessageModal.svelte";
+
+    export let activeTab: string;
+
+    function changeTab() {
+        activeTab = "tab-verification"; // This will automatically update the parent!
+    }
+
+    let warrantyRegistrationModal:AlertMessageModal;
 
     // View state: "form" | "alert"
     let viewState: "form" | "alert" = "form";
@@ -40,6 +49,7 @@
 
     function handleSubmit() {
         errors = {}; // Reset errors
+
 
         if (!product_model) errors.product_model = "Please select a product model.";
         if (!customerName) errors.customerName = "This field is required.";
@@ -82,6 +92,7 @@
                 viewState = "alert";
             } else if(warrantyNumber === "123456"){
                 // Display Modal
+                warrantyRegistrationModal.showModal()
             } else {
                 alertTitle = "Record Not Found";
                 alertMessage = "Please ensure the entered details are correct.";
@@ -100,7 +111,7 @@
 
 <div
     id="tab-registration"
-    class="tab-panel bg-pf-gohst-white/50 rounded-lg px-4 py-8 sm:px-8 md:px-10 md:py-18.5 lg:px-15"
+    class="tab-panel relative bg-pf-gohst-white/50 rounded-lg px-4 py-8 sm:px-8 md:px-10 md:py-18.5 lg:px-15"
 >
     {#if viewState === "form"}
         <h3 class="font-pf-galano-grotesque mb-8 text-xl font-bold tracking-[2%] capitalize md:mb-15 md:text-2xl">
@@ -274,12 +285,39 @@
             message={alertMessage}
         >
             <svelte:fragment slot="action">
+            {#if alertTitle === "Warranty Already Registered"}
+
+                <MainButton
+                    label="Verify Warranty"
+                    on:click={changeTab}
+                    className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm mt-10"
+                />
+            {:else}
                 <MainButton
                     label="Try Again"
                     on:click={handleReset}
                     className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm mt-10"
                 />
+            {/if}
             </svelte:fragment>
         </AlertMessage>
-    {/if}
+        <!-- Registration Success Modal -->
+        {/if}
+    <AlertMessageModal
+        bind:this={warrantyRegistrationModal}
+        id="warranty-registration-success-modal"
+        type="success"
+        title="Request Submitted"
+        message="We have received your warranty registration request. Our team will review your details and contact you via email."
+    >
+     <svelte:fragment slot="actions">
+         <MainButton
+        onclick={() => { warrantyRegistrationModal.closeModal(); }}
+        label="Done"
+        htmlType="button"
+        type="button"
+        className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex max-w-95 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm mt-21.5"
+    />
+    </svelte:fragment>
+    </AlertMessageModal>
 </div>

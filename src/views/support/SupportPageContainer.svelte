@@ -156,7 +156,7 @@
                 </div>
 
                 <div id="tab-registration" class="tab-panel" style="display: {activeTab === 'tab-registration' ? 'block' : 'none'};">
-                    <WarrantyRegistration />
+                    <WarrantyRegistration bind:activeTab={activeTab} />
                 </div>
                 <div id="tab-verification" class="tab-panel" style="display: {activeTab === 'tab-verification' ? 'block' : 'none'};">
                     <WarrantyVerification />
