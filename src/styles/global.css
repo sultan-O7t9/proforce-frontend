@@ -32,6 +32,7 @@
 @theme inline {
   --font-pf-mera-pro: var(--font-mera-pro);
   --font-pf-galano-grotesque: var(--font-galano-grotesque);
+  --font-pf-causten: var(--font-causten);
 }
 
 :root:has(dialog:modal) {

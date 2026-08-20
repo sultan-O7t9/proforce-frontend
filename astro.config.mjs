@@ -90,5 +90,40 @@ export default defineConfig({
         ],
       },
     },
+    {
+      provider: fontProviders.local(),
+      name: "Causten",
+      cssVariable: "--font-causten",
+      fallbacks: ["sans-serif"],
+      options: {
+        variants: [
+          {
+            src: ["./src/assets/fonts/causten/Causten-Regular.woff2"],
+            weight: "400",
+            style: "normal",
+          },
+          {
+            src: ["./src/assets/fonts/causten/Causten-Medium.woff2"],
+            weight: "500",
+            style: "normal",
+          },
+          {
+            src: ["./src/assets/fonts/causten/Causten-SemiBold.woff2"],
+            weight: "600",
+            style: "normal",
+          },
+          {
+            src: ["./src/assets/fonts/causten/Causten-Bold.woff2"],
+            weight: "700",
+            style: "normal",
+          },
+          {
+            src: ["./src/assets/fonts/causten/Causten-ExtraBold.woff2"],
+            weight: "800",
+            style: "normal",
+          },
+        ],
+      },
+    },
   ],
 });
