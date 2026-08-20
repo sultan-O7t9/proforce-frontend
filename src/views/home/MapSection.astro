@@ -13,13 +13,13 @@ import { ROUTES } from "@/lib/site";
     >
       CERTIFIED INSTALLATION
     </h4>
-    <div class="relative w-full max-w-261.25 px-4 md:px-40">
+    <div class="map-img-container relative w-full max-w-261.25 px-4 md:px-40">
       <img
         src={MapImage.src}
         alt="Proforce Installer Locations Map - Worldwide"
       />
       <div
-        class="bg-pf-navy-dark-transparent absolute top-6 right-7 z-1 flex aspect-15/13 w-24 flex-col items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.3)] pb-2 md:top-12.75 md:right-16 md:w-37.5 md:pb-4"
+        class="stat-box-countries bg-pf-navy-dark-transparent absolute top-6 right-7 z-1 flex aspect-15/13 w-24 flex-col items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.3)] pb-2 md:top-12.75 md:right-16 md:w-37.5 md:pb-4"
       >
         <h5
           id="countries-count"
@@ -34,7 +34,7 @@ import { ROUTES } from "@/lib/site";
         </h6>
       </div>
       <div
-        class="bg-pf-navy-dark-transparent absolute bottom-5 left-8 z-1 flex aspect-15/13 w-24 flex-col items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.3)] pb-2 md:bottom-26 md:left-33.75 md:w-37.5 md:pb-4"
+        class="stat-box-installers bg-pf-navy-dark-transparent absolute bottom-5 left-8 z-1 flex aspect-15/13 w-24 flex-col items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.3)] pb-2 md:bottom-26 md:left-33.75 md:w-37.5 md:pb-4"
       >
         <h5
           id="installers-count"
@@ -62,49 +62,109 @@ import { ROUTES } from "@/lib/site";
   </div>
 </section>
 
+<style>
+  @keyframes floatUpAndDown {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .floating {
+    animation: floatUpAndDown 3.5s ease-in-out infinite;
+  }
+
+  .floating-delayed {
+    animation: floatUpAndDown 4s ease-in-out infinite;
+    animation-delay: 0.5s;
+  }
+</style>
+
 <script>
   import { gsap, setupWordScrollAnimation } from "@/lib/gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
 
   let ctx: gsap.Context;
   setupWordScrollAnimation(".map-heading");
+
   function initStatsAnimation() {
     ctx = gsap.context(() => {
-      const section = document.querySelector("#stats-section");
+      const mapContainer = document.querySelector(".map-img-container");
+      const countriesBox = document.querySelector(".stat-box-countries");
+      const installersBox = document.querySelector(".stat-box-installers");
       const countriesEl = document.querySelector("#countries-count");
       const installersEl = document.querySelector("#installers-count");
 
-      if (!section || !countriesEl || !installersEl) return;
+      if (
+        !mapContainer ||
+        !countriesBox ||
+        !installersBox ||
+        !countriesEl ||
+        !installersEl
+      )
+        return;
 
       const statsObj = { countries: 0, installers: 0 };
-
       let lastCountries = -1;
       let lastInstallers = -1;
 
-      gsap.to(statsObj, {
-        countries: 12,
-        installers: 60,
-        duration: 1.5,
-        ease: "power1.out",
+      // 1. Slide-up and Count-Up Timeline Triggered by .map-img-container
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: section,
+          trigger: mapContainer,
           start: "top 85%",
-          // markers: true,
-          once: true, // Triggers only once when scrolled into view and stays completed
-        },
-        onUpdate: () => {
-          const c = statsObj.countries | 0;
-          const i = statsObj.installers | 0;
-
-          if (c !== lastCountries) {
-            countriesEl.textContent = c.toString();
-            lastCountries = c;
-          }
-          if (i !== lastInstallers) {
-            installersEl.textContent = i + "+";
-            lastInstallers = i;
-          }
+          once: true,
         },
       });
+
+      // Slide up and fade in the count boxes
+      tl.fromTo(
+        [countriesBox, installersBox],
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.2,
+          ease: "power2.out",
+          onComplete: () => {
+            // 2. Programmatically assign CSS floating animation classes after slide-up finishes
+            countriesBox.classList.add("floating");
+            installersBox.classList.add("floating-delayed");
+          },
+        },
+        0,
+      );
+
+      // Count up numbers simultaneously
+      tl.to(
+        statsObj,
+        {
+          countries: 12,
+          installers: 60,
+          duration: 1.5,
+          ease: "power1.out",
+          onUpdate: () => {
+            const c = statsObj.countries | 0;
+            const i = statsObj.installers | 0;
+
+            if (c !== lastCountries) {
+              countriesEl.textContent = c.toString();
+              lastCountries = c;
+            }
+            if (i !== lastInstallers) {
+              installersEl.textContent = i + "+";
+              lastInstallers = i;
+            }
+          },
+        },
+        0,
+      );
     });
   }
 

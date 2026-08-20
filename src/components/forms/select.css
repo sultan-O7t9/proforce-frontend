@@ -1,0 +1,35 @@
+.custom-slim-select {
+  font-family: var(--font-galano-grotesque, sans-serif) !important;
+  --ss-primary-color: rgba(33, 49, 77, 0.05);
+}
+.custom-slim-select .ss-search {
+  display: none !important;
+}
+.ss-content {
+  margin-top: 14px !important;
+  border-radius: 4px !important;
+  padding: 14px 10px !important;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+}
+.custom-slim-select .ss-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.custom-slim-select .ss-option {
+  padding: 0.75rem 20px !important;
+  border-radius: 3px;
+}
+.custom-slim-select .ss-option:hover {
+  color: rgb(33, 49, 77) !important;
+  border-left: 0 !important;
+}
+.custom-slim-select .ss-selected {
+  --ss-bg-color: rgb(33, 49, 77);
+  font-weight: 500;
+}
+
+.custom-slim-wrapper .ss-main .ss-arrow path {
+  --ss-font-color: rgba(0, 0, 0, 0.2);
+  stroke-width: 12 !important;
+}

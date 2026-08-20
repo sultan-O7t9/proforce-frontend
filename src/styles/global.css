@@ -41,7 +41,9 @@
 .bg-pf-navy-gradient {
   background: linear-gradient(to bottom, #0d1833 0%, #060a14 100%);
 }
-
+:global(.ss-content) {
+  z-index: 999999 !important;
+}
 .hero-headline {
   text-shadow:
     -1px -1px 0 white,
@@ -107,7 +109,10 @@
 }
 
 .animate-slide-up {
-  animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slideUp 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.slide-up-delay {
+  animation-delay: 0.5s;
 }
 .animate-slide-up:nth-child(1) {
   animation-delay: 0.2s;

@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import SlimSelect from 'slim-select';
-  // @ts-expect-error thsi exsists stfu
   import 'slim-select/styles';
   import './select.css';
   import { twMerge } from 'tailwind-merge';
@@ -19,23 +18,17 @@
   export let labelClass: string = "";
   export let containerClass: string = "";
   export let value: string | number = "";
-  export let error: string = "";
-
-
 
   let selectElement: HTMLSelectElement;
   let slimSelectInstance: SlimSelect | null = null;
 
-
-
   onMount(() => {
-    console.log(document.querySelector("."+id),"EL")
     slimSelectInstance = new SlimSelect({
       select: selectElement,
       settings: {
-  placeholderText: placeholder,
-  showSearch: false,
-},
+        placeholderText: placeholder,
+        showSearch: true,
+      },
       events: {
         afterChange: (newVal) => {
           if (newVal && newVal.length > 0) {
@@ -66,7 +59,7 @@
   }
 </script>
 
-<div class={twMerge("w-full mb-1.5 relative", containerClass)}>
+<div class={twMerge("w-full mb-1.5", containerClass)}>
   {#if label}
     <label
       for={name}
@@ -79,7 +72,7 @@
     </label>
   {/if}
 
-  <div class={twMerge("relative w-full custom-slim-wrapper", error && "has-error",id)}>
+  <div class="relative w-full custom-slim-wrapper">
     <select bind:this={selectElement} {name} {id} class="hidden custom-slim-select">
       <option value="" data-placeholder="true">{placeholder}</option>
       {#each options as opt}
@@ -87,20 +80,16 @@
       {/each}
     </select>
   </div>
-
-  {#if error}
-    <p class="absolute -bottom-5 text-xs text-red-500 font-medium">{error}</p>
-  {/if}
 </div>
 
 <style>
-
   .custom-slim-wrapper {
     font-family: var(--font-galano-grotesque, sans-serif);
   }
   :global(.custom-slim-wrapper .ss-search) {
-      height: 0;
-      display: none !important;
+
+      height:0;
+      display:none !important;
   }
 
   /* Main Select Box Layout */
@@ -123,17 +112,6 @@
     box-shadow: 0 0 0 1px #0d1833 !important;
   }
 
-  /* Error State Overrides */
-  :global(.custom-slim-wrapper.has-error .ss-main) {
-    border-color: #ef4444 !important;
-  }
-  :global(.custom-slim-wrapper.has-error .ss-main:hover),
-  :global(.custom-slim-wrapper.has-error .ss-main:focus),
-  :global(.custom-slim-wrapper.has-error .ss-main.ss-open) {
-    border-color: #ef4444 !important;
-    box-shadow: 0 0 0 1px #ef4444 !important;
-  }
-
   /* Placeholder Styling */
   :global(.custom-slim-wrapper .ss-placeholder) {
     color: #9ca3af !important;
@@ -143,15 +121,14 @@
   /* Dropdown Container Panel */
   :global(.custom-slim-wrapper .ss-content) {
     background-color: #ffffff !important;
-
     border: 1px solid rgba(0, 0, 0, 0.2) !important;
     border-radius: 0.25rem !important;
-    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05) !important;
     margin-top: 6px !important;
-    padding: 6px !important;
+    padding: 6px !important; /* Adds inner spacing so items match card inset look */
   }
 
-  /* Dropdown Option Items */
+  /* Dropdown Option Items - Equal padding and clean rounded highlight */
   :global(.custom-slim-wrapper .ss-list .ss-option) {
     padding: 0.875rem 1rem !important;
     margin-bottom: 2px !important;
@@ -161,10 +138,11 @@
     background-color: transparent !important;
   }
 
+  /* Hover, Highlighted, and Selected Item Backgrounds (Matching the card row style) */
   :global(.custom-slim-wrapper .ss-list .ss-option:hover),
   :global(.custom-slim-wrapper .ss-list .ss-option.ss-highlighted),
   :global(.custom-slim-wrapper .ss-list .ss-option.ss-selected) {
-    background-color: #f4f6f8 !important;
+    background-color: #f4f6f8 !important; /* Light grey-blue fill matching your screenshot */
     color: #0d1833 !important;
   }
 </style>
