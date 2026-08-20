@@ -25,14 +25,6 @@
     type="password"
     label="Password"
   />
-  <!-- Password Field 2 -->
-  <Input
-    name="confirm-password"
-    placeholder="Your Password"
-    id="confirm-password"
-    type="password"
-    label="Confirm Password"
-  />
 
   <!-- Forgot Password Link -->
   <div class="flex justify-end self-end">
@@ -49,6 +41,6 @@
   <MainButton
     label="Login"
     href=""
-    className="bg-pf-navy hover:text-pf-navy border-pf-navy flex min-w-3xs justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm"
+    className="bg-pf-navy hover:text-pf-navy border-pf-navy flex min-w-3xs justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm mt-4 md:mt-8"
   />
 </form>

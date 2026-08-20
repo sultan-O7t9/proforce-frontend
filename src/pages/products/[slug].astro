@@ -198,17 +198,43 @@ const subName = titleParts.slice(1).join(" ");
       <h2
         class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white uppercase md:tracking-[18%] lg:leading-20"
       >
-        <span class="animate-slide-up opacity-0"> {brandName} </span>
+        <span class="animate-slide-up opacity-0">
+          {
+            brandName
+              .split("")
+              .map((char) => (
+                <span class="char inline-block opacity-0">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))
+          }
+        </span>
         <span
           class="animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
         >
-          {subName}
+          {
+            subName
+              .split("")
+              .map((char) => (
+                <span class="char inline-block opacity-0">
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))
+          }
         </span>
       </h2>
       <h4
         class="font-pf-galano-grotesque text-[30px] tracking-[20%] text-white uppercase"
       >
-        {product.sku}
+        {
+          product.sku
+            .split("")
+            .map((char) => (
+              <span class="char inline-block opacity-0">
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))
+        }
       </h4>
     </div>
   </section>
@@ -281,7 +307,7 @@ const subName = titleParts.slice(1).join(" ");
           />
         </div>
         <div
-          class="relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-red-500 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
+          class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-red-500 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
         >
           <img
             src={TempProductBg.src}
@@ -310,7 +336,7 @@ const subName = titleParts.slice(1).join(" ");
         >
           <!-- Left Features (2 items) -->
           <div
-            class="order-2 flex flex-col justify-between gap-8 text-left md:order-1 md:gap-4"
+            class="feature-column-left order-2 flex flex-col justify-between gap-8 text-left md:order-1 md:gap-4"
           >
             {
               product.features.slice(0, 2).map((feature) => (
@@ -331,12 +357,12 @@ const subName = titleParts.slice(1).join(" ");
           <img
             src={product.image}
             alt={product.title}
-            class="slide-image order-1 aspect-520/242 w-full max-w-[520px] scale-100 object-contain filter-none transition-all duration-700 ease-out md:order-2 md:w-auto"
+            class="slide-image order-1 aspect-520/242 w-full max-w-[520px] scale-110 object-contain blur-xl transition-all duration-700 ease-out will-change-[transform,filter] md:order-2 md:w-auto"
           />
 
           <!-- Right Features (2 items) -->
           <div
-            class="order-2 flex flex-col justify-between gap-8 text-left md:order-3 md:gap-4"
+            class="feature-column-right order-2 flex flex-col justify-between gap-8 text-left md:order-3 md:gap-4"
           >
             {
               product.features.slice(2, 4).map((feature) => (
@@ -372,7 +398,7 @@ const subName = titleParts.slice(1).join(" ");
               Ready to Protect your Vehicle?
             </h5>
             <p
-              class="mb-8 max-w-136.75 text-[15px] leading-6.75 font-normal text-white/80"
+              class="mb-14 max-w-136.75 text-[15px] leading-6.75 font-normal text-white/80"
             >
               Flawless film requires flawless application. Connect with a
               certified Proforce installer today for a custom quote.
@@ -399,8 +425,19 @@ const subName = titleParts.slice(1).join(" ");
   </section>
 </MainLayout>
 
+<style>
+  .slide-image {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+</style>
+
 <script>
-  import { setupWordScrollAnimation } from "@/lib/gsap";
+  import { gsap, setupWordScrollAnimation } from "@/lib/gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
 
   setupWordScrollAnimation(".product-title-heading");
   setupWordScrollAnimation(".product-descripton", 0.05, 1);
@@ -408,13 +445,104 @@ const subName = titleParts.slice(1).join(" ");
   setupWordScrollAnimation(".tech-name");
   setupWordScrollAnimation(".tech-description");
   setupWordScrollAnimation(".protect-heading");
+
+  const chars = document.querySelectorAll(".char");
+
+  gsap.fromTo(
+    chars,
+    { opacity: 0, y: 25 },
+    {
+      opacity: 1,
+      y: 0,
+      delay: 0.1,
+      stagger: 0.05,
+      duration: 0.5,
+      ease: "power2.out",
+    },
+  );
+
+  let ctx: gsap.Context;
+
+  function initAnimations() {
+    ctx = gsap.context(() => {
+      // 1. Tech Banner Slide From Left
+      const techBanner = document.querySelector(".tech-banner");
+      if (techBanner) {
+        gsap.from(techBanner, {
+          scrollTrigger: {
+            trigger: techBanner,
+            start: "top 85%",
+            once: true,
+          },
+          x: -50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+        });
+      }
+
+      // 2. Product Specs Features Slide From Left & Image Blur-to-Clear Animation
+      const specsSection = document.querySelector(".slide-image");
+      if (specsSection) {
+        const leftFeatures = document.querySelectorAll(
+          ".feature-column-left .feature-item",
+        );
+        const rightFeatures = document.querySelectorAll(
+          ".feature-column-right .feature-item",
+        );
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: specsSection,
+            start: "top 80%",
+            once: true,
+          },
+        });
+
+        // Slide features in from left
+        tl.fromTo(
+          [leftFeatures, rightFeatures],
+          { x: -50, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.12,
+            ease: "power2.out",
+          },
+          0,
+        );
+
+        // Transition image from blur to clear
+        tl.to(
+          specsSection,
+          {
+            filter: "blur(0px)",
+            scale: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          0,
+        );
+      }
+    });
+  }
+
+  initAnimations();
+
   const header = document.querySelector(".main-header") as HTMLElement | null;
-  const heroSectionCotnainer = document.querySelector(
+  const heroSectionContainer = document.querySelector(
     ".hero-section-container",
   ) as HTMLElement | null;
 
-  if (header && heroSectionCotnainer) {
-    heroSectionCotnainer.style.paddingTop =
+  if (header && heroSectionContainer) {
+    heroSectionContainer.style.paddingTop =
       header.getBoundingClientRect().height + "px";
   }
+
+  document.addEventListener("astro:before-swap", () => {
+    if (ctx) ctx.revert();
+  });
+
+  document.addEventListener("astro:after-swap", initAnimations);
 </script>

@@ -41,7 +41,9 @@
 .bg-pf-navy-gradient {
   background: linear-gradient(to bottom, #0d1833 0%, #060a14 100%);
 }
-
+:global(.ss-content) {
+  z-index: 999999 !important;
+}
 .hero-headline {
   text-shadow:
     -1px -1px 0 white,

@@ -41,7 +41,7 @@ const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
   </head>
   <body class="fle font-pf-galano-grotesque flex-col bg-white text-slate-900">
     <Header theme={headerTheme} class={headerClass} ctaVariant={ctaVariant} />
-    <main class={twMerge("flex-1", Astro.props.className)}>
+    <main class={twMerge("flex-1 min-h-screen", Astro.props.className)}>
       <slot />
     </main>
     <Footer />

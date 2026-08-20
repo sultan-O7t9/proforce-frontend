@@ -10,10 +10,11 @@ interface Props {
   address: string;
 }
 const { name, location, phone, address } = Astro.props;
+const ph = phone.replaceAll(" ", "").replaceAll("+", "");
 ---
 
 <li
-  class="font-pf-galano-grotesque rounded-lg bg-white px-4 pt-6 pb-6 shadow-[0px_2px_40px_rgba(0,0,0,0.06)] md:max-w-96.25 md:px-5 md:pt-8"
+  class="font-pf-galano-grotesque rounded-lg bg-white px-4 pt-6 pb-6 shadow-[0px_2px_40px_rgba(0,0,0,0.06)] md:px-5 md:pt-8"
 >
   <div class="px-3">
     <h4
@@ -29,13 +30,22 @@ const { name, location, phone, address } = Astro.props;
     <address
       class="text-pf-navy mb-8 flex flex-col gap-4.5 text-sm font-medium tracking-[1%] not-italic"
     >
-      <a class="flex items-center gap-1.25" href="#">
+      {phone.replaceAll(" ", "").replaceAll("+", "")}
+      <a
+        class="flex items-center gap-1.25"
+        target="_blank"
+        href={"https://api.whatsapp.com/send?phone=" + ph}
+      >
         <>
           <IconWhatsApp />
           <span>{phone}</span>
         </>
       </a>
-      <a class="flex items-center gap-1.25" href="#">
+      <a
+        class="flex items-center gap-1.25"
+        href="https://maps.app.goo.gl/VSsey3ahNmKRFswh6"
+        target="_blank"
+      >
         <>
           <IconLocation />
           <span class="line-clamp-1">{address}</span>
@@ -48,7 +58,7 @@ const { name, location, phone, address } = Astro.props;
       client:load
       label="Directions"
       href=""
-      className="text-pf-navy border-pf-navy flex w-full justify-center rounded-xs bg-transparent px-5 py-3 text-sm font-medium tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white sm:max-h-11 sm:w-4/5 sm:max-w-62.5 md:px-4 md:py-3 md:text-xs md:text-[13px]"
+      className="text-pf-navy border-pf-navy hover:bg-pf-navy flex w-full justify-center rounded-xs bg-transparent px-5 py-3 text-sm font-medium tracking-[1%] transition-colors duration-200 hover:text-white sm:max-h-11 sm:w-4/5 sm:max-w-62.5 md:px-4 md:py-3 md:text-xs md:text-[13px]"
     />
     <MainButton
       client:load

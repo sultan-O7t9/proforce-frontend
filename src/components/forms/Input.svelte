@@ -7,6 +7,7 @@
         labelClass?: string;
         containerClass?: string;
         inputClass?: string;
+        error?: string;
         id: string;
         name: string;
         postIconClass?: string;
@@ -22,6 +23,7 @@
     export let labelClass: string = "";
     export let inputClass: string = "";
     export let containerClass: string = "";
+    export let error: string = "";
     export let id: string;
     export let postIconClass: string = "";
     export let value: string | number = "";
@@ -38,10 +40,11 @@
     $: safePlaceholder = placeholder ?? undefined;
 </script>
 
-<div class={twMerge("w-full mb-1.5", containerClass)}>
+<div class={twMerge("w-full mb-1.5 relative", containerClass)}>
     {#if label}
         <label for={name} class={twMerge("block text-sm font-semibold text-pf-black mb-1.5 md:mb-3.5", labelClass)}>{label}</label>
     {/if}
+
     <div class="relative w-full">
         <input
             type={inputType}
@@ -50,7 +53,10 @@
             placeholder={safePlaceholder}
             bind:value
             class={twMerge(
-                "w-full px-5 py-3 md:py-4 rounded-sm border border-pf-navy/30 text-pf-black placeholder-gray-400 text-sm focus:outline-none focus:ring-2 focus:ring-pf-navy-dark focus:border-pf-navy-dark transition-colors",
+                "w-full px-5 py-3 md:py-4 rounded-sm border text-pf-black placeholder-gray-400 text-sm focus:outline-none focus:ring-2 transition-colors",
+                error
+                    ? "border-red-500 focus:ring-red-500 focus:border-red-500 bg-red-50/10"
+                    : "border-pf-navy/30 focus:ring-pf-navy-dark focus:border-pf-navy-dark",
                 safeType === 'password' ? 'pr-12' : '',
                 inputClass
             )}
@@ -85,4 +91,9 @@
             </button>
         {/if}
     </div>
+
+    <!-- Error Message Display -->
+    {#if error}
+        <p class="-bottom-5 absolute text-xs text-red-500 font-medium">{error}</p>
+    {/if}
 </div>

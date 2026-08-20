@@ -210,3 +210,17 @@ export const TERMS: LegalInfoInterface[] = [
       "If you have any questions regarding these Terms and Conditions, please contact us through our dedicated support channels provided on the website",
   },
 ] as const;
+
+import countries from "i18n-iso-countries";
+import en from "i18n-iso-countries/langs/en.json";
+
+countries.registerLocale(en);
+
+export const COUNTRY_OPTIONS = Object.entries(
+  countries.getNames("en", { select: "official" }),
+)
+  .map(([code, name]) => ({
+    label: name,
+    value: code.toLowerCase(),
+  }))
+  .sort((a, b) => a.label.localeCompare(b.label));

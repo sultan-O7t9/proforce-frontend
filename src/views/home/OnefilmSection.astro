@@ -1,6 +1,8 @@
 ---
 import MainButton from "@/components/buttons/MainButton.svelte";
 import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
+import OneFilmLogoV1Dark from "@/assets/img/home/icon-onefilm-v1-dark.svg";
+import ImageButton from "@/components/buttons/ImageButton.svelte";
 ---
 
 <section class="onefilm-promo-container relative z-1 bg-white pt-10 md:pt-2">
@@ -32,47 +34,16 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
       <span class="font-heavy">invisible</span>
       <span>YET</span>
       <span class="font-heavy">invincible.</span>
-      <!-- WE ENGINEER <div class="font-heavy">PAINT PROTECTION FILM</div> FOR <b
-        class="font-heavy">Ultimate DEFENCE,</b
-      > DELIVERING <b class="font-heavy">Protection</b> THAT IS <b
-        class="font-heavy">pristine,</b
-      >
-      <b class="font-heavy">invisible</b> YET <b class="font-heavy"
-        >invincible.</b
-      > -->
     </h5>
-    <!-- <h5
-      class="font-pf-galano-grotesque onefilm-headline text-pf-navy flex max-w-208 flex-wrap justify-center gap-2 px-2 text-center text-xl leading-10 uppercase md:text-[40px] md:leading-16 onefilm-descripton"
-    >
-      <span>WE</span>
-      <span>ENGINEER</span>
-      <span class="font-heavy">PAINT</span>
-      <span class="font-heavy">PROTECTION</span>
-      <span class="font-heavy">FILM</span>
-      <span>FOR</span>
-      <span class="font-heavy">Ultimate</span>
-      <span class="font-heavy">DEFENCE,</span>
-      <span>DELIVERING</span>
-      <span class="font-heavy">Protection</span>
-      <span>THAT</span>
-      <span>IS</span>
-      <span class="font-heavy">pristine,</span>
-      <span class="font-heavy">invisible</span>
-      <span>YET</span>
-      <span class="font-heavy">invincible.</span>
-    </h5> -->
     <div class="flex justify-center pb-20 md:pb-4">
-      <MainButton
+      <ImageButton
         client:load
-        className="border-pf-navy hover:bg-pf-navy group flex justify-center border bg-transparent px-16 py-4.5 backdrop-blur-none transition-all duration-300 hover:text-white md:min-w-75"
+        lightSrc={OneFilmLogoV1.src}
+        darkSrc={OneFilmLogoV1Dark.src}
+        alt="OneFilm Logo"
+        className="border-pf-navy hover:bg-pf-navy group onefilm-button flex justify-center border bg-transparent px-16 py-4.5 backdrop-blur-none transition-all duration-300 hover:text-white md:min-w-75"
         href="/products"
-      >
-        <img
-          src={OneFilmLogoV1.src}
-          alt="Onefilm Logo"
-          class="h-4.5 w-auto object-cover group-hover:invert"
-        />
-      </MainButton>
+      />
     </div>
   </div>
   <div class="min-h-1/2 w-full bg-white"></div>
@@ -81,8 +52,8 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
 <script>
   import { gsap, setupWordScrollAnimation } from "@/lib/gsap";
   setupWordScrollAnimation(".onefilm-heading");
-  // setupWordScrollAnimation(".onefilm-descripton", 0.05, 1);
-  // onefilm-descripton
+
+  // One Film Description Animation
   const spans = document.querySelectorAll(".onefilm-descripton span");
   console.log(spans, "SPANS");
   gsap.fromTo(
@@ -110,26 +81,17 @@ import OneFilmLogoV1 from "@/assets/img/home/icon-onefilm-v1.svg";
   );
 
   if (window.innerWidth >= 760) {
-    const spans = document.querySelectorAll(".onefilm-headline > span");
-
-    // const spanTl = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: ".onefilm-promo-container",
-    //     start: "top top",
-    //     end: "+=600", // Controls duration of pinning & text reveal
-    //     pin: true,
-    //     pinSpacing: true, // Forces layout below to stay down until timeline completes
-    //     scrub: true,
-    //     invalidateOnRefresh: true,
-    //     markers: false,
-    //   },
-    // });
-
-    // Sequentially collapses the background box height of each span block
-    // spanTl.to(spans, {
-    //   "--after-height": "0px",
-    //   ease: "power2.out",
-    //   stagger: 0.3,
-    // });
+    gsap.timeline({
+      scrollTrigger: {
+        trigger: ".onefilm-promo-container",
+        start: "top top",
+        end: "+=200", // Controls duration of pinning & text reveal
+        pin: true,
+        pinSpacing: true, // Forces layout below to stay down until timeline completes
+        scrub: true,
+        invalidateOnRefresh: true,
+        markers: false,
+      },
+    });
   }
 </script>
