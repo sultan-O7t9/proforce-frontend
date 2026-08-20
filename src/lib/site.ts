@@ -216,11 +216,25 @@ import en from "i18n-iso-countries/langs/en.json";
 
 countries.registerLocale(en);
 
-export const COUNTRY_OPTIONS = Object.entries(
-  countries.getNames("en", { select: "official" }),
-)
-  .map(([code, name]) => ({
-    label: name,
-    value: code.toLowerCase(),
-  }))
-  .sort((a, b) => a.label.localeCompare(b.label));
+// export const COUNTRY_OPTIONS = Object.entries(
+//   countries.getNames("en", { select: "official" }),
+// )
+//   .map(([code, name]) => ({
+//     label: name,
+//     value: code.toLowerCase(),
+//   }))
+//   .sort((a, b) => a.label.localeCompare(b.label));
+
+export const COUNTRY_OPTIONS = [
+  { label: "Pakistan", value: "pk" },
+  { label: "USA", value: "us" },
+  { label: "UK", value: "gb" },
+  { label: "Canada", value: "ca" },
+  { label: "UAE", value: "ae" },
+  { label: "Saudi Arabia", value: "sa" },
+  { label: "Oman", value: "om" },
+  { label: "Qatar", value: "qa" },
+  { label: "France", value: "fr" },
+  { label: "Portugal", value: "pt" },
+  { label: "Georgia", value: "ge" },
+];
