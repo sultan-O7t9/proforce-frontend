@@ -13,9 +13,9 @@ const { label, href, className, variant = "filled" } = Astro.props;
 <a
   href={href}
   class={twMerge(
-    "cursor-pointer overflow-hidden block text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,2.2vw,1.9rem)]   py-[clamp(0.75rem,1.2vw,1rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta group",
+    "cursor-pointer overflow-hidden block text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,2.2vw,1.9rem)]   py-[clamp(0.75rem,1.2vw,1rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta group transition-[background-color] duration-200 ease-in",
     variant === "filled"
-      ? "bg-pf-yellow backdrop-blur-none text-pf-navy hover:text-pf-yellow"
+      ? "bg-pf-yellow hover:bg-pf-navy border-pf-yellow backdrop-blur-none text-pf-navy hover:text-pf-yellow hover:border-pf-navy"
       : "",
     className,
   )}
@@ -51,27 +51,22 @@ const { label, href, className, variant = "filled" } = Astro.props;
       const circle = btnCta?.querySelector(
         ".circle-util",
       ) as HTMLElement | null;
-      console.log(btnCta, circle);
 
       if (btnCta && circle) {
-        console.log("Animating");
         const animation = gsap.to(circle, {
           scale: 2,
           duration: 0.5,
-          ease: "power1.inOut",
+          ease: "power1.in",
           paused: true, // Keep it paused initially
         });
 
         btnCta?.addEventListener("mouseover", (e: MouseEvent) => {
-          console.log("EVENT");
           const dimensions = btnCta.getBoundingClientRect();
 
           // Position the circle instantly before playing forward
           circle.style.top = `${e.clientY - dimensions.top}px`;
           circle.style.left = `${e.clientX - dimensions.left}px`;
-          console.log("first");
           animation.play();
-          console.log(animation);
         });
 
         btnCta.addEventListener("mouseleave", () => {

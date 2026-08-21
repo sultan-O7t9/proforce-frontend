@@ -35,6 +35,20 @@
   --font-pf-causten: var(--font-causten);
 }
 
+@keyframes spinZ {
+  from {
+    transform: rotateZ(0deg);
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+
+/* Apply the animation to your element */
+.onefilm-bg-rotate {
+  animation: spinZ 200s linear infinite;
+}
+
 :root:has(dialog:modal) {
   overflow: hidden;
 }
