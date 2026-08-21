@@ -16,7 +16,7 @@ import IconFooter from "./icons/IconFooter.astro";
       <ul class="flex flex-col items-center gap-4 md:items-start">
         {
           FOOTER_LINKS.map((link) => (
-            <li class="text-pf-white-80 font-pf-galano-grotesque after:bg-pf-yellow hover:text-pf-yellow text-sm tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100">
+            <li class="text-pf-white-80 font-pf-galano-grotesque hover:text-pf-yellow text-sm tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100">
               <a href={link.href}>{link.name}</a>
             </li>
           ))
