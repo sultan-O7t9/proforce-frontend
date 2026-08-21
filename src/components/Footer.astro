@@ -2,6 +2,7 @@
 import FooterWatermark from "@/assets/img/footer-watermark.svg";
 import { FOOTER_LINKS, ROUTES, SOCIAL_LINKS } from "@/lib/site";
 import IconFooter from "./icons/IconFooter.astro";
+import { twMerge } from "tailwind-merge";
 ---
 
 <footer class="bg-pf-navy-dark relative flex w-full flex-col">
@@ -16,7 +17,12 @@ import IconFooter from "./icons/IconFooter.astro";
       <ul class="flex flex-col items-center gap-4 md:items-start">
         {
           FOOTER_LINKS.map((link) => (
-            <li class="text-pf-white-80 font-pf-galano-grotesque hover:text-pf-yellow text-sm tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100">
+            <li
+              class={twMerge(
+                "text-pf-white-80 font-pf-galano-grotesque hover:text-pf-yellow text-sm tracking-[1%] whitespace-nowrap transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100",
+                link.name === "OneFilm USA" ? "" : "uppercase",
+              )}
+            >
               <a href={link.href}>{link.name}</a>
             </li>
           ))

@@ -42,7 +42,7 @@ export const NAV_LINKS = [
 ] as const;
 
 export const FOOTER_LINKS = [
-  { id: 1, name: "One Film USA", href: "" },
+  { id: 1, name: "OneFilm USA", href: "" },
   { ...ROUTES.PRIVACY },
   { ...ROUTES.TERMS },
 ];
