@@ -14,7 +14,7 @@
     };
 </script>
 
-<div class="flex flex-col items-center gap-7">
+<div class="flex flex-col items-center gap-7 w-full">
     <img src={icons[type]} alt="{type} icon" />
     <h4
         class="font-pf-mera-pro text-pf-navy mt-2 text-center text-xl tracking-[10%] uppercase"

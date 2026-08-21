@@ -75,7 +75,7 @@
     <div class="bg-pf-gohst-white/50 flex flex-col items-center justify-between gap-6 rounded-lg px-4 py-8 sm:px-8 md:flex-row md:px-10 md:py-18.5 lg:px-15">
       {#if !isSubmitted}
             <form
-                class="font-pf-galano-grotesque flex w-full max-w-120 flex-1 flex-col gap-6 md:gap-10"
+                class="font-pf-galano-grotesque flex w-full max-w-120 flex-1 flex-col gap-6 md:gap-10 mx-auto"
                 on:submit|preventDefault={handleVerify}
             >
                 <h3 class="font-pf-galano-grotesque mb-3 text-2xl font-bold tracking-[2%] capitalize">
@@ -109,8 +109,8 @@
                 <AlertMessage title={alertTitle} type={alertType}>
                     <svelte:fragment slot="action">
                         {#if alertType === "success"}
-                            <div class="border-y border-y-pf-navy/20 w-full">
-                                <div class="font-pf-galano-grotesque text-sm md:text-lg font-medium text-pf-black/60 py-12.5 px-0 md:px-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 mx-auto">
+                            <div class="border-y border-y-pf-navy/20 w-full ">
+                                <div class="font-pf-galano-grotesque text-sm md:text-lg font-medium text-pf-black/60 py-12.5 px-0 md:px-12 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-10 ">
                                     <h6>Product</h6>
                                     <p class="font-semibold text-pf-black">{verifiedData.product}</p>
                                     <h6>Product Roll ID</h6>
