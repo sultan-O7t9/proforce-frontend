@@ -6,6 +6,7 @@
     import Input from "@/components/forms/Input.svelte";
     import Select from "@/components/forms/Select.svelte";
     import Textarea from "@/components/forms/Textarea.svelte";
+    import IconGift from "@/components/icons/IconGift.svelte";
     import ModalComponent from "@/components/ModalComponent.svelte";
     import { COUNTRY_OPTIONS } from "@/lib/site";
 
@@ -96,6 +97,13 @@
           >
               Report unverified or suspicious products to our support team.
           </p>
+          <div class="bg-pf-yellow/30 rounded-xl px-6 py-6 flex items-center w-[clamp(280px,100%,480px)] mx-auto mt-8 gap-5">
+          <IconGift/>
+          <div class="flex flex-col items-start gap-1">
+            <h6 class="font-pf-mera-pro text-[13px] tracking-[4%] text-pf-navy ">Get Rewarded</h6>
+            <p class="text-pf-navy opacity-80 text-sm font-pf-galano-grotesque font-medium">Get a <b class="font-bold">$35</b> cash reward when you report a fake product.</p>
+          </div>
+        </div>
       </svelte:fragment>
 
       <svelte:fragment slot="content">
@@ -227,7 +235,7 @@
                   label="Submit"
                   htmlType="submit"
                   type="button"
-                  className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex w-full max-w-95 justify-center self-end px-4 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm mt-2"
+                  className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex w-full max-w-95 justify-center self-end px-4 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm mt-10"
               />
           </form>
       </svelte:fragment>
