@@ -272,7 +272,7 @@
       </div>
 
       <!-- Map Container with Floating Selected Installer Header Overlay -->
-      <div class="relative w-full max-w-175 mb-4 md:mb-8">
+      <div class="relative w-full max-w-[1266px] mb-4 md:mb-8">
         <div
           bind:this={mapElement}
           class="mx-auto h-[320px] md:h-[450px] w-full rounded-xs shadow-lg border border-white/20 z-10"

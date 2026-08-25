@@ -1,7 +1,7 @@
 ---
 import MainLayout from "@/layouts/MainLayout.astro";
 import InstallerCard from "@/components/InstallerCard.svelte";
-import InstallerMapSearch from "@/views/installers/InstallerMapSearch.svelte";
+import InstallerMapSearch from "@/views/installers/InstallerMapSearchLeaflet.svelte";
 
 interface Installer {
   name: string;
@@ -107,44 +107,15 @@ const otherInstallers: Record<string, Installer[]> = {
   headerClass="bg-pf-navy-dark border-transparent"
 >
   <section class="pb-24">
-    <div
-      data-padding-top={64}
-      class="bg-pf-navy-dark installers-container pb-15"
-    >
-      <div class="max-container flex flex-col items-center px-8 md:px-12.5">
-        <h1
-          class="font-pf-mera-pro installer-heading mb-6 text-center text-lg tracking-[10%] text-white uppercase md:mb-12.5 md:text-2xl"
-        >
-          Find an Installer
-        </h1>
-
-        <!-- Interactive Map & Search Component -->
-        <InstallerMapSearch
-          client:load
-          nearbyInstallers={nearbyInstallers}
-          otherInstallers={otherInstallers}
-        />
-      </div>
-    </div>
+    <!-- Interactive Map & Search Component -->
+    <InstallerMapSearch
+      client:load
+      nearbyInstallers={nearbyInstallers}
+      otherInstallers={otherInstallers}
+    />
 
     <!-- Lists Grid Section -->
     <div class="max-container flex flex-col gap-3.75">
-      <div
-        class="bg-pf-yellow/10 px-10 pt-10 pb-8 md:px-14 md:pt-18.5 md:pb-15 lg:px-20"
-      >
-        <h3
-          class="font-pf-galano-grotesque text-pf-black mb-6 text-xl font-bold tracking-[2%] uppercase md:mb-12.5 md:text-[40px]"
-        >
-          Nearby <span class="font-medium">Installers</span>
-        </h3>
-        <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {
-            nearbyInstallers.map((installer) => (
-              <InstallerCard {...installer} />
-            ))
-          }
-        </ul>
-      </div>
       {
         Object.keys(otherInstallers).map((country) => (
           <div class="bg-pf-gohst-white px-10 pt-10 pb-8 md:px-14 md:pt-18.5 md:pb-15 lg:px-20">
@@ -153,7 +124,7 @@ const otherInstallers: Record<string, Installer[]> = {
             </h3>
             <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {otherInstallers[country].map((installer) => (
-                <InstallerCard {...installer} />
+                <InstallerCard client:load {...installer} />
               ))}
             </ul>
           </div>
@@ -163,21 +134,4 @@ const otherInstallers: Record<string, Installer[]> = {
   </section>
 </MainLayout>
 
-<script>
-  import { setupWordScrollAnimation } from "@/lib/gsap";
-
-  setupWordScrollAnimation(".installer-heading");
-  setupWordScrollAnimation(".search-heading");
-
-  const header = document.querySelector(".main-header") as HTMLElement | null;
-  const heroSectionContainer = document.querySelector(
-    ".installers-container",
-  ) as HTMLElement | null;
-
-  if (header && heroSectionContainer) {
-    heroSectionContainer.style.paddingTop =
-      header.getBoundingClientRect().height +
-      (Number(heroSectionContainer.dataset.paddingTop) ?? 0) +
-      "px";
-  }
-</script>
+<script></script>
