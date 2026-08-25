@@ -98,15 +98,51 @@
     }, 200);
   });
 
+  function getCustomPinIcon(L: any) {
+    return L.divIcon({
+      className: 'custom-installer-pin',
+      html: `
+        <svg width="57" height="57" viewBox="0 0 57 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#filter0_d_571_524)">
+            <path d="M16.2856 17.5714C16.2856 10.944 21.6582 5.57141 28.2856 5.57141C34.9131 5.57141 40.2856 10.944 40.2856 17.5714C40.2856 24.1988 34.9131 29.5714 28.2856 29.5714C21.6582 29.5714 16.2856 24.1988 16.2856 17.5714Z" fill="url(#paint0_linear_571_524)" shape-rendering="crispEdges"/>
+            <path d="M28.2856 6.32141C34.4988 6.32141 39.5356 11.3582 39.5356 17.5714C39.5356 23.7846 34.4988 28.8214 28.2856 28.8214C22.0724 28.8214 17.0356 23.7846 17.0356 17.5714C17.0356 11.3582 22.0724 6.32141 28.2856 6.32141Z" stroke="#21314D" stroke-width="1.5" shape-rendering="crispEdges"/>
+            <path d="M32.7341 13.4476C32.6672 13.3301 32.561 13.2414 32.3879 13.162C30.0498 12.2209 26.5207 12.2209 24.1825 13.162C23.8132 13.3371 23.7475 13.5363 23.7394 13.9556C23.7071 17.425 24.9696 20.4474 27.8698 22.5196C28.1964 22.7453 28.3764 22.7442 28.7053 22.5184C31.6031 20.4474 32.8668 17.4227 32.8334 13.9556C32.8334 13.7275 32.8022 13.5651 32.7353 13.4465L32.7341 13.4476Z" fill="#21314D"/>
+          </g>
+          <defs>
+            <filter id="filter0_d_571_524" x="-7.00951e-05" y="-1.7643e-05" width="56.5714" height="56.5714" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+              <feMorphology radius="5.14286" operator="erode" in="SourceAlpha" result="effect1_dropShadow_571_524"/>
+              <feOffset dy="10.7143"/>
+              <feGaussianBlur stdDeviation="10.7143"/>
+              <feComposite in2="hardAlpha" operator="out"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.5 0"/>
+              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_571_524"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_571_524" result="shape"/>
+            </filter>
+            <linearGradient id="paint0_linear_571_524" x1="16.2856" y1="5.57141" x2="40.2856" y2="29.5714" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FDC700"/>
+              <stop offset="1" stop-color="#F0B100"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      `,
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+      popupAnchor: [0, -20]
+    });
+  }
+
   function renderMarkers(L: any) {
     markersMap.forEach(marker => marker.remove());
     markersMap.clear();
 
     const bounds = L.latLngBounds([]);
+    const customIcon = getCustomPinIcon(L);
 
     allInstallers.forEach((installer) => {
       const coords = getCoordinatesForInstaller(installer);
-      const marker = L.marker([coords.lat, coords.lng]).addTo(map);
+      const marker = L.marker([coords.lat, coords.lng], { icon: customIcon }).addTo(map);
 
       const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${coords.lat},${coords.lng}`;
 
