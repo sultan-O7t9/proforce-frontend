@@ -37,7 +37,11 @@ const pageTitle = title ? `${title} — ${SITE.name}` : SITE.name;
     <Font cssVariable="--font-causten" preload />
     <!-- This allows any child page to inject custom tags here -->
     <slot name="head" />
-
+    <!-- Add inside your <head> tag -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH63R4wZ3L0GmV4SRNS2O-alaIBeVWUa4"
+      async
+      defer></script>
     <title>{pageTitle}</title>
   </head>
   <body class="fle font-pf-galano-grotesque flex-col bg-white text-slate-900">
