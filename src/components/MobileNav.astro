@@ -6,7 +6,7 @@ import CtaButton from "./buttons/CtaButton.astro";
 const { theme } = Astro.props;
 
 const navToggleStyles = twMerge(
-  "rounded-2xl bg-pf-yellow border-2 border-pf-yellow",
+  "rounded-2xl bg-white border-2 border-white",
   theme === "dark" ? "border-pf-navy bg-pf-navy" : "",
 );
 
@@ -18,47 +18,54 @@ const products = [
 ---
 
 <nav class="md:hidden">
-  <button
-    aria-label="Toggle menu"
-    class={twMerge(
-      "header-menu-toggle flex flex-col justify-center items-center gap-1.25 h-12 w-12 bg-pf-navy/10 border border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
-      theme === "dark" ? "bg-transparent border-transparent" : "",
-    )}
-  >
-    <div class="flex items-center gap-0.5">
-      <div class:list={["line w-1", navToggleStyles]}></div>
-      <div
-        class:list={[
-          "line-cross line-cross-1 w-5 origin-right",
-          navToggleStyles,
-        ]}
-      >
+  <div class="relative z-[1000] flex items-center justify-end py-3">
+    <p class="opacity-0">Mobile Nav</p>
+    <button
+      aria-label="Toggle menu"
+      class={twMerge(
+        "header-menu-toggle absolute flex flex-col justify-center items-center gap-1.25 h-12 w-12 ounded-full cursor-pointer group bg-transparent border-transparent",
+        theme === "dark" ? "bg-transparent border-transparent" : "",
+      )}
+    >
+      <div class:list={["nav-line-1 h-[4.4px] w-[35.2px]", navToggleStyles]}>
       </div>
-    </div>
-    <div class="flex items-center gap-0.5">
-      <div class:list={["line w-1.25", navToggleStyles]}></div>
-      <div class:list={["line w-4.75", navToggleStyles]}></div>
-    </div>
-    <div class="flex items-center gap-0.5">
-      <div class:list={["line w-1.5", navToggleStyles]}></div>
-      <div
-        class:list={[
-          "line-cross line-cross-2 w-4.5 origin-right",
-          navToggleStyles,
-        ]}
-      >
+      <div class:list={["nav-line-2 h-[4.4px] w-[35.2px]", navToggleStyles]}>
       </div>
-    </div>
-  </button>
+      <!-- <div class="flex items-center gap-0.5">
+        <div class:list={["line w-1", navToggleStyles]}></div>
+        <div
+          class:list={[
+            "line-cross line-cross-1 w-5 origin-right",
+            navToggleStyles,
+          ]}
+        >
+        </div>
+      </div>
+      <div class="flex items-center gap-0.5">
+        <div class:list={["line w-1.25", navToggleStyles]}></div>
+        <div class:list={["line w-4.75", navToggleStyles]}></div>
+      </div>
+      <div class="flex items-center gap-0.5">
+        <div class:list={["line w-1.5", navToggleStyles]}></div>
+        <div
+          class:list={[
+            "line-cross line-cross-2 w-4.5 origin-right",
+            navToggleStyles,
+          ]}
+        >
+        </div>
+      </div> -->
+    </button>
+  </div>
 
   <!-- Backdrop -->
   <div
     class="backdrop bg-pf-yellow pointer-events-none fixed top-0 left-0 z-50 h-screen w-screen translate-x-full px-8 py-5 md:px-10 md:pt-8.75 md:pb-5 lg:px-[clamp(1rem,4vw+1rem,70px)]"
   >
     <div
-      class="backdrop-2 from-pf-navy to-pf-navy-dark bg-pf-navy absolute top-0 left-0 flex h-full w-full translate-x-[120%] flex-col bg-linear-to-r px-10 pt-10"
+      class="backdrop-2 from-pf-navy to-pf-navy-dark bg-pf-navy absolute top-0 left-0 flex h-full w-full translate-x-[120%] flex-col bg-linear-to-r px-10 pt-6"
     >
-      <div class="mb-8 flex items-center justify-between">
+      <div class="mb-12 flex items-center justify-between">
         <a
           href={ROUTES.HOME.href}
           aria-label="Proforce Logo"
@@ -67,29 +74,18 @@ const products = [
           <img
             src="/images/icons/proforce-logo-white-1.svg"
             alt={"Proforce Logo"}
-            class="h-8 w-auto object-cover lg:h-10"
+            class="h-10 w-auto object-cover"
           />
         </a>
 
-        <button
+        <!-- <button
           aria-label="Menu Close Button"
           class={twMerge(
-            "menu-close-btn flex flex-col justify-center items-center gap-1.25 h-12 w-12 bg-pf-navy/10 border-white border group hover:border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
+            "menu-close-btn flex flex-col justify-center items-center gap-1.25 h-11 w-11 bg-pf-navy/10 border-white border group hover:border-pf-yellow backdrop-blur-[30px] rounded-full cursor-pointer group",
           )}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            class="group-hover:stroke-pf-yellow h-8 w-8 stroke-white"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M6 18L18 6M6 6l12 12"></path>
-          </svg>
-        </button>
+          <div></div>
+        </button> -->
       </div>
 
       <nav class="flex flex-1 flex-col overflow-y-auto">
@@ -174,7 +170,7 @@ const products = [
         <h6
           class="font-pf-galano-grotesque text-pf-white-80 text-center text-sm tracking-[2%]"
         >
-          © {new Date().getFullYear()}
+          © {new Date().getFullYear()}{" "}
           <a
             href={ROUTES.HOME.href}
             class="hover:text-pf-yellow cursor-pointer transition-colors duration-300"
@@ -201,6 +197,7 @@ const products = [
   const accordionArrow = document.querySelector(".accordion-arrow");
 
   let isAccordionOpen = false;
+  let isMenuOpen = false;
 
   productsTrigger?.addEventListener("click", () => {
     isAccordionOpen = !isAccordionOpen;
@@ -236,54 +233,83 @@ const products = [
       });
     }
   });
-
-  menuToggle?.addEventListener("click", () => {
-    document.body.style.overflow = "hidden";
-
-    gsap
-      .timeline({
-        onStart: () => {
-          productsTrigger?.click();
-          // Put your code here
-        },
-      })
-      .to(".backdrop", {
+  const menuTl = gsap
+    .timeline({
+      onStart: () => {
+        productsTrigger?.click();
+        // Put your code here
+      },
+      paused: true,
+    })
+    .to(".backdrop", {
+      x: 0,
+      pointerEvents: "auto",
+      duration: 1,
+    })
+    .to(
+      ".backdrop-2",
+      {
         x: 0,
         pointerEvents: "auto",
         duration: 1,
-      })
-      .to(
-        ".backdrop-2",
-        {
-          x: 0,
-          pointerEvents: "auto",
-          duration: 1,
-          ease: "power4.out",
-        },
-        "<0.25",
-      );
-  });
+        ease: "power4.out",
+      },
+      "<0.25",
+    )
+    .to(
+      ".header-menu-toggle .nav-line-1",
+      {
+        y: 4,
+        rotate: 45,
+        duration: 0.5,
+        ease: "power2.out",
+      },
 
-  menuCloseBtn?.addEventListener("click", () => {
-    document.body.style.overflow = "";
+      "<0.25",
+    )
+    .to(
+      ".header-menu-toggle .nav-line-2",
+      {
+        y: -6,
+        rotate: -45,
+        duration: 0.5,
+        ease: "power2.out",
+      },
 
-    if (isAccordionOpen) {
-      isAccordionOpen = false;
-      gsap.set(productsAccordion, { maxHeight: 0, overflowY: "hidden" });
-      gsap.set(accordionArrow, { rotate: 0 });
+      "<0",
+    );
+
+  menuToggle?.addEventListener("click", () => {
+    document.body.style.overflow = "hidden";
+    if (!isMenuOpen) {
+      menuTl.play();
+      isMenuOpen = true;
+    } else {
+      menuTl.reverse();
+      isMenuOpen = false;
     }
-
-    gsap
-      .timeline()
-      .to(".backdrop-2", { x: "120%", pointerEvents: "none", duration: 0.5 })
-      .to(
-        ".backdrop",
-        {
-          x: "100%",
-          pointerEvents: "none",
-          duration: 0.5,
-        },
-        "<",
-      );
   });
+
+  // menuCloseBtn?.addEventListener("click", () => {
+  //   document.body.style.overflow = "";
+
+  //   if (isAccordionOpen) {
+  //     isAccordionOpen = false;
+  //     gsap.set(productsAccordion, { maxHeight: 0, overflowY: "hidden" });
+  //     gsap.set(accordionArrow, { rotate: 0 });
+  //   }
+
+  //   gsap
+  //     .timeline()
+  //     .to(".backdrop-2", { x: "120%", pointerEvents: "none", duration: 0.5 })
+  //     .to(
+  //       ".backdrop",
+  //       {
+  //         x: "100%",
+  //         pointerEvents: "none",
+  //         duration: 0.5,
+  //       },
+  //       "<",
+  //     );
+  // });
 </script>
