@@ -402,7 +402,7 @@
 <div class="max-container flex flex-col gap-3.75 w-full">
   <div class="bg-pf-yellow/10 px-10 pt-10 pb-8 md:px-14 md:pt-18.5 md:pb-15 lg:px-20">
     <h3 class="font-pf-galano-grotesque text-pf-black mb-6 text-xl font-bold tracking-[2%] uppercase md:mb-12.5 md:text-[40px]">
-      Nearby <span class="font-medium">Installers</span> {userLocation ? "(Closest to you)" : ""}
+      Nearby <span class="font-medium">Installers</span>
     </h3>
     <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {#each dynamicNearby as installer}
