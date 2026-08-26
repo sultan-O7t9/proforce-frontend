@@ -82,7 +82,7 @@
          <MainButton
                                       label="Report" data-open-modal="report-modal"
                                       type="button" htmlType="button"
-                                      className="bg-transparent text-pf-navy hover:text-white hover:bg-pf-navy border-pf-navy flex md:max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 sm:w-4/5 md:px-4 md:py-4 md:text-xs"
+                                      className="bg-transparent text-pf-navy hover:text-white hover:bg-pf-navy border-pf-navy flex md:max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 sm:w-4/5 md:px-4 md:py-4 md:text-sm"
                                   />
       </svelte:fragment>
 
@@ -235,7 +235,7 @@
                   label="Submit"
                   htmlType="submit"
                   type="button"
-                  className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex w-full max-w-95 justify-center self-end px-4 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm mt-10"
+                  className="bg-pf-navy hover:text-pf-navy border-pf-navy mx-auto flex w-full max-w-95 justify-center self-end px-4 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-14 md:py-4 md:text-sm mt-10 mb-20"
               />
           </form>
       </svelte:fragment>
