@@ -20,9 +20,24 @@ const { bgUrl, className } = Astro.props;
     "bg-pf-navy hero-section-container sticky top-0 flex h-screen flex-col items-start justify-center bg-cover bg-right px-8 py-5 md:px-12 md:py-8.75 lg:px-[clamp(1rem,6.2vw+1rem,100px)]",
     className,
   )}
-  style={`background-image: url('${bgUrl}');`}
 >
-  <div class="max-container flex w-full flex-col gap-12 md:gap-20">
+  <video
+    autoplay
+    muted
+    loop
+    playsinline
+    class="absolute top-1/2 left-1/2 -z-20 h-auto min-h-full w-auto min-w-full -translate-x-1/2 -translate-y-1/2 object-cover"
+  >
+    <source src="/vids/proforce_intro_home.webm" type="video/webm" />
+    <source src="/vids/proforce_intro_home.mp4" type="video/mp4" />
+    Your browser does not support HTML5 video.
+  </video>
+  <div class="absolute inset-0 -z-10 bg-black/50"></div>
+  <!-- style={`background-image: url('${bgUrl}');`} -->
+
+  <div
+    class="max-container relative z-10 flex w-full flex-col gap-12 md:gap-20"
+  >
     <h2
       class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white md:tracking-[18%] lg:leading-20"
     >
