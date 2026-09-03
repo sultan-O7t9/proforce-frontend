@@ -48,6 +48,21 @@ import { ROUTES } from "@/lib/site";
           Installers
         </h6>
       </div>
+      <div
+        class="stat-box-applications bg-pf-navy-dark-transparent absolute bottom-5 left-8 z-1 flex aspect-15/13 w-24 flex-col items-center justify-center rounded-2xl border border-[rgba(255,255,255,0.3)] pb-2 md:bottom-10 md:left-142 md:w-37.5 md:pb-4"
+      >
+        <h5
+          id="installers-count"
+          class="font-pf-causten text-pf-yellow text-3xl font-extrabold tracking-[2px] md:text-[45px] md:tracking-[6px]"
+        >
+          5k+
+        </h5>
+        <h6
+          class="font-pf-galano-grotesque text-[10px] font-semibold tracking-[8%] text-white uppercase md:text-xs"
+        >
+          Applications
+        </h6>
+      </div>
     </div>
     <div>
       <MainButton
@@ -97,6 +112,7 @@ import { ROUTES } from "@/lib/site";
       const mapContainer = document.querySelector(".map-img-container");
       const countriesBox = document.querySelector(".stat-box-countries");
       const installersBox = document.querySelector(".stat-box-installers");
+      const applicationsBox = document.querySelector(".stat-box-applications");
       const countriesEl = document.querySelector("#countries-count");
       const installersEl = document.querySelector("#installers-count");
 
@@ -104,6 +120,7 @@ import { ROUTES } from "@/lib/site";
         !mapContainer ||
         !countriesBox ||
         !installersBox ||
+        !applicationsBox ||
         !countriesEl ||
         !installersEl
       )
@@ -124,7 +141,7 @@ import { ROUTES } from "@/lib/site";
 
       // Slide up and fade in the count boxes
       tl.fromTo(
-        [countriesBox, installersBox],
+        [countriesBox, installersBox, applicationsBox],
         { y: 50, opacity: 0 },
         {
           y: 0,
@@ -135,7 +152,8 @@ import { ROUTES } from "@/lib/site";
           onComplete: () => {
             // 2. Programmatically assign CSS floating animation classes after slide-up finishes
             countriesBox.classList.add("floating");
-            installersBox.classList.add("floating-delayed");
+            applicationsBox.classList.add("floating-delayed");
+            installersBox.classList.add("floating");
           },
         },
         0,
