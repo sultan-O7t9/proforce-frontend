@@ -36,10 +36,10 @@ const { bgUrl, className } = Astro.props;
   <!-- style={`background-image: url('${bgUrl}');`} -->
 
   <div
-    class="max-container relative z-10 flex w-full flex-col gap-12 md:gap-20"
+    class="max-container relative z-10 flex w-full flex-col gap-16 md:gap-20"
   >
     <h2
-      class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white md:tracking-[18%] lg:leading-20"
+      class="font-pf-mera-pro mt-24 flex flex-col gap-5 text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white sm:mt-auto md:tracking-[18%] lg:leading-20"
     >
       <span class="animate-slide-u headline-text"
         >{
@@ -80,18 +80,18 @@ const { bgUrl, className } = Astro.props;
       class="animate-slide-up slide-up-delay flex flex-col justify-start gap-4 self-start opacity-0"
     >
       <MainButton
+        className="gap-1.75 px-5.25 py-3.5 text-xs sm:text-xs"
         client:load
         label="Explore Products"
         showAero
         href="#products-section"
+        aeroClass="h-2.5 sm:h-auto"
       />
       <MainButton
+        className="text-pf-yellow border-pf-yellow justify-center gap-1.75 px-5.25 py-3.5 text-xs sm:text-xs md:hidden"
         client:load
         label="Find an Installer"
-        showAero
         href={ROUTES.INSTALLERS.href}
-        className="text-pf-yellow border-pf-yellow md:hidden"
-        aeroClass="fill-pf-yellow"
       />
     </div>
   </div>

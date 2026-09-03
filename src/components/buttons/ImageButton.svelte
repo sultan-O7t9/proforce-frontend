@@ -8,6 +8,7 @@
   export let lightSrc: string = "";
   export let darkSrc: string = "";
   export let alt: string = "Logo";
+  export let imgClass:string = "";
 
  let isHovered = false;
 
@@ -30,7 +31,7 @@
   >
    <slot>
       {#if lightSrc}
-        <img src={currentSrc} {alt} class="transition-all" />
+        <img src={currentSrc} {alt} class={twMerge("transition-all",imgClass)} />
       {/if}
     </slot>
   </a>
@@ -44,7 +45,7 @@
   >
    <slot>
       {#if lightSrc}
-        <img src={currentSrc} {alt} class="transition-all" />
+        <img src={currentSrc} {alt} class={twMerge("transition-all",imgClass)} />
       {/if}
     </slot>
   </button>

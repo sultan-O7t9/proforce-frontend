@@ -23,7 +23,7 @@
     <a {href} class={baseClasses} {onclick} {...$$restProps}>
         <span class="label inline-block">{label}</span>
         {#if showAero}
-            <IconAero fillClass={aeroClass} class="transition-transform duration-300 group-hover:translate-x-2" />
+            <IconAero fillClass={aeroClass} class={twMerge("transition-transform duration-300 group-hover:translate-x-2", aeroClass)} />
         {/if}
         <slot />
     </a>
@@ -31,7 +31,7 @@
     <button type={htmlType} class={baseClasses} {onclick} {...$$restProps}>
         <span class="label inline-block">{label}</span>
         {#if showAero}
-            <IconAero fillClass={aeroClass} class="transition-transform duration-300 group-hover:translate-x-2" />
+            <IconAero fillClass={aeroClass} class={twMerge("transition-transform duration-300 group-hover:translate-x-2", aeroClass)} />
         {/if}
         <slot />
     </button>

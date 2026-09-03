@@ -6,9 +6,11 @@ import ImageButton from "@/components/buttons/ImageButton.svelte";
 import IconShield from "@/components/icons/IconShield.astro";
 ---
 
-<section class="onefilm-promo-container relative z-1 bg-white pt-10 md:pt-2">
+<section
+  class="onefilm-promo-container relative z-1 bg-white pt-20 pb-20 md:pt-2 md:pb-0"
+>
   <div
-    class="max-container relative flex h-full w-full flex-col items-center justify-center gap-14 bg-contain bg-center bg-no-repeat md:min-h-screen"
+    class="max-container relative flex h-full w-full flex-col items-center justify-center gap-10 bg-contain bg-center bg-no-repeat md:min-h-screen md:gap-14"
   >
     <!-- <div
     class="max-container relative flex h-full w-full flex-col items-center justify-center gap-14 bg-[url('/images/onefilm-bg.svg')] bg-contain bg-center bg-no-repeat md:min-h-screen"
@@ -23,13 +25,13 @@ import IconShield from "@/components/icons/IconShield.astro";
       />
     </div>
     <h4
-      class="onefilm-heading font-pf-mera-pro text-pf-navy relative z-1 px-8 text-center text-xs leading-6 tracking-[25%] md:text-sm"
+      class="onefilm-heading font-pf-mera-pro text-pf-navy relative z-1 px-8 text-center text-[10px] leading-6 tracking-[25%] md:text-sm"
     >
       ENGINEERED BY ONEFILM USA
     </h4>
 
     <h5
-      class="font-pf-galano-grotesque text-pf-navy onefilm-descripton relative z-1 flex max-w-209 flex-wrap justify-center gap-2 px-2 text-center text-xl leading-10 uppercase md:text-[40px] md:leading-16"
+      class="font-pf-galano-grotesque text-pf-navy onefilm-descripton relative z-1 flex max-w-97 flex-wrap justify-center gap-2 px-2 text-center text-lg leading-8 uppercase md:max-w-209 md:text-[40px] md:leading-16"
     >
       <span>WE</span>
       <span>ENGINEER</span>
@@ -48,13 +50,13 @@ import IconShield from "@/components/icons/IconShield.astro";
       <span>YET</span>
       <span class="font-heavy">invincible.</span>
     </h5>
-    <div class="relative z-1 flex justify-center pb-20 md:pb-4">
+    <div class="relative z-1 mt-1 flex justify-center pb-20 md:mt-auto md:pb-4">
       <ImageButton
         client:load
         lightSrc={OneFilmLogoV1.src}
         darkSrc={OneFilmLogoV1Dark.src}
         alt="OneFilm Logo"
-        className="group onefilm-button flex justify-center border border-black bg-transparent px-16 py-4.5 backdrop-blur-none transition-all duration-300 hover:bg-black hover:text-white md:min-w-75"
+        className="group onefilm-button flex scale-[0.65] justify-center border border-black bg-transparent px-16 py-4.5 backdrop-blur-none transition-all duration-300 hover:bg-black hover:text-white md:min-w-75"
         href="/products"
       />
     </div>
