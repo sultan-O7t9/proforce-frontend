@@ -21,6 +21,7 @@ export function getStaticPaths() {
     {
       id: 1,
       background: PhantomBg,
+      video: "/vids/phantom.mp4",
       title: "Proforce Phantom",
       slug: "proforce-phantom",
       thickness: "7 mil",
@@ -67,6 +68,7 @@ export function getStaticPaths() {
     },
     {
       id: 2,
+      video: "/vids/phantom-plus.mp4",
       background: PhantomPlusBg,
       title: "Proforce Phantom+",
       slug: "proforce-phantom-plus",
@@ -114,6 +116,7 @@ export function getStaticPaths() {
     },
     {
       id: 3,
+      video: "/vids/apex.mp4",
       background: ApexBg,
       title: "Proforce Apex",
       productColor: "primary",
@@ -323,8 +326,7 @@ const subName = titleParts.slice(1).join(" ");
             class="h-full w-full object-cover"
             aria-label="Technology background video"
           >
-            <source src="/vids/proforce_intro_home.webm" type="video/webm" />
-            <source src="/vids/proforce_intro_home.mp4" type="video/mp4" />
+            <source src={product.video} type="video/mp4" />
             Your browser does not support HTML5 video.
           </video>
         </div>
