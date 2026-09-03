@@ -155,7 +155,8 @@ const isProductsActive = products.some(
   const headerTl = gsap.to(".main-header", {
     duration: 0.3,
     paused: true,
-    backgroundColor: theme === "dark" ? "white" : "#0D1833",
+    backgroundColor: theme === "dark" ? "white" : "#0D1833E5",
+    backdropFilter: "blur(4px)",
     paddingTop: padding,
     paddingBottom: padding,
     boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",

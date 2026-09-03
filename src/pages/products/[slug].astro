@@ -2,9 +2,9 @@
 import MapImage from "@/assets/img/home/map.svg";
 import { getImage } from "astro:assets";
 import MainLayout from "@/layouts/MainLayout.astro";
-import PhantomBg from "@/assets/img/phantom-bg.png";
-import PhantomPlusBg from "@/assets/img/phantom-plus-bg.png";
-import ApexBg from "@/assets/img/apex-bg.png";
+import PhantomBg from "@/assets/img/products/phantom.webp";
+import PhantomPlusBg from "@/assets/img/products/phantom-plus.webp";
+import ApexBg from "@/assets/img/products/apex.webp";
 import JetSvg from "@/assets/img/jet.svg";
 import TempProductBg from "@/assets/img/temp-product-bg.png";
 import MainButton from "@/components/buttons/MainButton.svelte";
@@ -14,6 +14,7 @@ import IconProtection from "@/assets/img/icon-protection.svg";
 import IconHydrophobic from "@/assets/img/icon-hydrophobic.svg";
 import IconHealing from "@/assets/img/icon-healing.svg";
 import { ROUTES } from "@/lib/site";
+import { twMerge } from "tailwind-merge";
 
 export function getStaticPaths() {
   const products = [
@@ -210,7 +211,12 @@ const subName = titleParts.slice(1).join(" ");
           }
         </span>
         <span
-          class="animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
+          class={twMerge(
+            "animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]",
+            subName.toLowerCase() === "apex"
+              ? "[-webkit-text-stroke:1.5px_#FDD637] lg:[-webkit-text-stroke:2px_#FDD637]"
+              : "",
+          )}
         >
           {
             subName
@@ -307,14 +313,30 @@ const subName = titleParts.slice(1).join(" ");
           />
         </div>
         <div
-          class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-red-500 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
+          class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-gray-900 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
+        >
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            class="h-full w-full object-cover"
+            aria-label="Technology background video"
+          >
+            <source src="/vids/proforce_intro_home.webm" type="video/webm" />
+            <source src="/vids/proforce_intro_home.mp4" type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+        <!-- <div
+          class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-gray-900 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
         >
           <img
             src={TempProductBg.src}
             class="h-full w-full object-cover"
             alt="Technology background"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- Product Specs-->
