@@ -10,6 +10,8 @@ interface Props {
   ctaVariant?: "outlined" | "filled";
 }
 const { theme = "light", ctaVariant } = Astro.props;
+const currentPath = Astro.url.pathname;
+
 const proforceLogo = {
   light: "/images/icons/proforce-logo-white-1.svg",
   dark: "/images/icons/proforce-logo-dark-1.svg",
@@ -20,6 +22,11 @@ const products = [
   { name: "Proforce Phantom+", slug: "proforce-phantom-plus" },
   { name: "Proforce Apex", slug: "proforce-apex" },
 ];
+
+// Helper to check if products dropdown should be active
+const isProductsActive = products.some(
+  (p) => ROUTES.PRODUCTS(p.slug, p.name).href === currentPath,
+);
 ---
 
 <header
@@ -31,7 +38,6 @@ const products = [
   )}
 >
   <div class="max-container flex items-center justify-between">
-    <!-- <div class="max-container flex  items-center justify-between px-17.5 py-8.75 "> -->
     <a
       href={ROUTES.HOME.href}
       aria-label="Proforce Logo"
@@ -54,7 +60,10 @@ const products = [
         <!-- Products Dropdown Nav Item -->
         <li class="products-dropdown-container relative">
           <p
-            class="products-trigger hover:text-pf-yellow cursor-pointer text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100"
+            class={twMerge(
+              "products-trigger hover:text-pf-yellow cursor-pointer text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100",
+              isProductsActive ? "text-pf-yellow" : "",
+            )}
           >
             {ROUTES.PRODUCTS.name}
           </p>
@@ -64,38 +73,54 @@ const products = [
             class="products-menu pointer-events-none invisible absolute top-full left-0 z-50 mt-2 flex h-41.5 max-h-41.5 w-50 max-w-50 flex-col justify-around rounded-2xl bg-[#1b2a4a] p-4 opacity-0 shadow-xl after:absolute after:-top-2 after:left-0 after:h-2 after:w-full after:content-['']"
           >
             {
-              products.map((product) => (
-                <a
-                  href={ROUTES.PRODUCTS(product.slug, product.name).href}
-                  class="hover:text-pf-yellow w-full text-sm font-normal tracking-[1%] whitespace-nowrap text-white transition-colors"
-                >
-                  {product.name.split(" ")[0]}{" "}
-                  <span
-                    class={
-                      product.name.split(" ")[1].toLowerCase() === "apex"
-                        ? "font-pf-mera-pro uppercase"
-                        : ""
-                    }
+              products.map((product) => {
+                const productHref = ROUTES.PRODUCTS(
+                  product.slug,
+                  product.name,
+                ).href;
+                const isProductActive = currentPath === productHref;
+                return (
+                  <a
+                    href={productHref}
+                    class={twMerge(
+                      "hover:text-pf-yellow w-full text-sm font-normal tracking-[1%] whitespace-nowrap text-white transition-colors",
+                      isProductActive ? "text-pf-yellow font-medium" : "",
+                    )}
                   >
-                    {product.name.split(" ")[1]}
-                  </span>
-                </a>
-              ))
+                    {product.name.split(" ")[0]}{" "}
+                    <span
+                      class={
+                        product.name.split(" ")[1].toLowerCase() === "apex"
+                          ? "font-pf-mera-pro uppercase"
+                          : ""
+                      }
+                    >
+                      {product.name.split(" ")[1]}
+                    </span>
+                  </a>
+                );
+              })
             }
           </div>
         </li>
 
         {
-          NAV_LINKS.map((link) => (
-            <li>
-              <a
-                href={link.href}
-                class="hover:text-pf-yellow text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))
+          NAV_LINKS.map((link) => {
+            const isActive = currentPath === link.href;
+            return (
+              <li>
+                <a
+                  href={link.href}
+                  class={twMerge(
+                    "hover:text-pf-navy text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100",
+                    isActive ? "text-pf-navy" : "",
+                  )}
+                >
+                  {link.name}
+                </a>
+              </li>
+            );
+          })
         }
         <li>
           <CtaButton
@@ -127,55 +152,21 @@ const products = [
 
   const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
 
-  // Create the timeline
   const headerTl = gsap.to(".main-header", {
     duration: 0.3,
     paused: true,
-    backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
+    backgroundColor: theme === "dark" ? "white" : "#0D1833",
     paddingTop: padding,
     paddingBottom: padding,
     boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
   });
 
-  // Control it via ScrollTrigger (handles performance & ticks automatically)
   ScrollTrigger.create({
     start: `${window.innerHeight / 2}px top`,
-    end: 99999, // Keeps it active for the rest of the scroll
+    end: 99999,
     onEnter: () => headerTl.play(),
     onLeaveBack: () => headerTl.reverse(),
   });
-  // const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
-  // const headerTl = gsap.to(".main-header", {
-  //   duration: 0.5,
-  //   paused: true,
-  //   backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
-  //   paddingTop: padding,
-  //   paddingBottom: padding,
-  //   boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
-  // });
-  // document.addEventListener("scroll", () => {
-  //   if (window.scrollY >= window.innerHeight / 2) {
-  //     headerTl.play();
-  //   } else {
-  //     headerTl.reverse();
-  //   }
-  // });
-  console.log(window.innerHeight, "WINDOW");
-  // console.log(document.height)
-  // 1. ScrollTrigger Header Animation
-  // gsap.to(".main-header", {
-  //   scrollTrigger: {
-  //     trigger: ".main-header",
-  //     start: "top top",
-  //     end: "+=400",
-  //     scrub: true, // removed
-  //     toggleActions: "play none reverse none",
-  //   },
-  //   backgroundColor: theme === "dark" ? "white" : "rgba(6, 10, 20, 0.8)",
-  //   paddingTop: padding,
-  //   paddingBottom: padding,
-  //   boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
-  // });
 
   document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".products-dropdown-container");
@@ -199,7 +190,6 @@ const products = [
       },
     );
 
-    // Toggle on Click / Touch
     trigger.addEventListener("click", (e) => {
       e.stopPropagation();
       isOpen = !isOpen;
@@ -213,7 +203,6 @@ const products = [
       }
     });
 
-    // Open on Hover (Desktop)
     container.addEventListener("mouseenter", () => {
       if (!isOpen) {
         menu.classList.remove("pointer-events-none");
@@ -221,7 +210,6 @@ const products = [
       }
     });
 
-    // Close on Mouse Leave (Desktop)
     container.addEventListener("mouseleave", () => {
       if (!isOpen) {
         tl.reverse().then(() => {
@@ -230,7 +218,6 @@ const products = [
       }
     });
 
-    // Close when clicking outside
     document.addEventListener("click", (e) => {
       if (!container.contains(e.target as Node) && isOpen) {
         isOpen = false;
