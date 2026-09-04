@@ -599,3 +599,5 @@ export const INSTALLERS = {
     ],
   },
 };
+
+export const MAPS_API_KEY = "AIzaSyAGp6xHO7mzYFUki6OoNqgBCyM7tIJhLOI";
