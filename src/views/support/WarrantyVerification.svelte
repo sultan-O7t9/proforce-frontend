@@ -94,7 +94,7 @@
                 label="Verify"
                 htmlType="submit"
                 type="button"
-                className="bg-pf-navy hover:text-pf-navy border-pf-navy mt-5 flex md:max-w-62.5 justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm mb-8 md:mb-15"
+                className="bg-pf-navy hover:text-pf-navy border-pf-navy mt-5 flex justify-center px-5 py-3.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent sm:w-4/5 md:px-4 md:py-4 md:text-sm mb-8 md:mb-15 mx-auto md:w-full  md:max-w-95 "
             />
         </form>
     {:else}
