@@ -32,7 +32,7 @@ const isProductsActive = products.some(
 <header
   data-theme={theme}
   class={twMerge(
-    "main-header fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 md:pt-8.75 md:pb-5 ",
+    "main-header fixed top-0 left-0 right-0 z-50 bg-transparent px-8 md:px-10 lg:px-[clamp(1rem,4vw+1rem,70px)] py-5 ",
     theme === "dark" ? "border border-pf-navy/20 bg-white" : "",
     Astro.props.class,
   )}
@@ -150,15 +150,15 @@ const isProductsActive = products.some(
     screenWidth = header.getBoundingClientRect().width;
   }
 
-  const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
+  // const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
 
   const headerTl = gsap.to(".main-header", {
     duration: 0.3,
     paused: true,
     backgroundColor: theme === "dark" ? "white" : "#0D1833E5",
     backdropFilter: "blur(4px)",
-    paddingTop: padding,
-    paddingBottom: padding,
+    // paddingTop: padding,
+    // paddingBottom: padding,
     boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
   });
 
