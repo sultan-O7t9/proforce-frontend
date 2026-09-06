@@ -6,7 +6,7 @@
 </script>
 
 <form
-  class="font-pf-galano-grotesque flex w-[clamp(280px,100%,480px)] flex-col items-center gap-4.5"
+  class="font-pf-galano-grotesque flex w-[clamp(280px,100%,480px)] flex-col items-center gap-4.5 bg-pf-gohst-white/50 md:bg-transparent px-5 md:px-0 py-9 md:py-0"
 >
   <!-- Email Field -->
   <Input
