@@ -62,7 +62,12 @@ const isProductsActive = products.some(
           <p
             class={twMerge(
               "products-trigger hover:text-pf-yellow cursor-pointer text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100",
-              isProductsActive ? "text-pf-yellow" : "",
+              isProductsActive
+                ? theme === "dark"
+                  ? "text-pf-navy"
+                  : "text-pf-yellow"
+                : "",
+              theme === "dark" ? "hover:text-pf-navy" : "hover:text-pf-yellow",
             )}
           >
             {ROUTES.PRODUCTS.name}
@@ -114,6 +119,9 @@ const isProductsActive = products.some(
                   class={twMerge(
                     "hover:text-pf-navy text-[clamp(0.75rem,1.3vw,0.95rem)] tracking-[1%] whitespace-nowrap uppercase transition-colors duration-300 after:block after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:rounded-lg after:bg-transparent after:transition-transform after:duration-300 after:content-[''] hover:after:origin-left hover:after:scale-x-100",
                     isActive ? "text-pf-navy" : "",
+                    theme === "dark"
+                      ? "hover:text-pf-navy"
+                      : "hover:text-pf-yellow",
                   )}
                 >
                   {link.name}
