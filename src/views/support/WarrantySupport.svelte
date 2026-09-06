@@ -98,7 +98,7 @@
                 />
                 <ContactModal />
             </form>
-            <div class="h-full flex-1">
+            <div class="md:block hidden h-full flex-1">
                 <img
                     src={supportLogo.src}
                     alt="Support Logo"

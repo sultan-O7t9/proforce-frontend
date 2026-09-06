@@ -13,7 +13,7 @@
 </script>
 
 <div class={twMerge("w-full flex flex-col gap-2", containerClass)}>
-    <div class="flex flex-row flex-wrap gap-5 md:gap-8 items-center">
+    <div class="flex flex-col md:flex-row flex-wrap gap-6 md:gap-8 md:items-center">
         {#each options as option}
             <label class="flex items-center gap-5 cursor-pointer group">
                 <input
@@ -36,7 +36,7 @@
                         {option.name}
                     </span>
                     {#if option.description}
-                        <span class="text-sm text-pf-black opacity-60 uppercase font-medium group-hover:text-pf-navy">
+                        <span class="text-xs md:text-sm text-pf-black opacity-60 uppercase font-medium group-hover:text-pf-navy">
                             {option.description}
                         </span>
                     {/if}

@@ -4,6 +4,7 @@
     import Input from "@/components/forms/Input.svelte";
     import Textarea from "@/components/forms/Textarea.svelte";
     import ModalComponent from "@/components/ModalComponent.svelte";
+    import supportLogo from "@/assets/img/support-logo.svg";
 
     // Form field states
     let fullName = "";
@@ -50,10 +51,10 @@
     }
 </script>
 
-<div class="relative">
+<div class="relative flex gap-8">
     <ModalComponent bind:this={modalComponent} id="contact-modal">
     <svelte:fragment slot="anchor">
-        <p class="text-pf-black/70">
+        <p class="text-pf-black/70 mt-5 md:mt-0">
             Need any help? <button
                 type="button"
                 data-open-modal="contact-modal"
@@ -127,6 +128,13 @@
         </form>
     </svelte:fragment>
 </ModalComponent>
+ <div class="block md:hidden h-full flex-1">
+                <img
+                    src={supportLogo.src}
+                    alt="Support Logo"
+                    class="ml-auto h-full w-auto object-contain"
+                />
+            </div>
  <AlertMessageModal
         bind:this={contactModal}
         id="contact-success-modal"

@@ -117,15 +117,14 @@
                         Warranty
                     </h1>
                     <h6
-                        class="font-pf-galano-grotesque text-center text-sm font-medium tracking-[1%] md:text-base"
+                        class="font-pf-galano-grotesque max-w-84 md:max-w-full text-center text-sm font-medium tracking-[1%] md:text-base mx-auto"
                     >
-                        Access your dashboard to manage stock, order products, and scale
-                        your business.
+                        Activate your Proforce warranty by registering with your details below.
                     </h6>
                 </div>
 
                 <div
-                    class="tab-buttons-container border-pf-navy/20 mx-auto mb-8 max-w-92.5 rounded-full border p-1.25 md:mb-12.5"
+                    class="tab-buttons-container border-pf-navy/20 mx-auto mb-8 max-w-72.5 sm:max-w-92.5 rounded-full border p-1.25 md:mb-12.5"
                 >
                     <div class="relative flex">
                         <div
