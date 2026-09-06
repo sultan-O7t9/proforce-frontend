@@ -38,7 +38,9 @@ const optimizedBg = await getImage({
   <HeroSection bgUrl={optimizedBg.src} />
   <OnefilmSection />
   <ProductsSection />
-  <MapSection />
-  <BenefitsSection />
+  <div class="flex flex-col">
+    <MapSection />
+    <BenefitsSection />
+  </div>
   <BecomeInstallerSection />
 </MainLayout>

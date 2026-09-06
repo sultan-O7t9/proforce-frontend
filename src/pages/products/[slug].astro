@@ -2,9 +2,9 @@
 import MapImage from "@/assets/img/home/map.svg";
 import { getImage } from "astro:assets";
 import MainLayout from "@/layouts/MainLayout.astro";
-import PhantomBg from "@/assets/img/phantom-bg.png";
-import PhantomPlusBg from "@/assets/img/phantom-plus-bg.png";
-import ApexBg from "@/assets/img/apex-bg.png";
+import PhantomBg from "@/assets/img/products/phantom.webp";
+import PhantomPlusBg from "@/assets/img/products/phantom-plus.webp";
+import ApexBg from "@/assets/img/products/apex.webp";
 import JetSvg from "@/assets/img/jet.svg";
 import TempProductBg from "@/assets/img/temp-product-bg.png";
 import MainButton from "@/components/buttons/MainButton.svelte";
@@ -14,20 +14,22 @@ import IconProtection from "@/assets/img/icon-protection.svg";
 import IconHydrophobic from "@/assets/img/icon-hydrophobic.svg";
 import IconHealing from "@/assets/img/icon-healing.svg";
 import { ROUTES } from "@/lib/site";
+import { twMerge } from "tailwind-merge";
 
 export function getStaticPaths() {
   const products = [
     {
       id: 1,
       background: PhantomBg,
+      video: "/vids/phantom.mp4",
       title: "Proforce Phantom",
       slug: "proforce-phantom",
       thickness: "7 mil",
       warranty: "6 years",
       technology: {
-        heading: "hyper-flex TECH",
+        heading: "HIGH-GLOSS FINISH",
         description:
-          "Our proprietary hyper-flex technology ensures the film contours smoothly around the most aggressive curves without any risk of glue shifting or top-coat distortion.",
+          "Designed to enhance your vehicle's original aesthetic, this topcoat delivers a brilliant, crystal-clear shine while providing reliable hydrophobic defense and everyday protection against the elements.",
       },
       image: "/images/products/product-phantom-plus.png",
       sku: "PFP7-60-50",
@@ -66,15 +68,16 @@ export function getStaticPaths() {
     },
     {
       id: 2,
+      video: "/vids/phantom-plus.mp4",
       background: PhantomPlusBg,
       title: "Proforce Phantom+",
       slug: "proforce-phantom-plus",
       thickness: "8 mil",
       warranty: "6 years",
       technology: {
-        heading: "hyper-flex TECH",
+        heading: "ACTIVE SELF-HEALING",
         description:
-          "Our proprietary hyper-flex technology ensures the film contours smoothly around the most aggressive curves without any risk of glue shifting or top-coat distortion.",
+          "Engineered for maximum resilience, this upgraded 8-mil shield features advanced elastomeric polymers that actively self-heal surface scratches and swirl marks with natural heat exposure.",
       },
       image: "/images/products/product-phantom-plus.png",
       sku: "PFP8-60-50",
@@ -113,6 +116,7 @@ export function getStaticPaths() {
     },
     {
       id: 3,
+      video: "/vids/apex.mp4",
       background: ApexBg,
       title: "Proforce Apex",
       productColor: "primary",
@@ -191,12 +195,17 @@ const subName = titleParts.slice(1).join(" ");
     />
   </Fragment>
   <section
-    class={"bg-pf-navy hero-section-container sticky top-0 flex min-h-[85vh] flex-col items-start justify-center bg-cover bg-right px-8 py-5 md:px-12 lg:px-[clamp(1rem,6.2vw+1rem,100px)]"}
+    class={twMerge(
+      "bg-pf-navy hero-section-container sticky top-0 flex h-[73vh] md:min-h-[85vh] flex-col items-start justify-end md:justify-center bg-cover bg-right px-8 py-5 md:px-12 lg:px-[clamp(1rem,6.2vw+1rem,100px)]",
+      subName.toLowerCase() === "apex" ? "bg-center md:bg-right" : "",
+    )}
     style={`background-image: url('${optimizedBg.src}');`}
   >
-    <div class="max-container flex w-full flex-col gap-12 md:gap-16">
+    <div
+      class="max-container flex w-full flex-col gap-4 pb-16 md:gap-16 md:pb-0"
+    >
       <h2
-        class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-10 tracking-[15%] text-white uppercase md:tracking-[18%] lg:leading-20"
+        class="font-pf-mera-pro flex flex-col text-[clamp(1rem,7vw,45px)] leading-14 tracking-[15%] text-white uppercase md:tracking-[18%] lg:leading-20"
       >
         <span class="animate-slide-up opacity-0">
           {
@@ -210,7 +219,12 @@ const subName = titleParts.slice(1).join(" ");
           }
         </span>
         <span
-          class="animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]"
+          class={twMerge(
+            "animate-slide-up text-transparent opacity-0 [-webkit-text-stroke:1.5px_white] lg:[-webkit-text-stroke:2px_white]",
+            subName.toLowerCase() === "apex"
+              ? "[-webkit-text-stroke:1.5px_#FDD637] lg:[-webkit-text-stroke:2px_#FDD637]"
+              : "",
+          )}
         >
           {
             subName
@@ -224,7 +238,7 @@ const subName = titleParts.slice(1).join(" ");
         </span>
       </h2>
       <h4
-        class="font-pf-galano-grotesque text-[30px] tracking-[20%] text-white uppercase"
+        class="font-pf-galano-grotesque text-sm tracking-[20%] text-white uppercase sm:text-base md:text-[30px]"
       >
         {
           product.sku
@@ -236,18 +250,24 @@ const subName = titleParts.slice(1).join(" ");
             ))
         }
       </h4>
+      <MainButton
+        className="text-pf-yellow border-pf-yellow mt-5 max-w-45 justify-center gap-1.75 px-3.5 py-3.5 text-xs sm:text-xs md:hidden"
+        client:load
+        label="Find Installer"
+        href={ROUTES.INSTALLERS.href}
+      />
     </div>
   </section>
   <section
     class="bg-pf-gohst-white relative z-1 px-8 pt-12 pb-6 text-center md:pt-20 md:pb-20"
   >
     <h3
-      class="font-pf-mera-pro text-pf-navy-dark product-title-heading mx-auto mb-5 text-xs tracking-[25%] uppercase md:mb-12 md:text-sm"
+      class="font-pf-mera-pro text-pf-navy-dark product-title-heading mx-auto mb-5 text-[10px] tracking-[25%] uppercase md:mb-12 md:text-sm"
     >
       {product.title}
     </h3>
     <p
-      class="font-pf-galano-grotesque text-pf-navy-dark product-descripton mx-auto max-w-218.5 text-base leading-8 sm:text-2xl md:leading-9"
+      class="font-pf-galano-grotesque text-pf-navy-dark product-descripton mx-auto max-w-218.5 text-sm leading-6 sm:text-2xl md:leading-9"
     >
       {product.description}
     </p>
@@ -257,16 +277,16 @@ const subName = titleParts.slice(1).join(" ");
       <div class="absolute -bottom-px left-0 h-1/2 w-full bg-white"></div>
       <div class="bg-pf-gohst-white absolute -top-px left-0 h-1/2 w-full"></div>
       <div
-        class="bg-pf-navy-dark relative flex max-h-125.5 w-full items-center justify-center py-20 [clip-path:polygon(0_0,100%_22%,100%_78%,0%_100%)] md:h-[65vh] md:py-0"
+        class="bg-pf-navy-dark relative flex aspect-430/341 max-h-125.5 w-full items-center justify-center py-20 [clip-path:polygon(0_0,100%_22%,100%_78%,0%_100%)] sm:aspect-auto md:h-[65vh] md:py-0"
       >
         <JetSvg class="absolute top-0 left-0 h-full" />
         <h3
-          class="font-pf-mera-pro relative flex flex-col items-center gap-1 text-center text-4xl tracking-[12%] whitespace-break-spaces text-[#4D5A71] md:block md:text-[80px]"
+          class="font-pf-mera-pro relative mb-9 flex flex-col items-center gap-1 text-center text-[42px] tracking-[12%] whitespace-break-spaces text-[#4D5A71] md:mb-0 md:block md:text-[80px]"
         >
           <span
             class="font-pf-galano-grotesque relative font-extrabold text-white/5 uppercase md:text-[88px]"
             ><span
-              class="absolute -left-0.5 w-full text-transparent [-webkit-text-stroke:2px_white]"
+              class="absolute -left-0.5 w-full text-transparent [-webkit-text-stroke:1px_white] md:[-webkit-text-stroke:2px_white]"
               >{product.warranty}</span
             >{product.warranty}</span
           >{" "}<span class="relative"
@@ -281,21 +301,21 @@ const subName = titleParts.slice(1).join(" ");
 
     <div class="relative z-1 bg-white px-8 md:px-25">
       <div
-        class="max-container relative flex flex-col items-end justify-between gap-4 py-8 md:flex-row lg:py-25"
+        class="max-container relative flex flex-col items-end justify-between gap-4 py-8 pb-15 md:flex-row lg:py-25"
       >
-        <div class="order-2 mt-4 text-center md:mt-0 md:text-left">
+        <div class="order-2 mt-4 md:mt-0">
           <h6
-            class="font-pf-mera-pro text-pf-navy tech-heading mb-3 text-xs tracking-[25%] uppercase opacity-50 md:mb-5 md:text-sm"
+            class="font-pf-mera-pro text-pf-navy tech-heading mb-5 text-xs tracking-[25%] uppercase opacity-50 md:text-sm"
           >
             The Technology
           </h6>
           <h5
-            class="font-pf-galano-grotesque text-pf-navy tech-name mb-4 text-3xl font-bold uppercase md:mb-7 md:text-[50px]"
+            class="font-pf-galano-grotesque text-pf-navy tech-name mb-1 text-[28px] font-bold uppercase md:mb-7 md:text-[50px]"
           >
             {product.technology.heading}
           </h5>
           <p
-            class="font-pf-galano-grotesque text-pf-navy-dark tech-description mb-7 max-w-165.75 text-base leading-7 opacity-80 md:mb-13 md:text-xl"
+            class="font-pf-galano-grotesque text-pf-navy-dark tech-description mb-6 max-w-165.75 text-sm leading-7 opacity-80 md:mb-13 md:text-xl"
           >
             {product.technology.description}
           </p>
@@ -303,18 +323,50 @@ const subName = titleParts.slice(1).join(" ");
             client:load
             label="Download Specs"
             href=""
-            className="text-pf-navy-dark border-pf-navy-dark hover:bg-pf-navy hover:border-pf-navy mx-auto flex justify-center rounded-sm border bg-transparent px-5 py-3.5 text-sm font-semibold tracking-[1%] transition-colors duration-200 hover:text-white sm:w-4/5 md:mx-0 md:max-w-62.5 md:px-4 md:py-4 md:text-base"
+            className="text-pf-navy-dark border-pf-navy-dark hover:bg-pf-navy hover:border-pf-navy flex max-w-46 justify-center rounded-sm border bg-transparent px-4 py-3.25 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:text-white sm:w-4/5 md:max-w-62.5 md:px-4 md:py-4 md:text-base"
           />
         </div>
+        <div class="-mt-8 px-10 md:mt-0 md:hidden md:px-0">
+          <div
+            class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-lg bg-gray-900 md:order-3 md:h-154.5 md:w-86.75 md:rounded-xl md:px-0 lg:absolute"
+          >
+            <video
+              autoplay
+              loop
+              muted
+              playsinline
+              class="h-full w-full object-cover"
+              aria-label="Technology background video"
+            >
+              <source src={product.video} type="video/mp4" />
+              Your browser does not support HTML5 video.
+            </video>
+          </div>
+        </div>
         <div
-          class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-red-500 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
+          class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 hidden h-auto w-full overflow-hidden rounded-lg bg-gray-900 md:order-3 md:block md:h-154.5 md:w-86.75 md:rounded-xl md:px-0 lg:absolute"
+        >
+          <video
+            autoplay
+            loop
+            muted
+            playsinline
+            class="h-full w-full object-cover"
+            aria-label="Technology background video"
+          >
+            <source src={product.video} type="video/mp4" />
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+        <!-- <div
+          class="tech-banner product-features-section relative right-0 bottom-[5vh] order-1 h-auto w-full overflow-hidden rounded-xl bg-gray-900 md:order-3 md:h-154.5 md:w-86.75 lg:absolute"
         >
           <img
             src={TempProductBg.src}
             class="h-full w-full object-cover"
             alt="Technology background"
           />
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- Product Specs-->
@@ -323,7 +375,7 @@ const subName = titleParts.slice(1).join(" ");
         class="max-container active z-10 col-start-1 row-start-1 px-8 pt-12 pb-14 opacity-100 transition-opacity duration-500 md:px-25 md:pt-25 md:pb-20"
       >
         <h6
-          class="mb-10 flex items-center justify-center gap-4 text-center text-xl font-bold tracking-[2%] uppercase md:mb-20 md:text-[60px]"
+          class="mb-12 flex items-center justify-center gap-4 text-center text-[35px] font-bold tracking-[2%] uppercase md:mb-20 md:text-[60px]"
         >
           <span
             >{product.thickness}{" "}
@@ -336,16 +388,16 @@ const subName = titleParts.slice(1).join(" ");
         >
           <!-- Left Features (2 items) -->
           <div
-            class="feature-column-left order-2 flex flex-col justify-between gap-8 text-left md:order-1 md:gap-4"
+            class="order-2 mb-7 flex flex-col justify-between gap-13 text-left md:order-1 md:mb-0 md:gap-4"
           >
             {
               product.features.slice(0, 2).map((feature) => (
-                <div class="feature-item">
-                  <feature.icon class="mb-3 ml-0.5 md:mb-5" />
-                  <h3 class="slide-feature-title text-pf-navy font-pf-galano-grotesque mb-1 text-base font-bold md:text-lg">
+                <div class="feature-item md:max-w-auto mx-auto flex max-w-72 flex-col items-center text-center md:mx-0 md:items-start md:text-left">
+                  <feature.icon class="mb-5 ml-0.5" />
+                  <h3 class="slide-feature-title text-pf-navy font-pf-galano-grotesque mb-1 text-lg font-bold">
                     {feature.title}
                   </h3>
-                  <p class="slide-feature-desc text-pf-navy font-pf-galano-grotesque text-xs leading-5 tracking-normal opacity-70 md:text-[13px]">
+                  <p class="slide-feature-desc text-pf-navy font-pf-galano-grotesque text-[13px] leading-5 tracking-normal opacity-70">
                     {feature.description}
                   </p>
                 </div>
@@ -357,21 +409,21 @@ const subName = titleParts.slice(1).join(" ");
           <img
             src={product.image}
             alt={product.title}
-            class="slide-image order-1 aspect-520/242 w-full max-w-[520px] scale-110 object-contain blur-xl transition-all duration-700 ease-out will-change-[transform,filter] md:order-2 md:w-auto"
+            class="slide-image order-1 aspect-520/242 w-full max-w-130 scale-110 object-contain blur-xl transition-all duration-700 ease-out will-change-[transform,filter] md:order-2 md:w-auto"
           />
 
           <!-- Right Features (2 items) -->
           <div
-            class="feature-column-right order-2 flex flex-col justify-between gap-8 text-left md:order-3 md:gap-4"
+            class="order-3 flex flex-col justify-between gap-13 text-left md:gap-4"
           >
             {
               product.features.slice(2, 4).map((feature) => (
-                <div class="feature-item">
-                  <feature.icon class="mb-3 ml-0.5 md:mb-5" />
-                  <h3 class="slide-feature-title text-pf-navy font-pf-galano-grotesque mb-1 text-base font-bold md:text-lg">
+                <div class="feature-item md:max-w-auto mx-auto flex max-w-72 flex-col items-center text-center md:mx-0 md:items-start md:text-left">
+                  <feature.icon class="mb-5 ml-0.5" />
+                  <h3 class="slide-feature-title text-pf-navy font-pf-galano-grotesque mb-1 text-lg font-bold">
                     {feature.title}
                   </h3>
-                  <p class="slide-feature-desc text-pf-navy font-pf-galano-grotesque text-xs leading-5 tracking-normal opacity-70 md:text-[13px]">
+                  <p class="slide-feature-desc text-pf-navy font-pf-galano-grotesque text-[13px] leading-5 tracking-normal opacity-70">
                     {feature.description}
                   </p>
                 </div>
@@ -382,23 +434,23 @@ const subName = titleParts.slice(1).join(" ");
       </div>
     </div>
     <!-- Map -->
-    <div class="bg-pf-gohst-white -mt-0.5 px-4 pb-20 md:px-12.5">
+    <div class="bg-pf-gohst-white -mt-0.5 px-0 pb-20 md:px-12.5">
       <div
-        class="max-container bg-linear-to-r from-[#21314D] to-[#0D1833] p-4.5 md:p-11.25"
+        class="max-container bg-linear-to-r from-[#21314D] to-[#0D1833] p-7.5 md:p-11.25"
       >
         <div
-          class="flex flex-col justify-between border border-white/40 p-8 md:flex-row md:p-3.5"
+          class="flex flex-col-reverse justify-between gap-8 border border-white/40 p-0 md:flex-row md:gap-0 md:p-3.5"
         >
           <div
-            class="font-pf-galano-grotesque flex flex-col justify-end pb-7 pl-0 text-center md:pl-12 md:text-left"
+            class="font-pf-galano-grotesque flex flex-col justify-end px-6 pb-12 md:px-0 md:pb-7 md:pl-12"
           >
             <h5
-              class="protect-heading mb-4 text-lg font-bold tracking-[5%] text-white uppercase md:text-[28px]"
+              class="protect-heading mb-4 text-[22px] font-bold tracking-[5%] text-white uppercase md:text-[28px]"
             >
               Ready to Protect your Vehicle?
             </h5>
             <p
-              class="mb-14 max-w-136.75 text-[15px] leading-6.75 font-normal text-white/80"
+              class="mb-12 max-w-136.75 text-sm leading-6.75 font-normal text-white/80 md:mb-14 md:text-[15px]"
             >
               Flawless film requires flawless application. Connect with a
               certified Proforce installer today for a custom quote.
@@ -407,11 +459,11 @@ const subName = titleParts.slice(1).join(" ");
               client:load
               label="View Nearby Installers"
               href={ROUTES.INSTALLERS.href}
-              className="text-pf-navy mx-auto flex max-w-75 justify-center border-white bg-white px-6 py-4.5 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:mx-0 md:py-4.5 md:text-sm lg:px-11"
+              className="text-pf-navy flex max-w-52.5 justify-center border-white bg-white px-2 py-4 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:max-w-75 md:py-4.5 md:text-sm lg:px-11"
             />
           </div>
           <div
-            class="flex min-w-[50%] flex-1 justify-center md:justify-end lg:min-w-auto"
+            class="flex min-w-[50%] flex-1 justify-center px-1 pt-8 md:justify-end md:px-0 md:pt-0 lg:min-w-auto"
           >
             <img
               src={MapImage.src}

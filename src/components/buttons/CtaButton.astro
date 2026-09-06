@@ -13,7 +13,7 @@ const { label, href, className, variant = "filled" } = Astro.props;
 <a
   href={href}
   class={twMerge(
-    "cursor-pointer overflow-hidden block text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,2.2vw,1.9rem)]   py-[clamp(0.75rem,1.2vw,1rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta group transition-[background-color] duration-200 ease-in",
+    "cursor-pointer overflow-hidden block text-[clamp(0.75rem,1.3vw,1rem)] uppercase tracking-[1%] whitespace-nowrap text-pf-yellow px-[clamp(1.25rem,2.2vw,1.9rem)]   py-[clamp(0.5rem,1.2vw,0.75rem)] rounded-full border-pf-yellow border bg-[rgba(6,10,20,0.1)] backdrop-blur-[10px] group hover:text-pf-navy relative btn-cta group transition-[background-color] duration-200 ease-in",
     variant === "filled"
       ? "bg-pf-yellow hover:bg-pf-navy border-pf-yellow backdrop-blur-none text-pf-navy hover:text-pf-yellow hover:border-pf-navy"
       : "",

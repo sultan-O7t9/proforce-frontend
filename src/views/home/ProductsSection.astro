@@ -51,9 +51,9 @@ const products = [
   <div class="max-container h-full pt-20 md:pt-28 pb-16 flex flex-col justify-between">
 
     <div class="w-full max-w-5xl mx-auto px-4">
-      <h4 class="font-pf-mera-pro text-pf-navy text-xs md:text-sm tracking-[25%] px-8 text-center mb-7 md:mb-12 leading-6 products-heading" id="products-section">THE PROFORCE LINEUP</h4>
+      <h4 class="font-pf-mera-pro opacity-0 md:opacity-1 text-pf-navy text-xs md:text-sm tracking-[25%] px-8 text-center mb-7 md:mb-12 leading-6 products-heading" id="products-section">THE PROFORCE LINEUP</h4>
 
-      <div class="mx-auto tab-buttons-container border border-pf-navy/50 rounded-[5px] p-1.25 max-w-175 mb-10 md:mb-20" >
+      <div class="mx-auto tab-buttons-container border border-pf-navy/50 rounded-[5px] p-0.5 sm:p-1.25 max-w-175 mb-14 sm:mb-16 md:mb-20 " >
         <div class="relative flex">
           <!-- Animated Background Pill -->
           <div class="cursor-pointer tab-indicator absolute top-0 bottom-0 left-0 bg-pf-navy rounded-[3px] transition-all duration-300 ease-out z-0 h-full"></div>
@@ -61,12 +61,12 @@ const products = [
           {products.map((product, index) => (
             <>
               <button
-                class={`cursor-pointer tab-btn w-full relative z-10 px-3 md:px-6 h-14 rounded-full text-xs md:text-sm font-semibold transition-colors duration-300 flex-1 ${index === 0 ? 'text-white' : 'text-gray-65'}`}
+                class={`cursor-pointer tab-btn w-full relative z-10 px-1 sm:px-3 md:px-6 h-9 sm:h-11 md:h-14 rounded-full text-[9px] sm:text-xs md:text-sm font-semibold transition-colors duration-300 flex-1 ${index === 0 ? 'text-white' : 'text-gray-65'}`}
                 data-index={index}
               >
                 {product.title}
               </button>
-              <div class={"divider bg-[#9098A6] w-px h-12 self-center "+(index===products.length-1?'hidden':'')}></div>
+              <div class={"divider bg-[#9098A6] w-px h-7 sm:h-9 md:h-12 self-center "+(index===products.length-1?'hidden':'')}></div>
             </>
           ))}
         </div>
@@ -82,22 +82,22 @@ const products = [
                 class={`slide col-start-1 row-start-1 transition-opacity duration-500 ${index === 0 ? 'active opacity-100 z-10' : 'opacity-0 pointer-events-none z-0'}`}
                 data-index={index}
               >
-                <h5 class={"font-pf-mera-pro text-4xl md:text-8xl text-center tracking-[15%] text-transparent [-webkit-text-stroke:1px_#21314D] text-shadow-[4px_0px_0px_rgba(33,49,77,0.04)] mb-10"}>{productName}</h5>
-                <h6 class="flex text-center items-center justify-center gap-4 uppercase font-semibold text-xs md:text-lg tracking-[2%] mb-16">
+                <h5 class={"font-pf-mera-pro text-[46px] sm:text-6xl md:text-8xl text-center tracking-[15%] text-transparent [-webkit-text-stroke:1px_#21314D] text-shadow-[4px_0px_0px_rgba(33,49,77,0.04)] mb-6 sm:mb-8 md:mb-10"}>{productName}</h5>
+                <h6 class="flex text-center items-center justify-center gap-4 uppercase font-semibold text-xs md:text-lg tracking-[2%] mb-14 md:mb-16">
                   <span>{product.thickness} <span class="font-medium">Thickness</span></span>
                   <span class="block h-1.75 w-1.75 bg-pf-navy opacity-50 rounded-full"></span>
                   <span>{product.warranty} <span class="font-medium">Warranty</span></span>
                 </h6>
 
-                <div class="inset-0 w-full grid grid-cols-1 md:grid-cols-[1fr_48.9%_1fr] gap-4 md:gap-2 slide-grid-wrapper">
+                <div class="inset-0 w-full grid grid-cols-1 md:grid-cols-[1fr_48.9%_1fr] gap-6 md:gap-2 slide-grid-wrapper">
 
                   <!-- Left Features (2 items) -->
-                  <div class="flex flex-col justify-between order-2 md:order-1 text-left gap-4">
+                  <div class="flex flex-col justify-between order-2 md:order-1 text-left gap-13 md:gap-4 mb-7 md:mb-0">
                     {product.features.slice(0, 2).map((feature) => (
-                      <div class="feature-item">
+                      <div class="feature-item flex flex-col items-center max-w-65 md:max-w-auto md:items-start mx-auto md:mx-0 text-center md:text-left">
                         <feature.icon class="ml-0.5 mb-5"/>
-                        <h3 class="slide-feature-title text-pf-navy font-bold text-base md:text-lg mb-1 font-pf-galano-grotesque">{feature.title}</h3>
-                        <p class="slide-feature-desc text-pf-navy opacity-70 text-xs md:text-[13px] leading-5 tracking-normal font-pf-galano-grotesque">{feature.description}</p>
+                        <h3 class="slide-feature-title text-pf-navy font-bold text-lg mb-1 font-pf-galano-grotesque">{feature.title}</h3>
+                        <p class="slide-feature-desc text-pf-navy opacity-70 text-[13px] leading-5 tracking-normal font-pf-galano-grotesque">{feature.description}</p>
                       </div>
                     ))}
                   </div>
@@ -110,12 +110,12 @@ const products = [
                   />
 
                   <!-- Right Features (2 items) -->
-                   <div class="flex flex-col justify-between order-3 text-left gap-4">
+                   <div class="flex flex-col justify-between order-3 text-left gap-13 md:gap-4">
                     {product.features.slice(2, 4).map((feature) => (
-                      <div class="feature-item">
+                      <div class="feature-item flex flex-col items-center max-w-65 md:max-w-auto md:items-start mx-auto md:mx-0 text-center md:text-left">
                         <feature.icon class="ml-0.5 mb-5"/>
-                        <h3 class="slide-feature-title text-pf-navy font-bold text-base md:text-lg mb-1 font-pf-galano-grotesque">{feature.title}</h3>
-                        <p class="slide-feature-desc text-pf-navy opacity-70 text-xs md:text-[13px] leading-5 tracking-normal font-pf-galano-grotesque">{feature.description}</p>
+                        <h3 class="slide-feature-title text-pf-navy font-bold text-lg mb-1 font-pf-galano-grotesque">{feature.title}</h3>
+                        <p class="slide-feature-desc text-pf-navy opacity-70 text-[13px] leading-5 tracking-normal font-pf-galano-grotesque">{feature.description}</p>
                       </div>
                     ))}
                   </div>
@@ -129,7 +129,7 @@ const products = [
     </div>
 
     <!-- Dot Navigation -->
-    <div class="dots-container flex justify-center items-center gap-3 mt-12">
+    <div class="dots-container hidden md:flex justify-center items-center gap-3 mt-12">
       {products.map((_, index) => (
         <button
           class={`dot w-3 cursor-pointer h-3 rounded-full transition-colors duration-300 border border-pf-yellow ${index === 0 ? 'bg-pf-yellow' : 'bg-transparent hover:bg-gray-100 hover:border-gray-100'}`}

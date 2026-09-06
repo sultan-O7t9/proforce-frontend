@@ -263,7 +263,7 @@
                     <a
                         href={ROUTES.TERMS.href}
                         aria-label={ROUTES.TERMS.name}
-                        class="text-pf-navy-dark font-semibold underline"
+                        class="text-pf-navy-dark font-semibold underline whitespace-nowrap"
                     >
                         Terms and Conditions.
                     </a>

@@ -3,14 +3,21 @@ import { getImage } from "astro:assets";
 
 import MainLayout from "@/layouts/MainLayout.astro";
 
-import LoginBg from "@/assets/img/dealer-login-bg.png";
+import LoginBgDesktop from "@/assets/img/dealer-login-bg.png";
+import LoginBgMobile from "@/assets/img/dealer-login-bg-mobile.png"; // Import your mobile background
 import MainButton from "@/components/buttons/MainButton.svelte";
 import { ROUTES } from "@/lib/site";
 
-const optimizedBg = await getImage({
-  src: LoginBg,
+const optimizedBgDesktop = await getImage({
+  src: LoginBgDesktop,
   format: "webp",
   width: 1266,
+});
+
+const optimizedBgMobile = await getImage({
+  src: LoginBgMobile,
+  format: "webp",
+  width: 600,
 });
 
 const { title } = Astro.props;
@@ -21,7 +28,15 @@ const { title } = Astro.props;
     <link
       rel="preload"
       as="image"
-      href={optimizedBg.src}
+      href={optimizedBgDesktop.src}
+      media="(min-width: 768px)"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      as="image"
+      href={optimizedBgMobile.src}
+      media="(max-width: 767px)"
       fetchpriority="high"
     />
   </Fragment>
@@ -31,7 +46,7 @@ const { title } = Astro.props;
       class="max-container px-4 py-8 sm:px-8 md:px-16.5 md:py-17.5 lg:px-[clamp(1rem,6.2vw+1rem,100px)]"
     >
       <div
-        class="bg-pf-gohst-white/50 s:px-8 flex flex-col items-center justify-center gap-8.75 rounded-lg px-4 py-8 md:gap-17.5 md:px-10 md:py-15"
+        class="md:bg-pf-gohst-white/50 s:px-8 flex flex-col items-center justify-center gap-8.75 rounded-lg pt-8 md:gap-17.5 md:px-10 md:py-15"
       >
         <div class="flex flex-col gap-4 md:gap-6">
           <h1
@@ -50,22 +65,21 @@ const { title } = Astro.props;
       </div>
     </div>
     <div
-      class="max-container mb-8 px-4 md:mb-17.5 md:px-8.5 lg:px-[clamp(1rem,3.1vw+1rem,50px)]"
+      class="max-container mb-8 px-0 md:mb-17.5 md:px-8.5 lg:px-[clamp(1rem,3.1vw+1rem,50px)]"
     >
       <div
-        class="bg-cover bg-center bg-no-repeat p-4.5 md:p-11.5"
-        style={`background-image: url('${optimizedBg.src}');`}
+        class="dealer-banner-bg aspect-43/60 bg-cover bg-center bg-no-repeat p-4.5 md:aspect-auto md:p-11.5"
       >
         <div
-          class="flex flex-col items-start gap-8 border border-[rgba(255,255,255,0.4)] px-8 py-11.5 sm:px-12 md:px-14 md:[border-image:linear-gradient(to_right,rgba(255,255,255,0.4)_0%,rgba(255,255,255,0)_100%)_1]"
+          class="flex h-full flex-col items-start gap-8 border px-8 py-11.5 [border-image:linear-gradient(to_right,rgba(255,255,255,0.4)_0%,rgba(255,255,255,0)_100%)_1] sm:px-12 md:px-14 md:[border-image:linear-gradient(to_right,rgba(255,255,255,0.4)_0%,rgba(255,255,255,0)_100%)_1]"
         >
           <h2
-            class="text-pf-yellow font-pf-mera-pro text-center text-lg tracking-[15%] uppercase sm:text-left sm:text-2xl"
+            class="text-pf-yellow font-pf-mera-pro text-lg tracking-[15%] uppercase sm:text-left sm:text-2xl"
           >
             Join Proforce
           </h2>
           <p
-            class="font-pf-galano-grotesque max-w-111.25 text-center text-[15px] leading-6.5 font-normal text-white opacity-80 sm:text-left"
+            class="font-pf-galano-grotesque mt-1 max-w-111.25 text-[15px] leading-6.5 font-normal text-white opacity-80 sm:text-left md:mt-0"
           >
             Become a certified Proforce partner. Grow your business with
             industry-leading products, transparent terms, and a commitment to
@@ -75,13 +89,29 @@ const { title } = Astro.props;
             client:load
             label="Apply Now"
             href={ROUTES.DEALER_REGISTER.href}
-            className="text-pf-navy flex justify-center border-white bg-white px-6 py-4 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white md:px-11 md:py-4 md:text-sm"
+            className="text-pf-navy mt-3 flex max-w-42.25 justify-center border-white bg-white px-6 py-4 text-xs font-semibold tracking-[1%] transition-colors duration-200 hover:bg-transparent hover:text-white sm:max-w-full md:mt-0 md:px-11 md:py-4 md:text-sm"
           />
         </div>
       </div>
     </div>
   </section>
 </MainLayout>
+
+<style
+  define:vars={{
+    mobileBg: `url('${optimizedBgMobile.src}')`,
+    desktopBg: `url('${optimizedBgDesktop.src}')`,
+  }}
+>
+  .dealer-banner-bg {
+    background-image: var(--mobileBg);
+  }
+  @media (min-width: 768px) {
+    .dealer-banner-bg {
+      background-image: var(--desktopBg);
+    }
+  }
+</style>
 
 <script>
   const header = document.querySelector(".main-header") as HTMLElement | null;

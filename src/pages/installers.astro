@@ -2,6 +2,7 @@
 import MainLayout from "@/layouts/MainLayout.astro";
 import InstallerCard from "@/components/InstallerCard.svelte";
 import InstallerMapSearch from "@/views/installers/InstallerMapSearchLeaflet.svelte";
+import { INSTALLERS, MAPS_API_KEY } from "@/lib/site";
 
 interface Installer {
   name: string;
@@ -110,27 +111,11 @@ const otherInstallers: Record<string, Installer[]> = {
     <!-- Interactive Map & Search Component -->
     <InstallerMapSearch
       client:load
-      nearbyInstallers={nearbyInstallers}
-      otherInstallers={otherInstallers}
+      installersData={INSTALLERS}
+      googleMapsApiKey={MAPS_API_KEY}
     />
 
     <!-- Lists Grid Section -->
-    <div class="max-container flex flex-col gap-3.75">
-      {
-        Object.keys(otherInstallers).map((country) => (
-          <div class="bg-pf-gohst-white px-10 pt-10 pb-8 md:px-14 md:pt-18.5 md:pb-15 lg:px-20">
-            <h3 class="font-pf-galano-grotesque text-pf-black mb-6 text-xl font-bold tracking-[2%] uppercase md:mb-12.5 md:text-[40px]">
-              {country.replaceAll("_", " ")}
-            </h3>
-            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {otherInstallers[country].map((installer) => (
-                <InstallerCard client:load {...installer} />
-              ))}
-            </ul>
-          </div>
-        ))
-      }
-    </div>
   </section>
 </MainLayout>
 

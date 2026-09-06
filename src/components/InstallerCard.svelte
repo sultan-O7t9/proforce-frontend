@@ -25,7 +25,7 @@
       {name}
     </h4>
     <p
-      class="text-pf-navy/70 mb-8 text-xs font-medium tracking-[1%] md:text-sm"
+      class="text-pf-navy/70 mb-8 text-xs font-medium tracking-[1%] md:text-sm capitalize"
     >
       {location}
     </p>
