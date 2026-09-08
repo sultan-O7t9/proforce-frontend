@@ -56,7 +56,7 @@
                 "w-full px-5 py-3 md:py-4 rounded-sm border text-pf-black placeholder-gray-400 text-sm focus:outline-none focus:ring-2 transition-colors",
                 error
                     ? "border-red-500 focus:ring-red-500 focus:border-red-500 bg-red-50/10"
-                    : "border-pf-navy/30 focus:ring-pf-navy-dark focus:border-pf-navy-dark",
+                    : "border-pf-navy/30 focus:ring-pf-navy-dark/60 focus:border-0 focus:border-pf-navy-dark/30",
                 safeType === 'password' ? 'pr-12' : '',
                 inputClass
             )}
