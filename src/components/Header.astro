@@ -27,6 +27,13 @@ const products = [
 const isProductsActive = products.some(
   (p) => ROUTES.PRODUCTS(p.slug, p.name).href === currentPath,
 );
+
+// Determine initial button variant if theme is light vs dark
+const initialCtaVariant = ctaVariant
+  ? ctaVariant
+  : theme === "dark"
+    ? "filled"
+    : "outlined";
 ---
 
 <header
@@ -134,11 +141,8 @@ const isProductsActive = products.some(
           <CtaButton
             label="Find Installer"
             href={ROUTES.INSTALLERS.href}
-            variant={ctaVariant
-              ? ctaVariant
-              : theme === "dark"
-                ? "filled"
-                : "outlined"}
+            variant={initialCtaVariant}
+            className="header-cta-button transition-all duration-75"
           />
         </li>
       </ul>
@@ -146,28 +150,35 @@ const isProductsActive = products.some(
   </div>
 </header>
 <script>
-  // src/lib/gsap.ts
   import { gsap, ScrollTrigger } from "../lib/gsap";
 
   const header = document.querySelector(".main-header") as HTMLElement;
 
   let theme = "light";
-  let screenWidth = 0;
   if (header) {
     theme = header?.dataset.theme ?? "light";
-    screenWidth = header.getBoundingClientRect().width;
   }
 
-  // const padding = screenWidth && screenWidth > 768 ? "1rem" : "0.5rem";
+  const ctaButtonEl = header?.querySelector(".header-cta-button");
 
   const headerTl = gsap.to(".main-header", {
     duration: 0.3,
     paused: true,
     backgroundColor: theme === "dark" ? "white" : "#0D1833E5",
     backdropFilter: "blur(4px)",
-    // paddingTop: padding,
-    // paddingBottom: padding,
     boxShadow: theme === "dark" ? "" : "0 2px 4px rgba(0, 0, 0, 0.1)",
+    onStart: () => {
+      // When scrolled down on light theme, switch CTA to filled appearance
+      if (theme === "light" && ctaButtonEl) {
+        ctaButtonEl.setAttribute("data-scrolled", "true");
+      }
+    },
+    onReverseComplete: () => {
+      // Revert back when scrolled back to top
+      if (theme === "light" && ctaButtonEl) {
+        ctaButtonEl.removeAttribute("data-scrolled");
+      }
+    },
   });
 
   ScrollTrigger.create({
