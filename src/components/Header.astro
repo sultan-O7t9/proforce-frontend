@@ -10,7 +10,7 @@ interface Props {
   ctaVariant?: "outlined" | "filled";
 }
 const { theme = "light", ctaVariant } = Astro.props;
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
 
 const proforceLogo = {
   light: "/images/icons/proforce-logo-white-1.svg",
