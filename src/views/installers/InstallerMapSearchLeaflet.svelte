@@ -23,7 +23,8 @@
           phone: installer.contact,
           google_map: installer.google_map || installer.google_maps,
           location: `${formattedCity}, ${fullCountry}`,
-          countryName: fullCountry
+          countryName: fullCountry,
+          countryCode: countryCode
         };
       })
     )
@@ -139,15 +140,21 @@
     return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgString);
   }
 
-  function renderMarkers() {
+  function renderMarkers(zoomToCountryBounds = false) {
     if (!map) return;
 
     markersMap.forEach(entry => entry.marker.setMap(null));
     markersMap.clear();
 
     const bounds = new google.maps.LatLngBounds();
+    const countryBounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
     const customIconUrl = getCustomPinIcon();
+
+    let closestCountryCode: string | null = null;
+    if (zoomToCountryBounds && sortedInstallersByDistance.length > 0) {
+      closestCountryCode = sortedInstallersByDistance[0].countryCode;
+    }
 
     allInstallers.forEach((installer) => {
       const coords = installer.marker;
@@ -187,6 +194,10 @@
 
       markersMap.set(installer.name, { marker, infoWindow, content: popupContent });
       bounds.extend(coords);
+
+      if (closestCountryCode && installer.countryCode === closestCountryCode) {
+        countryBounds.extend(coords);
+      }
     });
 
     if (userLocation) {
@@ -204,9 +215,16 @@
       });
 
       bounds.extend(userLocation);
+      if (closestCountryCode) {
+        countryBounds.extend(userLocation);
+      }
     }
 
-    map.fitBounds(bounds);
+    if (zoomToCountryBounds && closestCountryCode && !countryBounds.isEmpty()) {
+      map.fitBounds(countryBounds);
+    } else {
+      map.fitBounds(bounds);
+    }
   }
 
   function requestUserLocation() {
@@ -225,7 +243,9 @@
           lng: position.coords.longitude
         };
         isLocating = false;
-        renderMarkers();
+
+        // Pass true to automatically zoom the bounds around the user and the closest country's installers
+        renderMarkers(true);
       },
       (error) => {
         isLocating = false;
@@ -272,23 +292,39 @@
 
 <div data-padding-top={64} class="bg-pf-navy-dark installers-container pb-15">
   <div class="max-container flex flex-col items-center px-8 md:px-12.5">
-    <h1 class="font-pf-mera-pro installer-heading mb-6 text-center text-lg tracking-[10%] text-white uppercase md:mb-12.5 md:text-2xl">
+    <h1 class="font-pf-mera-pro installer-heading mb-6 text-center text-lg tracking-[10%] text-white uppercase md:mb-7 md:text-2xl">
       Find an Installer
     </h1>
 
     <div class="flex flex-col items-center w-full">
-      <div class="w-full max-w-175 mb-4 flex justify-between items-center bg-white/5 border border-white/10 px-4 py-3 rounded-xs text-white">
-        <div class="text-xs sm:text-sm">
+      <div class="w-full max-w-175 mb-10 flex flex-col gap-4 sm:flex-row justify-between items-center bg-white/5 border border-white/10 px-4 py-3 rounded-lg sm:rounded-full text-white">
+        <div class="text-xs sm:text-sm flex items-center gap-2">
           {#if userLocation}
-            <span class="text-green-400 font-bold">✓ Location active</span> — Showing closest installers.
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1084_260)">
+<path d="M8 16C3.58862 16 0 12.4114 0 8C0 3.58862 3.58862 0 8 0C12.4114 0 16 3.58862 16 8C16 12.4114 12.4114 16 8 16ZM8 1C4.14001 1 1 4.14001 1 8C1 11.86 4.14001 15 8 15C11.86 15 15 11.86 15 8C15 4.14001 11.86 1 8 1Z" fill="white"/>
+<path d="M7.25 10.6666C7.12195 10.6666 6.99402 10.618 6.89661 10.52L4.72998 8.35339C4.53467 8.15796 4.53467 7.84131 4.72998 7.646C4.92529 7.45068 5.24194 7.45068 5.43738 7.646L7.25061 9.45935L11.2307 5.47937C11.426 5.28406 11.7427 5.28406 11.938 5.47937C12.1333 5.67468 12.1333 5.99133 11.938 6.18665L7.60461 10.52C7.50598 10.618 7.37805 10.6666 7.25 10.6666Z" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_1084_260">
+<rect width="16" height="16" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+  Location updated - showing nearby installers.
           {:else}
-            <span>Want to find installers closest to you?</span>
+           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.55817 7.25589C8.55817 6.94765 8.30828 6.69775 8.00003 6.69775C7.69179 6.69775 7.44189 6.94765 7.44189 7.25589V11.721C7.44189 12.0293 7.69179 12.2791 8.00003 12.2791C8.30828 12.2791 8.55817 12.0293 8.55817 11.721V7.25589Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16C12.4183 16 16 12.4183 16 8C16 3.58172 12.4183 0 8 0ZM1.11628 8C1.11628 4.19823 4.19823 1.11628 8 1.11628C11.8017 1.11628 14.8837 4.19823 14.8837 8C14.8837 11.8017 11.8017 14.8837 8 14.8837C4.19823 14.8837 1.11628 11.8017 1.11628 8Z" fill="white"/>
+<path d="M8.74423 5.02324C8.74423 5.43424 8.41106 5.76742 8.00005 5.76742C7.58903 5.76742 7.25586 5.43424 7.25586 5.02324C7.25586 4.61224 7.58903 4.27905 8.00005 4.27905C8.41106 4.27905 8.74423 4.61224 8.74423 5.02324Z" fill="white"/>
+</svg>
+Allow location access to discover nearby installers.
           {/if}
         </div>
         <button
           on:click={requestUserLocation}
           disabled={isLocating}
-          class="bg-white text-pf-navy-dark hover:bg-white/90 px-4 py-2 rounded-xs font-bold text-xs uppercase tracking-wider transition-colors whitespace-nowrap disabled:opacity-50"
+          class="bg-white text-pf-navy-dark rounded-full hover:bg-white/90 px-4 py-2  font-bold text-xs uppercase tracking-wider transition-colors whitespace-nowrap disabled:opacity-50"
         >
           {isLocating ? "Locating..." : userLocation ? "Refresh Location" : "Grant Location"}
         </button>
@@ -301,11 +337,11 @@
         ></div>
       </div>
 
-      <h4 class="font-pf-mera-pro search-heading mt-7 mb-4 text-center text-base tracking-[23%] text-white uppercase md:mt-17 md:mb-8 md:text-xl">
+      <h4 class="font-pf-mera-pro search-heading mt-7 mb-4 text-center text-base tracking-[23%] text-white uppercase md:mt-7 md:mb-8 md:text-xl">
         Search
       </h4>
 
-      <div class="relative w-full max-w-175 mb-12">
+      <div class="relative w-full max-w-175 mb-0">
         <div class="relative flex items-center">
           <input
             type="text"
