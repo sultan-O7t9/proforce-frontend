@@ -3,6 +3,7 @@ import IconResistance from "@/assets/img/icon-resistance.svg";
 import IconProtection from "@/assets/img/icon-protection.svg";
 import IconHydrophobic from "@/assets/img/icon-hydrophobic.svg";
 import IconHealing from "@/assets/img/icon-healing.svg";
+import { twMerge } from "tailwind-merge";
 
 const products = [
   {
@@ -61,10 +62,12 @@ const products = [
           {products.map((product, index) => (
             <>
               <button
-                class={`cursor-pointer tab-btn w-full relative z-10 px-1 sm:px-3 md:px-6 h-9 sm:h-11 md:h-14 rounded-full text-[9px] sm:text-xs md:text-sm font-semibold transition-colors duration-300 flex-1 ${index === 0 ? 'text-white' : 'text-gray-65'}`}
+                class={`cursor-pointer tab-btn w-full relative z-10 px-1 sm:px-3 h-11 sm:h-11 md:h-14 rounded-full text-xs sm:text-xs md:text-base  transition-colors font-medium duration-300 flex-1 uppercase ${index === 0 ? 'text-white' : 'text-gray-65'}`}
                 data-index={index}
               >
-                {product.title}
+                <span class="hidden sm:inline">{product.title.split(" ")[0]}</span> <b class={twMerge("font-bold",product.title.split(" ")[1].toLowerCase().includes("apex")?"font-pf-mera-pro tracking-[4%]":"")}>
+                  {product.title.split(" ")[1]}
+                  </b>
               </button>
               <div class={"divider bg-[#9098A6] w-px h-7 sm:h-9 md:h-12 self-center "+(index===products.length-1?'hidden':'')}></div>
             </>
