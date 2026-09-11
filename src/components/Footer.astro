@@ -23,7 +23,16 @@ import { twMerge } from "tailwind-merge";
                 link.name === "OneFilm USA" ? "" : "uppercase",
               )}
             >
-              <a href={link.href}>{link.name}</a>
+              <a
+                target={
+                  link.name.toLowerCase().includes("onefilm")
+                    ? "_blank"
+                    : "_self"
+                }
+                href={link.href}
+              >
+                {link.name}
+              </a>
             </li>
           ))
         }
