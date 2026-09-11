@@ -301,7 +301,7 @@
 
     <div class="flex flex-col items-center w-full">
       <div class="w-full max-w-175 mb-10 flex flex-col gap-4 sm:flex-row justify-between items-center bg-white/5 border border-white/10 px-4 py-3 rounded-lg sm:rounded-full text-white">
-        <div class="text-xs sm:text-sm flex items-center gap-2">
+        <div class="text-xs sm:text-sm flex items-center gap-2 pl-2">
           {#if userLocation}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_1084_260)">
