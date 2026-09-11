@@ -140,20 +140,20 @@
     return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svgString);
   }
 
-  function renderMarkers(zoomToCountryBounds = false) {
+  function renderMarkers(zoomToNearestCity = false) {
     if (!map) return;
 
     markersMap.forEach(entry => entry.marker.setMap(null));
     markersMap.clear();
 
     const bounds = new google.maps.LatLngBounds();
-    const countryBounds = new google.maps.LatLngBounds();
+    const cityBounds = new google.maps.LatLngBounds();
     const infoWindow = new google.maps.InfoWindow();
     const customIconUrl = getCustomPinIcon();
 
-    let closestCountryCode: string | null = null;
-    if (zoomToCountryBounds && sortedInstallersByDistance.length > 0) {
-      closestCountryCode = sortedInstallersByDistance[0].countryCode;
+    let nearestCityName: string | null = null;
+    if (zoomToNearestCity && sortedInstallersByDistance.length > 0) {
+      nearestCityName = sortedInstallersByDistance[0].location;
     }
 
     allInstallers.forEach((installer) => {
@@ -195,8 +195,8 @@
       markersMap.set(installer.name, { marker, infoWindow, content: popupContent });
       bounds.extend(coords);
 
-      if (closestCountryCode && installer.countryCode === closestCountryCode) {
-        countryBounds.extend(coords);
+      if (zoomToNearestCity && nearestCityName && installer.location === nearestCityName) {
+        cityBounds.extend(coords);
       }
     });
 
@@ -215,13 +215,17 @@
       });
 
       bounds.extend(userLocation);
-      if (closestCountryCode) {
-        countryBounds.extend(userLocation);
+      if (zoomToNearestCity) {
+        cityBounds.extend(userLocation);
       }
     }
 
-    if (zoomToCountryBounds && closestCountryCode && !countryBounds.isEmpty()) {
-      map.fitBounds(countryBounds);
+    if (zoomToNearestCity && nearestCityName && !cityBounds.isEmpty()) {
+      map.fitBounds(cityBounds);
+      const listener = google.maps.event.addListener(map, "idle", () => {
+        if (map.getZoom()! > 14) map.setZoom(14);
+        google.maps.event.removeListener(listener);
+      });
     } else {
       map.fitBounds(bounds);
     }
@@ -244,7 +248,6 @@
         };
         isLocating = false;
 
-        // Pass true to automatically zoom the bounds around the user and the closest country's installers
         renderMarkers(true);
       },
       (error) => {
@@ -341,7 +344,7 @@ Allow location access to discover nearby installers.
         Search
       </h4>
 
-      <div class="relative w-full max-w-175 mb-0">
+      <div class= "relative w-full max-w-175 mb-0">
         <div class="relative flex items-center">
           <input
             type="text"
