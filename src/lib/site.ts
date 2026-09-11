@@ -577,8 +577,8 @@ export const INSTALLERS = {
         instagram: "https://www.instagram.com/geowrap",
         google_map: "https://maps.app.goo.gl/tWRwhmH149whrQqj9?g_st=ic",
         marker: {
-          lat: 33.706513,
-          lng: 72.930974,
+          lat: 41.784637,
+          lng: 44.7649602,
         },
       },
     ],
